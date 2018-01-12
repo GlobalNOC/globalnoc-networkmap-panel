@@ -1,0 +1,102 @@
+/*
+Copyright 2018 The Trustees of Indiana University
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+.control-point{
+    cursor: move;
+}
+
+.adjacency{
+    cursor: pointer;
+}
+
+.adjacencyShadow{
+  fill: none;
+  stroke-width: 5px;
+  stroke: #555;
+  stroke-linecap: round;
+}
+
+.adjacencyHighlight{
+  fill: none;
+  stroke-width: 4px;
+  stroke: #666;
+  stroke-linecap: round;
+}
+
+.editorShadow{
+  fill: none;
+  stroke-width: 4px;
+  stroke: #555;
+  stroke-linecap: round;
+  opacity: .25;
+}
+
+.editorHighlight{
+  fill: none;
+  stroke-width: 2px;
+  stroke: #fff;
+  stroke-linecap: butt;
+  stroke-dasharray: 1,1;
+}
+
+.path-selected{
+  fill: none;
+  stroke-width: 4px !important;
+  stroke: #00FC3F !important;
+  stroke-linecap: butt;
+}
+.control-point{
+  fill: #f55;
+  stroke-width: .5px;
+  stroke: #555;
+}
+
+.end-point {
+  fill: #0099ff;
+  stroke-width: .5px;
+  stroke: #555;
+}
+
+.hidden {
+  display: none;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 40px;
+  height: 15px;
+  /*padding: 2px;*/
+  font: 12px sans-serif;
+  background: lightsteelblue !important;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+div.map-dialog {
+  position: absolute;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 8px;
+  border-color: darkgray;
+  background: lightgray !important;
+  min-width: 200px;
+  min-height: 30px;
+  padding: 3px;
+  bottom: 5%;
+  right: 0%;
+}

@@ -1,0 +1,47 @@
+<html>
+    <meta charset="utf-8">
+    <head>
+        <link rel="stylesheet" type="text/css" href="../../css/atlas3_minimap.css">
+        <script data-config="./config.json" src="../../js/atlas3_minimap.js"></script>
+    </head>
+    <!-- MiniMap Autoload -->
+    <h2>MiniMap (Autoload)</h2>
+    <p>This MiniMap automatically instantiates itself with configuration options loaded from <a href="./config.json">a config file</a> whose location is contained in the 'data-config' attribute on the script tag that loaded it.</p>
+    <div style="height: 350px; width: 1000px;" class="minimap" id="map_config"></div>
+
+    <!-- MiniMap Application -->
+    <h2>MiniMap</h2>
+    <p>This MiniMap is instatiated using the globally exported GlobalNOC.Atlas.MiniMap variable</p> 
+    <div style="height: 300px; width: 1000px;" class="minimap" id="map"></div>
+    <script>
+        GlobalNOC.Atlas.MiniMap({
+            containerId: "map",
+            backgroundMap: "world",
+            scale: 380,
+            lat: 33,
+            lng: -80,
+            adjLoadLegend: {
+                horizontal: true
+            },
+            networkLayers: [{
+                name: "MANLAN",
+                maxBps: '10G',
+                lineWidth: 3.7,
+                lineColor: '#3C3177',
+                mapSource: "../networks/manlan.json",
+                map2dataSource: {
+                    type: 'atlasUsage',
+                    source: '../data/manlan.xml'
+                }
+            },{
+                name: "Internet2 IP",
+                lineWidth: 3.7,
+                mapSource: "../networks/i2net.json",
+                map2dataSource: {
+                    type: 'tsdsUsage',
+                    source: '../data/i2net.json'
+                }
+            }]
+        });
+    </script>
+</html>

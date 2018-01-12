@@ -1,0 +1,88 @@
+<div class="editor-row">
+    <div class="section gf-form-group">
+        <h5 class="section-heading">Colors</h5>
+
+        <div class="gf-form">
+            <label class="gf-form-label width-9">Mode</label>
+            <div class="gf-form-select-wrapper width-8">
+                <select class="input-small gf-form-input" ng-model="ctrl.panel.color.mode" ng-options="s for s in ctrl.panel.colorModes" ng-change="ctrl.render()" ></select>
+            </div>
+        </div>
+
+        <div ng-show="ctrl.panel.color.mode === 'opacity'" class="ng-hide">
+            <div class="gf-form">
+                <label class="gf-form-label width-9">Color</label>
+                <span class="gf-form-label">
+                    <spectrum-picker ng-model="ctrl.panel.color.cardColor" ng-change="ctrl.render()" ></spectrum-picker>
+                </span>
+            </div>
+
+        <div class="gf-form">
+            <label class="gf-form-label width-9">Scale</label>
+            <div class="gf-form-select-wrapper width-8"> 
+                <select class="input-small gf-form-input" ng-model="ctrl.panel.color.colorScale" ng-options="s for s in ctrl.panel.scales" ng-change="ctrl.render()"></select>
+            </div>
+        </div>
+   
+        <div class="gf-form" ng-if="ctrl.panel.color.colorScale === 'sqrt'">
+            <label class="gf-form-label width-9">Exponent</label>
+            <input type="number" class="gf-form-input width-8" data-placement="right" ng-model="ctrl.panel.color.exponent" ng-change="ctrl.refresh()" ng-model-onblur=""  >
+        </div>
+    </div>
+
+    <div ng-show="ctrl.panel.color.mode === 'spectrum'">
+        <div class="gf-form">
+            <label class="gf-form-label width-9">Scheme</label>
+            <div class="gf-form-select-wrapper width-8">
+                <select class="input-small gf-form-input" ng-model="ctrl.panel.colorScheme" ng-options="s.value as s.name for s in ctrl.colorSchemes" ng-change="ctrl.render()"></select>
+            </div>
+        </div>
+
+        <div class="gf-form">
+            <div style="background-color:{{x}}; display:inline;width:0.34rem;height:24px;" ng-repeat="x in ctrl.panel.hex_values track by $index"></div>
+        </div>
+
+        <div class="gf-form">
+            <label class="gf-form-label width-9"> Color </label>
+            <input type="text" class="gf-form-input width-8" ng-model="ctrl.panel.inputColor" ng-change="ctrl.render()">
+        </div>
+    </div>
+</div>
+
+    <div class="section gf-form-group">
+        <h5 class="section-heading">Legend</h5>
+        <gf-form-switch class="gf-form" label-class="width-8"
+            label="Show legend"
+            checked="ctrl.panel.legend.show" on-change="ctrl.render()">
+        </gf-form-switch>
+    </div>
+
+    <div class="section gf-form-group">
+        <h5 class="section-heading">Tooltip</h5>
+        <gf-form-switch class="gf-form" label-class="width-8"
+            label="Show tooltip"
+            checked="ctrl.panel.tooltip.show" on-change="ctrl.render()">
+        </gf-form-switch>
+        
+        <div ng-if="ctrl.panel.tooltip.show">
+            <gf-form-switch class="gf-form" label-class="width-8"
+                label="Default Tooltip"
+                checked="ctrl.panel.tooltip.showDefault" on-change="ctrl.render()">
+            </gf-form-switch>    
+        </div>   
+        <div ng-if="ctrl.panel.tooltip.show && !ctrl.panel.tooltip.showDefault" class="gf-form">
+            <label class="gf-form-label width-8">To SI</label> 
+            <input type="number" min="1" class="gf-form-input width-8" ng-model="ctrl.panel.to_si" on-change="ctrl.render()"/>
+        </div>
+    </div>
+    
+  
+    <div ng-if="ctrl.panel.tooltip.show && !ctrl.panel.tooltip.showDefault" class="section gf-form-group">  
+        <h5 class="section-heading">Custom Hover Box</h5>  
+        <div class="gf-from-inline">
+            <div class="gf-form gf-form--grow">
+                <textarea class="gf-form-input ng-pristine ng-valid ng-not-empty ng-touched" ng-model="ctrl.panel.tooltip.content" rows="8" cols="50" style="width:100%" give-focus="true" ng-change="ctrl.render()" ng-model-onblur=""></textarea>
+            </div>
+        </div>
+    </div>
+</div>

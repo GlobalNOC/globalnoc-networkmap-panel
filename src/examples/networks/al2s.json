@@ -1,0 +1,2384 @@
+{
+  "total": 1,
+  "offset": "0",
+  "results": [
+    {
+      "network_name": "Internet2 Network",
+      "pops": [
+        {
+          "lat": "42.656278",
+          "real_lon": "-73.763239",
+          "real_lat": "42.656278",
+          "name": "ALBA",
+          "lon": "-73.763239",
+          "pop_id": "3280"
+        },
+        {
+          "lat": "38.908459",
+          "real_lon": "-77.014891",
+          "real_lat": "38.908459",
+          "name": "ASHB",
+          "lon": "-77.014891",
+          "pop_id": "2690"
+        },
+        {
+          "lat": "39.016746",
+          "real_lon": "-77.459206",
+          "real_lat": "39.016746",
+          "name": "ASHB",
+          "lon": "-77.459206",
+          "pop_id": "3282"
+        },
+        {
+          "lat": "33.758537",
+          "real_lon": "-84.38759",
+          "real_lat": "33.758537",
+          "name": "ATLA",
+          "lon": "-84.38759",
+          "pop_id": "318"
+        },
+        {
+          "lat": "30.400148",
+          "real_lon": "-91.174407",
+          "real_lat": "30.400148",
+          "name": "BATO",
+          "lon": "-91.174407",
+          "pop_id": "315"
+        },
+        {
+          "lat": "42.285519",
+          "real_lon": "-71.054964",
+          "real_lat": "42.285519",
+          "name": "BOST",
+          "lon": "-71.054964",
+          "pop_id": "328"
+        },
+        {
+          "lat": "35.1707",
+          "real_lon": "-80.909",
+          "real_lat": "35.1707",
+          "name": "CHAR",
+          "lon": "-80.909",
+          "pop_id": "968"
+        },
+        {
+          "lat": "41.853752",
+          "real_lon": "-87.618678",
+          "real_lat": "41.853752",
+          "name": "EQCH",
+          "lon": "-87.618678",
+          "pop_id": "3319"
+        },
+        {
+          "lat": "41.896504",
+          "real_lon": "-87.64306",
+          "real_lat": "41.896504",
+          "name": "CHIC",
+          "lon": "-87.64306",
+          "pop_id": "322"
+        },
+        {
+          "lat": "41.895358",
+          "real_lon": "-87.616073",
+          "real_lat": "41.895358",
+          "name": "STAR",
+          "lon": "-87.616073",
+          "pop_id": "351"
+        },
+        {
+          "lat": "39.10177",
+          "real_lon": "-84.50275",
+          "real_lat": "39.10177",
+          "name": "CINC",
+          "lon": "-84.50275",
+          "pop_id": "3589"
+        },
+        {
+          "lat": "41.505358",
+          "real_lon": "-81.658192",
+          "real_lat": "41.505358",
+          "name": "CLEV",
+          "lon": "-81.658192",
+          "pop_id": "323"
+        },
+        {
+          "lat": "32.778307",
+          "real_lon": "-96.798349",
+          "real_lat": "32.778307",
+          "name": "DALL",
+          "lon": "-96.798349",
+          "pop_id": "3599"
+        },
+        {
+          "lat": "39.745459",
+          "real_lon": "-104.979894",
+          "real_lat": "39.745459",
+          "name": "DENV",
+          "lon": "-104.979894",
+          "pop_id": "310"
+        },
+        {
+          "lat": "31.755708",
+          "real_lon": "-106.492903",
+          "real_lat": "31.755708",
+          "name": "ELPA",
+          "lon": "-106.492903",
+          "pop_id": "311"
+        },
+        {
+          "lat": "41.74508",
+          "real_lon": "-72.665108",
+          "real_lat": "41.74508",
+          "name": "HART2",
+          "lon": "-72.665108",
+          "pop_id": "3619"
+        },
+        {
+          "lat": "29.771315",
+          "real_lon": "-95.351",
+          "real_lat": "29.771315",
+          "name": "HOUH",
+          "lon": "-95.351",
+          "pop_id": "3387"
+        },
+        {
+          "lat": "29.956909",
+          "real_lon": "-95.418942",
+          "real_lat": "29.956909",
+          "name": "HOUS",
+          "lon": "-95.418942",
+          "pop_id": "316"
+        },
+        {
+          "lat": "39.759871",
+          "real_lon": "-86.171484",
+          "real_lat": "39.759871",
+          "name": "INDI",
+          "lon": "-86.171484",
+          "pop_id": "3568"
+        },
+        {
+          "lat": "32.300137",
+          "real_lon": "-90.187836",
+          "real_lat": "32.300137",
+          "name": "JCSN",
+          "lon": "-90.187836",
+          "pop_id": "3394"
+        },
+        {
+          "lat": "30.272111",
+          "real_lon": "-81.623511",
+          "real_lat": "30.272111",
+          "name": "JACK",
+          "lon": "-81.623511",
+          "pop_id": "317"
+        },
+        {
+          "lat": "39.101078",
+          "real_lon": "-94.582098",
+          "real_lat": "39.101078",
+          "name": "KANS",
+          "lon": "-94.582098",
+          "pop_id": "314"
+        },
+        {
+          "lat": "36.237",
+          "real_lon": "-115.117",
+          "real_lat": "36.237",
+          "name": "LASV",
+          "lon": "-115.117",
+          "pop_id": "3409"
+        },
+        {
+          "lat": "33.737916",
+          "real_lon": "-118.295056",
+          "real_lat": "33.737916",
+          "name": "LOSA",
+          "lon": "-118.295056",
+          "pop_id": "2734"
+        },
+        {
+          "lat": "38.23",
+          "real_lon": "-85.67",
+          "real_lat": "38.23",
+          "name": "LOUI",
+          "lon": "-85.67",
+          "pop_id": "321"
+        },
+        {
+          "lat": "44.972381",
+          "real_lon": "-93.255669",
+          "real_lat": "44.972381",
+          "name": "MINN",
+          "lon": "-93.255669",
+          "pop_id": "4663"
+        },
+        {
+          "lat": "46.871898",
+          "real_lon": "-113.993369",
+          "real_lat": "46.871898",
+          "name": "MISS2",
+          "lon": "-113.993369",
+          "pop_id": "5406"
+        },
+        {
+          "lat": "40.720069",
+          "real_lon": "-74.005199",
+          "real_lat": "40.720069",
+          "name": "NEWY32AOA",
+          "lon": "-74.005199",
+          "pop_id": "352"
+        },
+        {
+          "lat": "39.959696",
+          "real_lon": "-75.162095",
+          "real_lat": "39.959696",
+          "name": "PHIL",
+          "lon": "-75.162095",
+          "pop_id": "326"
+        },
+        {
+          "lat": "33.440476",
+          "real_lon": "-112.047533",
+          "real_lat": "33.440476",
+          "name": "PHOE",
+          "lon": "-112.047533",
+          "pop_id": "3655"
+        },
+        {
+          "lat": "40.425578",
+          "real_lon": "-79.970761",
+          "real_lat": "40.425578",
+          "name": "PITT",
+          "lon": "-79.970761",
+          "pop_id": "324"
+        },
+        {
+          "lat": "45.531469",
+          "real_lon": "-122.684858",
+          "real_lat": "45.531469",
+          "name": "PORT",
+          "lon": "-122.684858",
+          "pop_id": "303"
+        },
+        {
+          "lat": "35.85617",
+          "real_lon": "-78.59455",
+          "real_lat": "35.85617",
+          "name": "RALE",
+          "lon": "-78.59455",
+          "pop_id": "742"
+        },
+        {
+          "lat": "39.5245",
+          "real_lon": "-119.827324",
+          "real_lat": "39.5245",
+          "name": "RENO",
+          "lon": "-119.827324",
+          "pop_id": "3471"
+        },
+        {
+          "lat": "40.757603",
+          "real_lon": "-111.953379",
+          "real_lat": "40.757603",
+          "name": "SALT",
+          "lon": "-111.953379",
+          "pop_id": "309"
+        },
+        {
+          "lat": "47.614457",
+          "real_lon": "-122.338413",
+          "real_lat": "47.614457",
+          "name": "SEAT",
+          "lon": "-122.338413",
+          "pop_id": "302"
+        },
+        {
+          "lat": "37.373779",
+          "real_lon": "-121.987513",
+          "real_lat": "37.373779",
+          "name": "SUNN",
+          "lon": "-121.987513",
+          "pop_id": "392"
+        },
+        {
+          "lat": "32.223656",
+          "real_lon": "-110.968689",
+          "real_lat": "32.223656",
+          "name": "TUCS",
+          "lon": "-110.968689",
+          "pop_id": "3526"
+        },
+        {
+          "lat": "36.157192",
+          "real_lon": "-95.993431",
+          "real_lat": "36.157192",
+          "name": "TULS",
+          "lon": "-95.993431",
+          "pop_id": "313"
+        },
+        {
+          "lat": "38.9391893",
+          "real_lon": "-92.3219602",
+          "real_lat": "38.9391893",
+          "name": "COLU4",
+          "lon": "-92.3219602",
+          "pop_id": "4641"
+        },
+        {
+          "lat": "38.919753",
+          "real_lon": "-77.212385",
+          "real_lat": "38.919753",
+          "name": "WASH",
+          "lon": "-77.212385",
+          "pop_id": "325"
+        },
+        {
+          "lat": "34.047741",
+          "real_lon": "-118.255699",
+          "real_lat": "34.047741",
+          "name": "WILC",
+          "lon": "-118.255699",
+          "pop_id": "5439"
+        }
+      ],
+      "network_abbr_name": "I2",
+      "adjacencies": [
+        {
+          "name": "ALBA - BOST",
+          "path": [
+            {
+              "order": "10",
+              "lat": "42.656278",
+              "lon": "-73.763239"
+            },
+            {
+              "order": "20",
+              "lat": "43.229195113965",
+              "lon": "-71.5869140625"
+            },
+            {
+              "order": "30",
+              "lat": "42.285519",
+              "lon": "-71.054964"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "403205",
+              "name": "I2-ALBA-BOST-100GE-09210",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.alba.net.internet2.edu",
+                  "node_id": "14974",
+                  "interface_id": "701394",
+                  "pop_code": "ALBA"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.bost.net.internet2.edu",
+                  "node_id": "14969",
+                  "interface_id": "704295",
+                  "pop_code": "BOST"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ALBA - CLEV",
+          "path": [
+            {
+              "order": "10",
+              "lat": "42.656278",
+              "lon": "-73.763239"
+            },
+            {
+              "order": "20",
+              "lat": "41.505358",
+              "lon": "-81.658192"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "403208",
+              "name": "I2-ALBA-CLEV-100GE-07735",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.clev.net.internet2.edu",
+                  "node_id": "13484",
+                  "interface_id": "613766",
+                  "pop_code": "CLEV"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.alba.net.internet2.edu",
+                  "node_id": "14974",
+                  "interface_id": "706686",
+                  "pop_code": "ALBA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ASHB - CHIC",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.016746",
+              "lon": "-77.459206"
+            },
+            {
+              "order": "20",
+              "lat": "39.2322531417149",
+              "lon": "-82.705078125"
+            },
+            {
+              "order": "30",
+              "lat": "41.896504",
+              "lon": "-87.64306"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "425355",
+              "name": "I2-ASHB-CHIC-100GE-11803",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet9/1",
+                  "node_name": "sdn-sw.chic.net.internet2.edu",
+                  "node_id": "13465",
+                  "interface_id": "770122",
+                  "pop_code": "CHIC"
+                },
+                {
+                  "interface_name": "et-0/1/0",
+                  "node_name": "sdn-sw.ashb.net.internet2.edu",
+                  "node_id": "14597",
+                  "interface_id": "992155",
+                  "pop_code": "ASHB"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ASHB - PITT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.016746",
+              "lon": "-77.459206"
+            },
+            {
+              "order": "20",
+              "lat": "40.425578",
+              "lon": "-79.970761"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397042",
+              "name": "I2-ASHB-PITT-100GE-07737",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.ashb.net.internet2.edu",
+                  "node_id": "14597",
+                  "interface_id": "683602",
+                  "pop_code": "ASHB"
+                },
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.pitt.net.internet2.edu",
+                  "node_id": "15249",
+                  "interface_id": "729482",
+                  "pop_code": "PITT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ASHB - WASH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.016746",
+              "lon": "-77.459206"
+            },
+            {
+              "order": "20",
+              "lat": "38.919753",
+              "lon": "-77.212385"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "401125",
+              "name": "I2-ASHB-WASH-100GE-09106",
+              "endpoints": [
+                {
+                  "interface_name": "et-5/0/0",
+                  "node_name": "sdn-sw.ashb.net.internet2.edu",
+                  "node_id": "14597",
+                  "interface_id": "683604",
+                  "pop_code": "ASHB"
+                },
+                {
+                  "interface_name": "ethernet5/1",
+                  "node_name": "sdn-sw.wash.net.internet2.edu",
+                  "node_id": "13451",
+                  "interface_id": "618611",
+                  "pop_code": "WASH"
+                }
+              ]
+            },
+            {
+              "circuit_id": "425438",
+              "name": "I2-ASHB-WASH-100GE-11823",
+              "endpoints": [
+                {
+                  "interface_name": "et-9/0/0",
+                  "node_name": "sdn-sw.ashb.net.internet2.edu",
+                  "node_id": "14597",
+                  "interface_id": "770119",
+                  "pop_code": "ASHB"
+                },
+                {
+                  "interface_name": "ethernet9/1",
+                  "node_name": "sdn-sw.wash.net.internet2.edu",
+                  "node_id": "13451",
+                  "interface_id": "770124",
+                  "pop_code": "WASH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ATLA - CHAR",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.758537",
+              "lon": "-84.38759"
+            },
+            {
+              "order": "20",
+              "lat": "35.1707",
+              "lon": "-80.909"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "405965",
+              "name": "I2-ATLA-CHAR-100GE-07738",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.atla.net.internet2.edu",
+                  "node_id": "13480",
+                  "interface_id": "614261",
+                  "pop_code": "ATLA"
+                },
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.char.net.internet2.edu",
+                  "node_id": "15277",
+                  "interface_id": "739034",
+                  "pop_code": "CHAR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ATLA - JACK",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.758537",
+              "lon": "-84.38759"
+            },
+            {
+              "order": "20",
+              "lat": "30.272111",
+              "lon": "-81.623511"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397044",
+              "name": "I2-ATLA-JACK-100GE-07739",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.atla.net.internet2.edu",
+                  "node_id": "13480",
+                  "interface_id": "614271",
+                  "pop_code": "ATLA"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.jack.net.internet2.edu",
+                  "node_id": "14366",
+                  "interface_id": "655031",
+                  "pop_code": "JACK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ATLA - JCSN",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.758537",
+              "lon": "-84.38759"
+            },
+            {
+              "order": "20",
+              "lat": "32.300137",
+              "lon": "-90.187836"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "406601",
+              "name": "I2-ATLA-JCSN-100GE-10784",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet7/2",
+                  "node_name": "sdn-sw.atla.net.internet2.edu",
+                  "node_id": "13480",
+                  "interface_id": "724548",
+                  "pop_code": "ATLA"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.jcsn.net.internet2.edu",
+                  "node_id": "15170",
+                  "interface_id": "728403",
+                  "pop_code": "JCSN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ATLA - LOUI",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.758537",
+              "lon": "-84.38759"
+            },
+            {
+              "order": "20",
+              "lat": "38.23",
+              "lon": "-85.67"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397045",
+              "name": "I2-ATLA-LOUI-100GE-07740",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/2",
+                  "node_name": "sdn-sw.atla.net.internet2.edu",
+                  "node_id": "13480",
+                  "interface_id": "614260",
+                  "pop_code": "ATLA"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.loui.net.internet2.edu",
+                  "node_id": "19063",
+                  "interface_id": "897481",
+                  "pop_code": "LOUI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ATLA - WASH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.758537",
+              "lon": "-84.38759"
+            },
+            {
+              "order": "20",
+              "lat": "38.919753",
+              "lon": "-77.212385"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "495739",
+              "name": "I2-ATLA-WASH-100GE-54536",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet9/1",
+                  "node_name": "sdn-sw.atla.net.internet2.edu",
+                  "node_id": "13480",
+                  "interface_id": "939409",
+                  "pop_code": "ATLA"
+                },
+                {
+                  "interface_name": "ethernet11/1",
+                  "node_name": "sdn-sw.wash.net.internet2.edu",
+                  "node_id": "13451",
+                  "interface_id": "842737",
+                  "pop_code": "WASH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "BATO - HOUH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "30.400148",
+              "lon": "-91.174407"
+            },
+            {
+              "order": "20",
+              "lat": "29.771315",
+              "lon": "-95.351"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "399710",
+              "name": "I2-BATO-HOUH-100GE-08860",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/2",
+                  "node_name": "sdn-sw.houh.net.internet2.edu",
+                  "node_id": "13495",
+                  "interface_id": "615302",
+                  "pop_code": "HOUH"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.bato.net.internet2.edu",
+                  "node_id": "15958",
+                  "interface_id": "748986",
+                  "pop_code": "BATO"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "BATO - JACK",
+          "path": [
+            {
+              "order": "10",
+              "lat": "30.400148",
+              "lon": "-91.174407"
+            },
+            {
+              "order": "20",
+              "lat": "30.272111",
+              "lon": "-81.623511"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "406864",
+              "name": "I2-BATO-JACK-100GE-11005",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.bato.net.internet2.edu",
+                  "node_id": "15958",
+                  "interface_id": "748984",
+                  "pop_code": "BATO"
+                },
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.jack.net.internet2.edu",
+                  "node_id": "14366",
+                  "interface_id": "655022",
+                  "pop_code": "JACK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "BOST - HART2",
+          "path": [
+            {
+              "order": "10",
+              "lat": "42.285519",
+              "lon": "-71.054964"
+            },
+            {
+              "order": "20",
+              "lat": "41.0130657870063",
+              "lon": "-71.015625"
+            },
+            {
+              "order": "30",
+              "lat": "41.74508",
+              "lon": "-72.665108"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "403206",
+              "name": "I2-BOST-HART2-100GE-09211",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.bost.net.internet2.edu",
+                  "node_id": "14969",
+                  "interface_id": "712426",
+                  "pop_code": "BOST"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.hart2.net.internet2.edu",
+                  "node_id": "16867",
+                  "interface_id": "790321",
+                  "pop_code": "HART2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CHAR - RALE",
+          "path": [
+            {
+              "order": "10",
+              "lat": "35.1707",
+              "lon": "-80.909"
+            },
+            {
+              "order": "20",
+              "lat": "35.85617",
+              "lon": "-78.59455"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "405964",
+              "name": "I2-CHAR-RALE-100GE-10633",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.char.net.internet2.edu",
+                  "node_id": "15277",
+                  "interface_id": "739044",
+                  "pop_code": "CHAR"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.rale.net.internet2.edu",
+                  "node_id": "14369",
+                  "interface_id": "661917",
+                  "pop_code": "RALE"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CHIC - COLU4",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.896504",
+              "lon": "-87.64306"
+            },
+            {
+              "order": "20",
+              "lat": "39.2662844221307",
+              "lon": "-89.033203125"
+            },
+            {
+              "order": "30",
+              "lat": "38.9391893",
+              "lon": "-92.3219602"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "412590",
+              "name": "I2-CHIC-COLU4-100GE-11554",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.colu4.net.internet2.edu",
+                  "node_id": "14842",
+                  "interface_id": "720440",
+                  "pop_code": "COLU4"
+                },
+                {
+                  "interface_name": "ethernet7/2",
+                  "node_name": "sdn-sw.chic.net.internet2.edu",
+                  "node_id": "13465",
+                  "interface_id": "690225",
+                  "pop_code": "CHIC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CHIC - INDI",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.896504",
+              "lon": "-87.64306"
+            },
+            {
+              "order": "20",
+              "lat": "39.759871",
+              "lon": "-86.171484"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "472417",
+              "name": "I2-CHIC-INDI-100GE-50993",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/2",
+                  "node_name": "sdn-sw.chic.net.internet2.edu",
+                  "node_id": "13465",
+                  "interface_id": "611911",
+                  "pop_code": "CHIC"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.indi.net.internet2.edu",
+                  "node_id": "17983",
+                  "interface_id": "828979",
+                  "pop_code": "INDI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CHIC - KANS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.896504",
+              "lon": "-87.64306"
+            },
+            {
+              "order": "20",
+              "lat": "39.101078",
+              "lon": "-94.582098"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397050",
+              "name": "I2-CHIC-KANS-100GE-07745",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.kans.net.internet2.edu",
+                  "node_id": "13504",
+                  "interface_id": "615336",
+                  "pop_code": "KANS"
+                },
+                {
+                  "interface_name": "ethernet5/1",
+                  "node_name": "sdn-sw.chic.net.internet2.edu",
+                  "node_id": "13465",
+                  "interface_id": "611922",
+                  "pop_code": "CHIC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CHIC - STAR",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.896504",
+              "lon": "-87.64306"
+            },
+            {
+              "order": "20",
+              "lat": "41.895358",
+              "lon": "-87.616073"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397048",
+              "name": "I2-CHIC-STAR-100GE-07743",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.star.net.internet2.edu",
+                  "node_id": "13550",
+                  "interface_id": "617644",
+                  "pop_code": "STAR"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.chic.net.internet2.edu",
+                  "node_id": "13465",
+                  "interface_id": "611920",
+                  "pop_code": "CHIC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CINC - INDI",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.10177",
+              "lon": "-84.50275"
+            },
+            {
+              "order": "20",
+              "lat": "39.759871",
+              "lon": "-86.171484"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "476941",
+              "name": "I2-CINC-INDI-100GE-51692",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.cinc.net.internet2.edu",
+                  "node_id": "17815",
+                  "interface_id": "817537",
+                  "pop_code": "CINC"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.indi.net.internet2.edu",
+                  "node_id": "17983",
+                  "interface_id": "828961",
+                  "pop_code": "INDI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CINC - LOUI",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.10177",
+              "lon": "-84.50275"
+            },
+            {
+              "order": "20",
+              "lat": "38.23",
+              "lon": "-85.67"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "492787",
+              "name": "I2-CINC-LOUI-100GE-54197",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/1/0",
+                  "node_name": "sdn-sw.loui.net.internet2.edu",
+                  "node_id": "19063",
+                  "interface_id": "898417",
+                  "pop_code": "LOUI"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.cinc.net.internet2.edu",
+                  "node_id": "17815",
+                  "interface_id": "817525",
+                  "pop_code": "CINC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CLEV - EQCH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.505358",
+              "lon": "-81.658192"
+            },
+            {
+              "order": "20",
+              "lat": "41.853752",
+              "lon": "-87.618678"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "431500",
+              "name": "I2-CLEV-EQCH-100GE-07736",
+              "endpoints": [
+                {
+                  "interface_name": "et-3/0/0",
+                  "node_name": "sdn-sw.eqch.net.internet2.edu",
+                  "node_id": "16703",
+                  "interface_id": "780559",
+                  "pop_code": "EQCH"
+                },
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.clev.net.internet2.edu",
+                  "node_id": "13484",
+                  "interface_id": "613767",
+                  "pop_code": "CLEV"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "CLEV - PITT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.505358",
+              "lon": "-81.658192"
+            },
+            {
+              "order": "20",
+              "lat": "40.425578",
+              "lon": "-79.970761"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "405541",
+              "name": "I2-CLEV-PITT-100GE-10334",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.clev.net.internet2.edu",
+                  "node_id": "13484",
+                  "interface_id": "613757",
+                  "pop_code": "CLEV"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.pitt.net.internet2.edu",
+                  "node_id": "15249",
+                  "interface_id": "729492",
+                  "pop_code": "PITT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "COLU4 - KANS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "38.9391893",
+              "lon": "-92.3219602"
+            },
+            {
+              "order": "20",
+              "lat": "39.101078",
+              "lon": "-94.582098"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "412537",
+              "name": "I2-COLU4-KANS-100GE-11548",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.colu4.net.internet2.edu",
+                  "node_id": "14842",
+                  "interface_id": "720449",
+                  "pop_code": "COLU4"
+                },
+                {
+                  "interface_name": "ethernet7/1",
+                  "node_name": "sdn-sw.kans.net.internet2.edu",
+                  "node_id": "13504",
+                  "interface_id": "718114",
+                  "pop_code": "KANS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DALL - HOUH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "32.778307",
+              "lon": "-96.798349"
+            },
+            {
+              "order": "20",
+              "lat": "29.771315",
+              "lon": "-95.351"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397056",
+              "name": "I2-DALL-HOUH-100GE-07751",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.houh.net.internet2.edu",
+                  "node_id": "13495",
+                  "interface_id": "615301",
+                  "pop_code": "HOUH"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.dall.net.internet2.edu",
+                  "node_id": "15939",
+                  "interface_id": "752801",
+                  "pop_code": "DALL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DALL - TULS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "32.778307",
+              "lon": "-96.798349"
+            },
+            {
+              "order": "20",
+              "lat": "36.157192",
+              "lon": "-95.993431"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "408920",
+              "name": "I2-DALL-TULS-100GE-11300",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.dall.net.internet2.edu",
+                  "node_id": "15939",
+                  "interface_id": "752805",
+                  "pop_code": "DALL"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.tuls.net.internet2.edu",
+                  "node_id": "13654",
+                  "interface_id": "619073",
+                  "pop_code": "TULS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DENV - ELPA",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.745459",
+              "lon": "-104.979894"
+            },
+            {
+              "order": "20",
+              "lat": "31.755708",
+              "lon": "-106.492903"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397053",
+              "name": "I2-DENV-ELPA-100GE-07748",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.denv.net.internet2.edu",
+                  "node_id": "13499",
+                  "interface_id": "618387",
+                  "pop_code": "DENV"
+                },
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.elpa.net.internet2.edu",
+                  "node_id": "13646",
+                  "interface_id": "618779",
+                  "pop_code": "ELPA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DENV - KANS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.745459",
+              "lon": "-104.979894"
+            },
+            {
+              "order": "20",
+              "lat": "39.101078",
+              "lon": "-94.582098"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397051",
+              "name": "I2-DENV-KANS-100GE-07746",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.kans.net.internet2.edu",
+                  "node_id": "13504",
+                  "interface_id": "615335",
+                  "pop_code": "KANS"
+                },
+                {
+                  "interface_name": "ethernet3/2",
+                  "node_name": "sdn-sw.denv.net.internet2.edu",
+                  "node_id": "13499",
+                  "interface_id": "618386",
+                  "pop_code": "DENV"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DENV - SALT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.745459",
+              "lon": "-104.979894"
+            },
+            {
+              "order": "20",
+              "lat": "40.757603",
+              "lon": "-111.953379"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397052",
+              "name": "I2-DENV-SALT-100GE-07747",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.salt.net.internet2.edu",
+                  "node_id": "13696",
+                  "interface_id": "619966",
+                  "pop_code": "SALT"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.denv.net.internet2.edu",
+                  "node_id": "13499",
+                  "interface_id": "618396",
+                  "pop_code": "DENV"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ELPA - HOUH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "31.755708",
+              "lon": "-106.492903"
+            },
+            {
+              "order": "20",
+              "lat": "29.771315",
+              "lon": "-95.351"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397054",
+              "name": "I2-ELPA-HOUH-100GE-07749",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.houh.net.internet2.edu",
+                  "node_id": "13495",
+                  "interface_id": "615311",
+                  "pop_code": "HOUH"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.elpa.net.internet2.edu",
+                  "node_id": "13646",
+                  "interface_id": "618778",
+                  "pop_code": "ELPA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ELPA - TUCS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "31.755708",
+              "lon": "-106.492903"
+            },
+            {
+              "order": "20",
+              "lat": "32.223656",
+              "lon": "-110.968689"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397055",
+              "name": "I2-ELPA-TUCS-100GE-07750",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.elpa.net.internet2.edu",
+                  "node_id": "13646",
+                  "interface_id": "618769",
+                  "pop_code": "ELPA"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.tucs.net.internet2.edu",
+                  "node_id": "16568",
+                  "interface_id": "771640",
+                  "pop_code": "TUCS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "EQCH - MINN",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.853752",
+              "lon": "-87.618678"
+            },
+            {
+              "order": "20",
+              "lat": "44.972381",
+              "lon": "-93.255669"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "431441",
+              "name": "I2-EQCH-MINN-100GE-12184",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.eqch.net.internet2.edu",
+                  "node_id": "16703",
+                  "interface_id": "780046",
+                  "pop_code": "EQCH"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.minn.net.internet2.edu",
+                  "node_id": "14978",
+                  "interface_id": "717997",
+                  "pop_code": "MINN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "EQCH - STAR",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.853752",
+              "lon": "-87.618678"
+            },
+            {
+              "order": "20",
+              "lat": "41.895358",
+              "lon": "-87.616073"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "404343",
+              "name": "I2-EQCH-STAR-100GE-09299",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/2",
+                  "node_name": "sdn-sw.star.net.internet2.edu",
+                  "node_id": "13550",
+                  "interface_id": "617634",
+                  "pop_code": "STAR"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.eqch.net.internet2.edu",
+                  "node_id": "16703",
+                  "interface_id": "780048",
+                  "pop_code": "EQCH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "HART2 - NEWY32AOA",
+          "path": [
+            {
+              "order": "10",
+              "lat": "41.74508",
+              "lon": "-72.665108"
+            },
+            {
+              "order": "20",
+              "lat": "41.6072282127172",
+              "lon": "-73.828125"
+            },
+            {
+              "order": "30",
+              "lat": "40.720069",
+              "lon": "-74.005199"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "432601",
+              "name": "I2-HART2-NEWY32AOA-100GE-12947",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.hart2.net.internet2.edu",
+                  "node_id": "16867",
+                  "interface_id": "790324",
+                  "pop_code": "HART2"
+                },
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.newy32aoa.net.internet2.edu",
+                  "node_id": "13624",
+                  "interface_id": "616717",
+                  "pop_code": "NEWY32AOA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "HOUH - HOUS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "29.771315",
+              "lon": "-95.351"
+            },
+            {
+              "order": "20",
+              "lat": "29.956909",
+              "lon": "-95.418942"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "403156",
+              "name": "I2-HOUH-HOUS-100GE-09174",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.houh.net.internet2.edu",
+                  "node_id": "13495",
+                  "interface_id": "615312",
+                  "pop_code": "HOUH"
+                },
+                {
+                  "interface_name": "et-1/0/0",
+                  "node_name": "rtr.hous.net.internet2.edu",
+                  "node_id": "14514",
+                  "interface_id": "718196",
+                  "pop_code": "HOUS"
+                }
+              ]
+            },
+            {
+              "circuit_id": "404469",
+              "name": "I2-HOUH-HOUS-100GE-09379",
+              "endpoints": [
+                {
+                  "interface_name": "et-10/2/0",
+                  "node_name": "rtr.hous.net.internet2.edu",
+                  "node_id": "14514",
+                  "interface_id": "719674",
+                  "pop_code": "HOUS"
+                },
+                {
+                  "interface_name": "ethernet5/2",
+                  "node_name": "sdn-sw.houh.net.internet2.edu",
+                  "node_id": "13495",
+                  "interface_id": "724550",
+                  "pop_code": "HOUH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "HOUH - JCSN",
+          "path": [
+            {
+              "order": "10",
+              "lat": "29.771315",
+              "lon": "-95.351"
+            },
+            {
+              "order": "20",
+              "lat": "32.300137",
+              "lon": "-90.187836"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "406600",
+              "name": "I2-HOUH-JCSN-100GE-10783",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet5/1",
+                  "node_name": "sdn-sw.houh.net.internet2.edu",
+                  "node_id": "13495",
+                  "interface_id": "724549",
+                  "pop_code": "HOUH"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.jcsn.net.internet2.edu",
+                  "node_id": "15170",
+                  "interface_id": "728404",
+                  "pop_code": "JCSN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "KANS - MINN",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.101078",
+              "lon": "-94.582098"
+            },
+            {
+              "order": "20",
+              "lat": "44.972381",
+              "lon": "-93.255669"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "432299",
+              "name": "I2-KANS-MINN-100GE-12675",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet7/2",
+                  "node_name": "sdn-sw.kans.net.internet2.edu",
+                  "node_id": "13504",
+                  "interface_id": "718115",
+                  "pop_code": "KANS"
+                },
+                {
+                  "interface_name": "et-8/0/0",
+                  "node_name": "sdn-sw.minn.net.internet2.edu",
+                  "node_id": "14978",
+                  "interface_id": "788411",
+                  "pop_code": "MINN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "KANS - TULS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.101078",
+              "lon": "-94.582098"
+            },
+            {
+              "order": "20",
+              "lat": "36.157192",
+              "lon": "-95.993431"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397058",
+              "name": "I2-KANS-TULS-100GE-07753",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.tuls.net.internet2.edu",
+                  "node_id": "13654",
+                  "interface_id": "619064",
+                  "pop_code": "TULS"
+                },
+                {
+                  "interface_name": "ethernet9/2",
+                  "node_name": "sdn-sw.kans.net.internet2.edu",
+                  "node_id": "13504",
+                  "interface_id": "794139",
+                  "pop_code": "KANS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "LASV - LOSA",
+          "path": [
+            {
+              "order": "10",
+              "lat": "36.237",
+              "lon": "-115.117"
+            },
+            {
+              "order": "20",
+              "lat": "33.737916",
+              "lon": "-118.295056"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "490291",
+              "name": "I2-LASV-LOSA-100GE-53802",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.lasv.net.internet2.edu",
+                  "node_id": "18709",
+                  "interface_id": "877471",
+                  "pop_code": "LASV"
+                },
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.losa.net.internet2.edu",
+                  "node_id": "13541",
+                  "interface_id": "616024",
+                  "pop_code": "LOSA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "LASV - SALT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "36.237",
+              "lon": "-115.117"
+            },
+            {
+              "order": "20",
+              "lat": "40.757603",
+              "lon": "-111.953379"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397062",
+              "name": "I2-LASV-SALT-100GE-07757",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.salt.net.internet2.edu",
+                  "node_id": "13696",
+                  "interface_id": "619968",
+                  "pop_code": "SALT"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.lasv.net.internet2.edu",
+                  "node_id": "18709",
+                  "interface_id": "877441",
+                  "pop_code": "LASV"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "LOSA - PHOE",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.737916",
+              "lon": "-118.295056"
+            },
+            {
+              "order": "20",
+              "lat": "33.440476",
+              "lon": "-112.047533"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "403172",
+              "name": "I2-LOSA-PHOE-100GE-09190",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.phoe.net.internet2.edu",
+                  "node_id": "14956",
+                  "interface_id": "692851",
+                  "pop_code": "PHOE"
+                },
+                {
+                  "interface_name": "ethernet3/2",
+                  "node_name": "sdn-sw.losa.net.internet2.edu",
+                  "node_id": "13541",
+                  "interface_id": "616025",
+                  "pop_code": "LOSA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "LOSA - SUNN",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.737916",
+              "lon": "-118.295056"
+            },
+            {
+              "order": "20",
+              "lat": "37.373779",
+              "lon": "-121.987513"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397060",
+              "name": "I2-LOSA-SUNN-100GE-07755",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.losa.net.internet2.edu",
+                  "node_id": "13541",
+                  "interface_id": "616034",
+                  "pop_code": "LOSA"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.sunn.net.internet2.edu",
+                  "node_id": "13509",
+                  "interface_id": "616409",
+                  "pop_code": "SUNN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "LOSA - WILC",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.737916",
+              "lon": "-118.295056"
+            },
+            {
+              "order": "20",
+              "lat": "34.047741",
+              "lon": "-118.255699"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "446711",
+              "name": "I2-LOSA-WILC-100GE-26909",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet7/1",
+                  "node_name": "sdn-sw.losa.net.internet2.edu",
+                  "node_id": "13541",
+                  "interface_id": "739831",
+                  "pop_code": "LOSA"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "rtr.wilc.net.internet2.edu",
+                  "node_id": "17085",
+                  "interface_id": "801009",
+                  "pop_code": "WILC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MINN - MISS2",
+          "path": [
+            {
+              "order": "10",
+              "lat": "44.972381",
+              "lon": "-93.255669"
+            },
+            {
+              "order": "20",
+              "lat": "46.871898",
+              "lon": "-113.993369"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "404344",
+              "name": "I2-MINN-MISS2-100GE-09130",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.minn.net.internet2.edu",
+                  "node_id": "14978",
+                  "interface_id": "717998",
+                  "pop_code": "MINN"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.miss2.net.internet2.edu",
+                  "node_id": "16911",
+                  "interface_id": "793799",
+                  "pop_code": "MISS2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MISS2 - SEAT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "46.871898",
+              "lon": "-113.993369"
+            },
+            {
+              "order": "20",
+              "lat": "47.614457",
+              "lon": "-122.338413"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "432863",
+              "name": "I2-MISS2-SEAT-100GE-13237",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.miss2.net.internet2.edu",
+                  "node_id": "16911",
+                  "interface_id": "793801",
+                  "pop_code": "MISS2"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.seat.net.internet2.edu",
+                  "node_id": "14494",
+                  "interface_id": "677827",
+                  "pop_code": "SEAT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "NEWY32AOA - PHIL",
+          "path": [
+            {
+              "order": "10",
+              "lat": "40.720069",
+              "lon": "-74.005199"
+            },
+            {
+              "order": "20",
+              "lat": "40.0107871404655",
+              "lon": "-74.091796875"
+            },
+            {
+              "order": "30",
+              "lat": "39.959696",
+              "lon": "-75.162095"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397064",
+              "name": "I2-NEWY32AOA-PHIL-100GE-07759",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.newy32aoa.net.internet2.edu",
+                  "node_id": "13624",
+                  "interface_id": "616708",
+                  "pop_code": "NEWY32AOA"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.phil.net.internet2.edu",
+                  "node_id": "15278",
+                  "interface_id": "745798",
+                  "pop_code": "PHIL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PHIL - WASH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.959696",
+              "lon": "-75.162095"
+            },
+            {
+              "order": "20",
+              "lat": "38.919753",
+              "lon": "-77.212385"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "406703",
+              "name": "I2-PHIL-WASH-100GE-10867",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.phil.net.internet2.edu",
+                  "node_id": "15278",
+                  "interface_id": "745795",
+                  "pop_code": "PHIL"
+                },
+                {
+                  "interface_name": "ethernet1/1",
+                  "node_name": "sdn-sw.wash.net.internet2.edu",
+                  "node_id": "13451",
+                  "interface_id": "612038",
+                  "pop_code": "WASH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PHOE - TUCS",
+          "path": [
+            {
+              "order": "10",
+              "lat": "33.440476",
+              "lon": "-112.047533"
+            },
+            {
+              "order": "20",
+              "lat": "32.223656",
+              "lon": "-110.968689"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "426897",
+              "name": "I2-PHOE-TUCS-100GE-11990",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.phoe.net.internet2.edu",
+                  "node_id": "14956",
+                  "interface_id": "696946",
+                  "pop_code": "PHOE"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.tucs.net.internet2.edu",
+                  "node_id": "16568",
+                  "interface_id": "771642",
+                  "pop_code": "TUCS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PORT - SEAT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "45.531469",
+              "lon": "-122.684858"
+            },
+            {
+              "order": "20",
+              "lat": "47.614457",
+              "lon": "-122.338413"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "400531",
+              "name": "I2-PORT-SEAT-100GE-08997",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.seat.net.internet2.edu",
+                  "node_id": "14494",
+                  "interface_id": "677054",
+                  "pop_code": "SEAT"
+                },
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.port.net.internet2.edu",
+                  "node_id": "15175",
+                  "interface_id": "728575",
+                  "pop_code": "PORT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PORT - SUNN",
+          "path": [
+            {
+              "order": "10",
+              "lat": "45.531469",
+              "lon": "-122.684858"
+            },
+            {
+              "order": "20",
+              "lat": "37.373779",
+              "lon": "-121.987513"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "405550",
+              "name": "I2-PORT-SUNN-100GE-10343",
+              "endpoints": [
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.port.net.internet2.edu",
+                  "node_id": "15175",
+                  "interface_id": "728574",
+                  "pop_code": "PORT"
+                },
+                {
+                  "interface_name": "ethernet1/2",
+                  "node_name": "sdn-sw.sunn.net.internet2.edu",
+                  "node_id": "13509",
+                  "interface_id": "616410",
+                  "pop_code": "SUNN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "RALE - WASH",
+          "path": [
+            {
+              "order": "10",
+              "lat": "35.85617",
+              "lon": "-78.59455"
+            },
+            {
+              "order": "20",
+              "lat": "38.919753",
+              "lon": "-77.212385"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "400104",
+              "name": "I2-RALE-WASH-100GE-08888",
+              "endpoints": [
+                {
+                  "interface_name": "et-5/0/0",
+                  "node_name": "sdn-sw.rale.net.internet2.edu",
+                  "node_id": "14369",
+                  "interface_id": "666012",
+                  "pop_code": "RALE"
+                },
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.wash.net.internet2.edu",
+                  "node_id": "13451",
+                  "interface_id": "612028",
+                  "pop_code": "WASH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "RENO - SALT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.5245",
+              "lon": "-119.827324"
+            },
+            {
+              "order": "20",
+              "lat": "40.757603",
+              "lon": "-111.953379"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "489793",
+              "name": "I2-RENO-SALT-100GE-53725",
+              "endpoints": [
+                {
+                  "interface_name": "ethernet3/2",
+                  "node_name": "sdn-sw.salt.net.internet2.edu",
+                  "node_id": "13696",
+                  "interface_id": "619969",
+                  "pop_code": "SALT"
+                },
+                {
+                  "interface_name": "et-7/0/0",
+                  "node_name": "sdn-sw.reno.net.internet2.edu",
+                  "node_id": "18673",
+                  "interface_id": "874399",
+                  "pop_code": "RENO"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "RENO - SUNN",
+          "path": [
+            {
+              "order": "10",
+              "lat": "39.5245",
+              "lon": "-119.827324"
+            },
+            {
+              "order": "20",
+              "lat": "37.373779",
+              "lon": "-121.987513"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "397071",
+              "name": "I2-RENO-SUNN-100GE-07766",
+              "endpoints": [
+                {
+                  "interface_name": "et-4/0/0",
+                  "node_name": "sdn-sw.reno.net.internet2.edu",
+                  "node_id": "18673",
+                  "interface_id": "874411",
+                  "pop_code": "RENO"
+                },
+                {
+                  "interface_name": "ethernet3/1",
+                  "node_name": "sdn-sw.sunn.net.internet2.edu",
+                  "node_id": "13509",
+                  "interface_id": "616400",
+                  "pop_code": "SUNN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SALT - SEAT",
+          "path": [
+            {
+              "order": "10",
+              "lat": "40.757603",
+              "lon": "-111.953379"
+            },
+            {
+              "order": "20",
+              "lat": "47.614457",
+              "lon": "-122.338413"
+            }
+          ],
+          "circuits": [
+            {
+              "circuit_id": "400532",
+              "name": "I2-SALT-SEAT-100GE-08998",
+              "endpoints": [
+                {
+                  "interface_name": "et-5/0/0",
+                  "node_name": "sdn-sw.seat.net.internet2.edu",
+                  "node_id": "14494",
+                  "interface_id": "677058",
+                  "pop_code": "SEAT"
+                },
+                {
+                  "interface_name": "ethernet7/2",
+                  "node_name": "sdn-sw.salt.net.internet2.edu",
+                  "node_id": "13696",
+                  "interface_id": "619965",
+                  "pop_code": "SALT"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "name": "AL2S",
+      "network_map_id": "37",
+      "network_id": "14"
+    }
+  ]
+}

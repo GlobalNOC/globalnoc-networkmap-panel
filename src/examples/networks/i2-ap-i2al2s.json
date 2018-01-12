@@ -1,0 +1,27 @@
+{ "results": [
+{
+  "pops": [
+    {"name" : "Los Angeles",    "lat":33,   "lon":-118,  "real_lat": 40.7, "real_lon": -76 },
+    {"name" : "Singapore",      "lat":1.3,  "lon":103.8, "real_lat": 40.7, "real_lon": -76 }
+  ],
+
+  "adjacencies" : [
+    {
+      "name": "LA-SING",
+      "path": [ 
+        {"lat":33, "lon":-118},
+        {"lat":30, "lon":-120},
+        {"lat":21, "lon":-157},
+        {"lat":-1, "lon":144},
+        {"lat":1.3, "lon":103.8}
+      ],
+      "circuits": [
+        {
+          "name": "I2-SING",
+          "endpoints": [{"pop_code": "LA", "node_name": "sdn-sw.losa.net.internet2.edu", "interface_name": "ethernet11/1"}]
+        }
+      ]
+    }
+  ]
+}
+]}

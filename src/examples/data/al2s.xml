@@ -1,0 +1,802 @@
+<opt timestamp="Wed Dec  2 17:45:15 UTC 2015">
+  <if-stat name="et-7/0/0" node_name="sdn-sw.alba.net.internet2.edu" stat="1">
+    <bps i="8701350295.84" o="5009750101.12"></bps>
+    <pps i="939569.46" o="727123.3"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.bost.net.internet2.edu" stat="1">
+    <bps i="4930582389.92" o="8590489384.96"></bps>
+    <pps i="718140.66" o="932781.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.alba.net.internet2.edu" stat="1">
+    <bps i="8701350295.84" o="5009750101.12"></bps>
+    <pps i="939569.46" o="727123.3"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.bost.net.internet2.edu" stat="1">
+    <bps i="4930582389.92" o="8590489384.96"></bps>
+    <pps i="718140.66" o="932781.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.clev.net.internet2.edu" stat="1">
+    <bps i="8722368652.24" o="5779653684.96"></bps>
+    <pps i="999923.31" o="797709.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.alba.net.internet2.edu" stat="1">
+    <bps i="5877983404.16" o="8961318000.16"></bps>
+    <pps i="794654.92" o="1000462.76"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.clev.net.internet2.edu" stat="1">
+    <bps i="8722368652.24" o="5779653684.96"></bps>
+    <pps i="999923.31" o="797709.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.alba.net.internet2.edu" stat="1">
+    <bps i="5877983404.16" o="8961318000.16"></bps>
+    <pps i="794654.92" o="1000462.76"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet9/1" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="9726762604.4" o="10594389170.4"></bps>
+    <pps i="1473296.76" o="1772995.27"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-0/1/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="10456124593.76" o="9555870690.72"></bps>
+    <pps i="1809877.24" o="1501607.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet9/1" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="9726762604.4" o="10594389170.4"></bps>
+    <pps i="1473296.76" o="1772995.27"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-0/1/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="10456124593.76" o="9555870690.72"></bps>
+    <pps i="1809877.24" o="1501607.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="18071150616.96" o="35990191683.36"></bps>
+    <pps i="4488384.05" o="4061837.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="18071150616.96" o="35990191683.36"></bps>
+    <pps i="4488384.05" o="4061837.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-5/0/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="27819152607.92" o="45078275855.52"></bps>
+    <pps i="5330567.94" o="5501555.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-9/0/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="10397543670.64" o="39533426799.36"></bps>
+    <pps i="3227672.52" o="4222077.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-5/0/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="27819152607.92" o="45078275855.52"></bps>
+    <pps i="5330567.94" o="5501555.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-9/0/0" node_name="sdn-sw.ashb.net.internet2.edu" stat="1">
+    <bps i="10397543670.64" o="39533426799.36"></bps>
+    <pps i="3227672.52" o="4222077.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="11435490575.12" o="20544730440.4"></bps>
+    <pps i="2905902.15" o="2490253.62"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.char.net.internet2.edu" stat="1">
+    <bps i="20608371614" o="11469790380.88"></bps>
+    <pps i="2498017.12" o="2914313.81"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="11435490575.12" o="20544730440.4"></bps>
+    <pps i="2905902.15" o="2490253.62"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.char.net.internet2.edu" stat="1">
+    <bps i="20608371614" o="11469790380.88"></bps>
+    <pps i="2498017.12" o="2914313.81"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="22220421071.52" o="22917661620.08"></bps>
+    <pps i="2169945.19" o="1771644.27"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="22220421071.52" o="22917661620.08"></bps>
+    <pps i="2169945.19" o="1771644.27"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="4805077034.50667" o="7193144947.28"></bps>
+    <pps i="653406.426666667" o="695069.186666667"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="4805077034.50667" o="7193144947.28"></bps>
+    <pps i="653406.426666667" o="695069.186666667"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="33697803736.32" o="14573165152.08"></bps>
+    <pps i="3370911.42" o="3504904.85"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="33697803736.32" o="14573165152.08"></bps>
+    <pps i="3370911.42" o="3504904.85"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet9/1" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="27022555890.72" o="21863770142.56"></bps>
+    <pps i="3066154.14" o="2829958.28"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet9/1" node_name="sdn-sw.atla.net.internet2.edu" stat="1">
+    <bps i="27022555890.72" o="21863770142.56"></bps>
+    <pps i="3066154.14" o="2829958.28"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="11612315997.12" o="24010554596.8"></bps>
+    <pps i="1680731.42" o="1833630.17"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.bato.net.internet2.edu" stat="1">
+    <bps i="24076058995.36" o="11592721152.96"></bps>
+    <pps i="1842717.28" o="1684848.06"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="11612315997.12" o="24010554596.8"></bps>
+    <pps i="1680731.42" o="1833630.17"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.bato.net.internet2.edu" stat="1">
+    <bps i="24076058995.36" o="11592721152.96"></bps>
+    <pps i="1842717.28" o="1684848.06"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.bato.net.internet2.edu" stat="1">
+    <bps i="18324542794.88" o="22619589924.32"></bps>
+    <pps i="1406389.84" o="1681842.86"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.bato.net.internet2.edu" stat="1">
+    <bps i="18324542794.88" o="22619589924.32"></bps>
+    <pps i="1406389.84" o="1681842.86"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.bost.net.internet2.edu" stat="1">
+    <bps i="10691118136.16" o="6736590458.56"></bps>
+    <pps i="1216286.74" o="1378419.4"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.hart2.net.internet2.edu" stat="1">
+    <bps i="7004342531.68" o="11109218773.92"></bps>
+    <pps i="1378699.8" o="1217441.16"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.bost.net.internet2.edu" stat="1">
+    <bps i="10691118136.16" o="6736590458.56"></bps>
+    <pps i="1216286.74" o="1378419.4"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.hart2.net.internet2.edu" stat="1">
+    <bps i="7004342531.68" o="11109218773.92"></bps>
+    <pps i="1378699.8" o="1217441.16"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.char.net.internet2.edu" stat="1">
+    <bps i="8407507986.72" o="7923134460.48"></bps>
+    <pps i="1435608.26" o="1186014.26"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.rale.net.internet2.edu" stat="1">
+    <bps i="7751286488.08" o="8314554644.56"></bps>
+    <pps i="1186088.23" o="1435885.43"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.char.net.internet2.edu" stat="1">
+    <bps i="8407507986.72" o="7923134460.48"></bps>
+    <pps i="1435608.26" o="1186014.26"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.rale.net.internet2.edu" stat="1">
+    <bps i="7751286488.08" o="8314554644.56"></bps>
+    <pps i="1186088.23" o="1435885.43"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.colu4.net.internet2.edu" stat="1">
+    <bps i="43491.68" o="62883.84"></bps>
+    <pps i="61.69" o="60.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="61301.8618181818" o="42246.3854545455"></bps>
+    <pps i="58.73" o="59.9227272727273"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.colu4.net.internet2.edu" stat="1">
+    <bps i="43491.68" o="62883.84"></bps>
+    <pps i="61.69" o="60.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="61301.8618181818" o="42246.3854545455"></bps>
+    <pps i="58.73" o="59.9227272727273"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="16172846814.08" o="42556240382.72"></bps>
+    <pps i="4408702.44" o="4285942.74"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="16172846814.08" o="42556240382.72"></bps>
+    <pps i="4408702.44" o="4285942.74"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="29469751136.32" o="21525692484.32"></bps>
+    <pps i="3490227.67" o="2839224.37"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet5/1" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="21533845766.24" o="29337370142.08"></bps>
+    <pps i="2838946.26" o="3479149.12"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="29469751136.32" o="21525692484.32"></bps>
+    <pps i="3490227.67" o="2839224.37"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet5/1" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="21533845766.24" o="29337370142.08"></bps>
+    <pps i="2838946.26" o="3479149.12"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="30597872746.24" o="52543163375.04"></bps>
+    <pps i="5598923.92" o="6621805.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.chic.net.internet2.edu" stat="1">
+    <bps i="30597872746.24" o="52543163375.04"></bps>
+    <pps i="5598923.92" o="6621805.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.cinc.net.internet2.edu" stat="1">
+    <bps i="40975556007.84" o="15799423452.48"></bps>
+    <pps i="4161295.5" o="4297516.84"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.cinc.net.internet2.edu" stat="1">
+    <bps i="40975556007.84" o="15799423452.48"></bps>
+    <pps i="4161295.5" o="4297516.84"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.cinc.net.internet2.edu" stat="1">
+    <bps i="13491717836.32" o="33388446136.16"></bps>
+    <pps i="3427109.06" o="3325196.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.cinc.net.internet2.edu" stat="1">
+    <bps i="13491717836.32" o="33388446136.16"></bps>
+    <pps i="3427109.06" o="3325196.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-3/0/0" node_name="sdn-sw.eqch.net.internet2.edu" stat="1">
+    <bps i="18199905634.56" o="12739555938.88"></bps>
+    <pps i="2141878.78" o="1725070.48"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.clev.net.internet2.edu" stat="1">
+    <bps i="12518431819.28" o="17870808936.56"></bps>
+    <pps i="1741088.73" o="2165352.29"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-3/0/0" node_name="sdn-sw.eqch.net.internet2.edu" stat="1">
+    <bps i="18199905634.56" o="12739555938.88"></bps>
+    <pps i="2141878.78" o="1725070.48"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.clev.net.internet2.edu" stat="1">
+    <bps i="12518431819.28" o="17870808936.56"></bps>
+    <pps i="1741088.73" o="2165352.29"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.clev.net.internet2.edu" stat="1">
+    <bps i="31404648550.72" o="18559856059.68"></bps>
+    <pps i="3499223.75" o="4144302.36"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.clev.net.internet2.edu" stat="1">
+    <bps i="31404648550.72" o="18559856059.68"></bps>
+    <pps i="3499223.75" o="4144302.36"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.colu4.net.internet2.edu" stat="1">
+    <bps i="38540.48" o="54161.6"></bps>
+    <pps i="56.48" o="56.47"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/1" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="53985.6" o="38681.92"></bps>
+    <pps i="56.16" o="56.79"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.colu4.net.internet2.edu" stat="1">
+    <bps i="38540.48" o="54161.6"></bps>
+    <pps i="56.48" o="56.47"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/1" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="53985.6" o="38681.92"></bps>
+    <pps i="56.16" o="56.79"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="17634287082.08" o="11531233823.76"></bps>
+    <pps i="1707908.34" o="1415816.68"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.dall.net.internet2.edu" stat="1">
+    <bps i="11397866819.36" o="17750113175.84"></bps>
+    <pps i="1413152.38" o="1712632.32"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="17634287082.08" o="11531233823.76"></bps>
+    <pps i="1707908.34" o="1415816.68"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.dall.net.internet2.edu" stat="1">
+    <bps i="11397866819.36" o="17750113175.84"></bps>
+    <pps i="1413152.38" o="1712632.32"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.dall.net.internet2.edu" stat="1">
+    <bps i="7493284656.16" o="18706430321.92"></bps>
+    <pps i="1220446.74" o="1890108.46"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.dall.net.internet2.edu" stat="1">
+    <bps i="7493284656.16" o="18706430321.92"></bps>
+    <pps i="1220446.74" o="1890108.46"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.denv.net.internet2.edu" stat="1">
+    <bps i="6820714289.76" o="7948074086.32"></bps>
+    <pps i="1108490.33" o="922414.39"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.elpa.net.internet2.edu" stat="1">
+    <bps i="7955271050.08" o="6819548174.96"></bps>
+    <pps i="923050.89" o="1108652.76"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.denv.net.internet2.edu" stat="1">
+    <bps i="6820714289.76" o="7948074086.32"></bps>
+    <pps i="1108490.33" o="922414.39"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.elpa.net.internet2.edu" stat="1">
+    <bps i="7955271050.08" o="6819548174.96"></bps>
+    <pps i="923050.89" o="1108652.76"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="11291670181.2" o="9859704176.16"></bps>
+    <pps i="1535622.36" o="1445492.99"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.denv.net.internet2.edu" stat="1">
+    <bps i="9881480026.32" o="11278253253.52"></bps>
+    <pps i="1447210.86" o="1534626.36"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="11291670181.2" o="9859704176.16"></bps>
+    <pps i="1535622.36" o="1445492.99"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.denv.net.internet2.edu" stat="1">
+    <bps i="9881480026.32" o="11278253253.52"></bps>
+    <pps i="1447210.86" o="1534626.36"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="12962939792.32" o="15575388264.72"></bps>
+    <pps i="2064158.01" o="1968354.35"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.denv.net.internet2.edu" stat="1">
+    <bps i="15567421954.8" o="12959919320.72"></bps>
+    <pps i="1967972.97" o="2063908.11"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="12962939792.32" o="15575388264.72"></bps>
+    <pps i="2064158.01" o="1968354.35"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.denv.net.internet2.edu" stat="1">
+    <bps i="15567421954.8" o="12959919320.72"></bps>
+    <pps i="1967972.97" o="2063908.11"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="17869483770.48" o="20801694079.2"></bps>
+    <pps i="1588772.2" o="1855780.54"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.elpa.net.internet2.edu" stat="1">
+    <bps i="21042571594.56" o="17679446289.76"></bps>
+    <pps i="1860315.23" o="1586529.7"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="17869483770.48" o="20801694079.2"></bps>
+    <pps i="1588772.2" o="1855780.54"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/1" node_name="sdn-sw.elpa.net.internet2.edu" stat="1">
+    <bps i="21042571594.56" o="17679446289.76"></bps>
+    <pps i="1860315.23" o="1586529.7"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.elpa.net.internet2.edu" stat="1">
+    <bps i="20076396026.96" o="17219598329.84"></bps>
+    <pps i="1909434.06" o="1876477.29"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.elpa.net.internet2.edu" stat="1">
+    <bps i="20076396026.96" o="17219598329.84"></bps>
+    <pps i="1909434.06" o="1876477.29"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.eqch.net.internet2.edu" stat="1">
+    <bps i="4381044765.76" o="10515411845.92"></bps>
+    <pps i="1649673.14" o="1237795.85"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.minn.net.internet2.edu" stat="1">
+    <bps i="10513664455.28" o="4360013654"></bps>
+    <pps i="1237697.65" o="1650647.86"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.eqch.net.internet2.edu" stat="1">
+    <bps i="4381044765.76" o="10515411845.92"></bps>
+    <pps i="1649673.14" o="1237795.85"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.minn.net.internet2.edu" stat="1">
+    <bps i="10513664455.28" o="4360013654"></bps>
+    <pps i="1237697.65" o="1650647.86"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.eqch.net.internet2.edu" stat="1">
+    <bps i="26760006014.32" o="24381193338.72"></bps>
+    <pps i="4054272.21" o="3958894.9"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.eqch.net.internet2.edu" stat="1">
+    <bps i="26760006014.32" o="24381193338.72"></bps>
+    <pps i="4054272.21" o="3958894.9"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.hart2.net.internet2.edu" stat="1">
+    <bps i="34035412877.12" o="8831514970.08"></bps>
+    <pps i="3747079.76" o="2154186.92"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.newy32aoa.net.internet2.edu" stat="1">
+    <bps i="8954125248.24" o="34288506479.36"></bps>
+    <pps i="2150440.61" o="3738342.81"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.hart2.net.internet2.edu" stat="1">
+    <bps i="34035412877.12" o="8831514970.08"></bps>
+    <pps i="3747079.76" o="2154186.92"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.newy32aoa.net.internet2.edu" stat="1">
+    <bps i="8954125248.24" o="34288506479.36"></bps>
+    <pps i="2150440.61" o="3738342.81"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="13567351161.92" o="20724550475.36"></bps>
+    <pps i="1511681.18" o="1620341.69"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet5/2" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="19285555779.36" o="9615854727.52"></bps>
+    <pps i="1473106.62" o="1186842.08"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="13567351161.92" o="20724550475.36"></bps>
+    <pps i="1511681.18" o="1620341.69"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet5/2" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="19285555779.36" o="9615854727.52"></bps>
+    <pps i="1473106.62" o="1186842.08"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet5/1" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="6956595543.12" o="4650889209.2"></bps>
+    <pps i="672659.47" o="632317.75"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet5/1" node_name="sdn-sw.houh.net.internet2.edu" stat="1">
+    <bps i="6956595543.12" o="4650889209.2"></bps>
+    <pps i="672659.47" o="632317.75"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="3776274.16" o="7767619.04"></bps>
+    <pps i="877.52" o="1270.56"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-8/0/0" node_name="sdn-sw.minn.net.internet2.edu" stat="1">
+    <bps i="7586456.72" o="3752960.4"></bps>
+    <pps i="1266.29" o="908.22"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="3776274.16" o="7767619.04"></bps>
+    <pps i="877.52" o="1270.56"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-8/0/0" node_name="sdn-sw.minn.net.internet2.edu" stat="1">
+    <bps i="7586456.72" o="3752960.4"></bps>
+    <pps i="1266.29" o="908.22"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet9/2" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="17180170891.84" o="19125468963.36"></bps>
+    <pps i="2139910.89" o="2360466.73"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet9/2" node_name="sdn-sw.kans.net.internet2.edu" stat="1">
+    <bps i="17180170891.84" o="19125468963.36"></bps>
+    <pps i="2139910.89" o="2360466.73"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.lasv.net.internet2.edu" stat="1">
+    <bps i="26425816251.84" o="11504496080.64"></bps>
+    <pps i="2653624.52" o="2166553.12"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="10787739469.12" o="26812482728.8"></bps>
+    <pps i="2171209.4" o="2665796.6"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.lasv.net.internet2.edu" stat="1">
+    <bps i="26425816251.84" o="11504496080.64"></bps>
+    <pps i="2653624.52" o="2166553.12"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="10787739469.12" o="26812482728.8"></bps>
+    <pps i="2171209.4" o="2665796.6"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="24582209943.36" o="10601490062.24"></bps>
+    <pps i="2455022.78" o="2011868.9"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.lasv.net.internet2.edu" stat="1">
+    <bps i="11051846258.4" o="24361989820.64"></bps>
+    <pps i="2008583.06" o="2456823.44"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="24582209943.36" o="10601490062.24"></bps>
+    <pps i="2455022.78" o="2011868.9"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.lasv.net.internet2.edu" stat="1">
+    <bps i="11051846258.4" o="24361989820.64"></bps>
+    <pps i="2008583.06" o="2456823.44"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.phoe.net.internet2.edu" stat="1">
+    <bps i="26448146372.48" o="11993835272.8"></bps>
+    <pps i="2237279.64" o="1518004.39"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="12205402833.44" o="25911486041.12"></bps>
+    <pps i="1521379.08" o="2236570.4"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.phoe.net.internet2.edu" stat="1">
+    <bps i="26448146372.48" o="11993835272.8"></bps>
+    <pps i="2237279.64" o="1518004.39"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="12205402833.44" o="25911486041.12"></bps>
+    <pps i="1521379.08" o="2236570.4"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="2075383375.44" o="3714058533.76"></bps>
+    <pps i="314773.84" o="123009.89"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet1/2" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="2075383375.44" o="3714058533.76"></bps>
+    <pps i="314773.84" o="123009.89"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/1" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="23221107665.12" o="2978220784.32"></bps>
+    <pps i="2354012.62" o="1274016.02"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/1" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
+    <bps i="23221107665.12" o="2978220784.32"></bps>
+    <pps i="2354012.62" o="1274016.02"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.minn.net.internet2.edu" stat="1">
+    <bps i="1602590835.36" o="907055675.84"></bps>
+    <pps i="211592.12" o="201797.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.miss2.net.internet2.edu" stat="1">
+    <bps i="891417672.16" o="1611355286.88"></bps>
+    <pps i="186109.44" o="197293.71"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.minn.net.internet2.edu" stat="1">
+    <bps i="1602590835.36" o="907055675.84"></bps>
+    <pps i="211592.12" o="201797.52"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.miss2.net.internet2.edu" stat="1">
+    <bps i="891417672.16" o="1611355286.88"></bps>
+    <pps i="186109.44" o="197293.71"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.miss2.net.internet2.edu" stat="1">
+    <bps i="2339133099.52" o="695689210.16"></bps>
+    <pps i="268126.06" o="206247.96"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.miss2.net.internet2.edu" stat="1">
+    <bps i="2339133099.52" o="695689210.16"></bps>
+    <pps i="268126.06" o="206247.96"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.newy32aoa.net.internet2.edu" stat="1">
+    <bps i="11271988663.12" o="8192114095.2"></bps>
+    <pps i="1387845.23" o="1561339.81"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.phil.net.internet2.edu" stat="1">
+    <bps i="8114236691.68" o="11172515740.8"></bps>
+    <pps i="1564708.76" o="1391375.8"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/1" node_name="sdn-sw.newy32aoa.net.internet2.edu" stat="1">
+    <bps i="11271988663.12" o="8192114095.2"></bps>
+    <pps i="1387845.23" o="1561339.81"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.phil.net.internet2.edu" stat="1">
+    <bps i="8114236691.68" o="11172515740.8"></bps>
+    <pps i="1564708.76" o="1391375.8"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.phil.net.internet2.edu" stat="1">
+    <bps i="25857128076.48" o="12153002417.12"></bps>
+    <pps i="2930469.88" o="2599387.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.phil.net.internet2.edu" stat="1">
+    <bps i="25857128076.48" o="12153002417.12"></bps>
+    <pps i="2930469.88" o="2599387.31"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.phoe.net.internet2.edu" stat="1">
+    <bps i="9396577768.24" o="17174728979.92"></bps>
+    <pps i="1083461.2" o="1285608.7"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.phoe.net.internet2.edu" stat="1">
+    <bps i="9396577768.24" o="17174728979.92"></bps>
+    <pps i="1083461.2" o="1285608.7"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.port.net.internet2.edu" stat="1">
+    <bps i="2070133073.44" o="4377914817.84"></bps>
+    <pps i="317595.25" o="134452.01"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.port.net.internet2.edu" stat="1">
+    <bps i="2070133073.44" o="4377914817.84"></bps>
+    <pps i="317595.25" o="134452.01"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.port.net.internet2.edu" stat="1">
+    <bps i="4855796919.52" o="2066114777.76"></bps>
+    <pps i="130677.51" o="317243.72"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.port.net.internet2.edu" stat="1">
+    <bps i="4855796919.52" o="2066114777.76"></bps>
+    <pps i="130677.51" o="317243.72"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-5/0/0" node_name="sdn-sw.rale.net.internet2.edu" stat="1">
+    <bps i="26474420492.16" o="12823290450.08"></bps>
+    <pps i="3338969.44" o="3051312.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-5/0/0" node_name="sdn-sw.rale.net.internet2.edu" stat="1">
+    <bps i="26474420492.16" o="12823290450.08"></bps>
+    <pps i="3338969.44" o="3051312.34"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="3937191633.44" o="1315844884.16"></bps>
+    <pps i="262234.57" o="144073.98"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.reno.net.internet2.edu" stat="1">
+    <bps i="1302355987.52" o="4121867427.68"></bps>
+    <pps i="143980.44" o="260059.22"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet3/2" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="3937191633.44" o="1315844884.16"></bps>
+    <pps i="262234.57" o="144073.98"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-7/0/0" node_name="sdn-sw.reno.net.internet2.edu" stat="1">
+    <bps i="1302355987.52" o="4121867427.68"></bps>
+    <pps i="143980.44" o="260059.22"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.reno.net.internet2.edu" stat="1">
+    <bps i="3227667313.28" o="146283668.96"></bps>
+    <pps i="84746.84" o="12843.44"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="et-4/0/0" node_name="sdn-sw.reno.net.internet2.edu" stat="1">
+    <bps i="3227667313.28" o="146283668.96"></bps>
+    <pps i="84746.84" o="12843.44"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="10163458544.32" o="6199601545.6"></bps>
+    <pps i="1363659.18" o="1255049.61"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet7/2" node_name="sdn-sw.salt.net.internet2.edu" stat="1">
+    <bps i="10163458544.32" o="6199601545.6"></bps>
+    <pps i="1363659.18" o="1255049.61"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+</opt>
