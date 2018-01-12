@@ -1,0 +1,26 @@
+{ "results": [
+{
+  "pops": [
+    {"name" : "London",         "lat":52,   "lon":1.89,  "real_lat": 40.7, "real_lon": -76 },
+    {"name" : "Washington DC",  "lat":38,   "lon":-77,   "real_lat": 40.7, "real_lon": -76 }
+  ],
+  "adjacencies" : [
+    {
+      "name": "WASH-LOND",
+      "path": [
+        {"lat":52, "lon":1.89},
+        {"lat":50,   "lon":-40},
+        {"lat":38,   "lon":-38},
+        {"lat":38,   "lon":-77}
+      ] ,
+      "circuits": [
+        {
+          "name": "WIX-LOND-WASH2-100GE-01530",
+          "endpoints": [{"pop_code": "WASH", "node_name": "sw.net.wix.internet2.edu", "interface_name": "ethernet11/1"}]
+        }
+      ]
+    }
+
+  ]
+}
+]}

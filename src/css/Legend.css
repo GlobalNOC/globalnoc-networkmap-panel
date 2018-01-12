@@ -1,0 +1,146 @@
+/*
+Copyright 2018 The Trustees of Indiana University
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+.atlas-legend.atlas-info-div, 
+.atlas-legend-descr {
+    font-family: -apple-system, Helvetica;
+    font-size: 11px;
+    position: absolute;
+    background-color: transparent;
+    padding: 0px;
+    border-radius: 0px;
+    border: 0px;
+}
+
+
+.atlas-legend.atlas-info-div:hover, 
+.atlas-legend-descr:hover {
+    cursor: default;
+}
+
+.atlas-legend.atlas-info-div.horizontal, 
+.atlas-legend.atlas-info-div.horizontal .item {
+    display: inline-block
+}
+
+.atlas-legend.atlas-info-div.vertical .item .color {
+    display: inline-block
+}
+
+.atlas-legend.atlas-info-div .item {
+    vertical-align: top;
+}
+
+/* item styles */
+/*
+.atlas-legend.atlas-info-div.horizontal .item {
+    padding: 1px 1px 0px 0px;
+}
+
+.atlas-legend.atlas-info-div.vertical .item {
+    padding: 1px 0px 0px 4px;
+}
+*/
+.atlas-legend.atlas-info-div.vertical .item:first-child {
+    padding-top: 4px;
+}
+
+
+/* color styles */
+.atlas-legend.atlas-info-div.horizontal .item .color {
+    /*border: solid 2px;*/
+    border-style: solid;
+    border-width: 2px 1px 2px 1px;
+}
+.atlas-legend.atlas-info-div.horizontal .item:first-child .color {
+    border-width: 2px 1px 2px 2px;
+
+}
+.atlas-legend.atlas-info-div.horizontal .item:last-child .color {
+    border-width: 2px 2px 2px 1px;
+}
+
+
+
+/* color styles */
+.atlas-legend.atlas-info-div.vertical .item .color {
+    /*border: solid 2px;*/
+    border-style: solid;
+    border-width: 1px 2px 1px 2px;
+}
+.atlas-legend.atlas-info-div.vertical .item:first-child .color {
+    border-width: 2px 2px 1px 2px; 
+
+}
+.atlas-legend.atlas-info-div.vertical .item:last-child .color {
+    border-width: 1px 2px 2px 2px;
+}
+
+/*.atlas-legend.atlas-info-div .item .color {*/
+
+
+
+.atlas-legend.atlas-info-div.horizontal .item .color {
+    height: 5px;
+    /*width: 40px;*/
+}
+
+.atlas-legend.atlas-info-div.vertical .item .color {
+    height: 13px;
+    /*width: 10px;*/
+}
+
+/* number styles */
+.atlas-legend.atlas-info-div.horizontal .numbers .scale-num {
+    display: inline;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.atlas-legend.atlas-info-div.horizontal .numbers .scale-num.zero {
+    text-align: left;
+}
+
+.atlas-legend.atlas-info-div.horizontal .numbers .scale-num.hundred {
+    text-align: right;
+}
+
+/* infodiv style */
+.atlas-legend-descr {
+    margin-top: 2px;
+    background-color: #fcfcfa;
+    display: inline-block;
+    max-width: 300px;
+    min-width: 100px;
+    min-height: 10px;
+    border-width: 1px;
+    border-style: solid;
+    /*border-radius: 8px;*/
+    border-color: #797874;
+    background: white;
+    padding: 1px 5px 1px 5px;
+    z-index: 99999;
+}
+.atlas-legend-descr.vertical {
+    margin-left: 4px;
+}
+.map-wrapper .legend-wrapper{
+    position: absolute;
+    bottom: 14px;
+    left: 0px;
+}
+

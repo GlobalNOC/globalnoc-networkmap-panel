@@ -1,0 +1,7 @@
+<opt timestamp="Tue Feb  9 18:56:32 UTC 2016">
+  <if-stat name="xe-8/0/3.855" node_name="rtr.losa.net.internet2.edu" stat="1">
+    <bps i="140211765.168161" o="864200569.898736"></bps>
+    <pps i="49389.5641594828" o="85735.9800359195"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+</opt>

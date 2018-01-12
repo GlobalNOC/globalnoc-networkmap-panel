@@ -1,0 +1,12 @@
+<opt timestamp="Wed Dec  2 17:45:15 UTC 2015">
+  <if-stat name="ethernet7/2" node_name="sw.net.manlan.internet2.edu" stat="1">
+    <bps i="2805156408" o="1129562184.8"></bps>
+    <pps i="284432.6" o="128961.1"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+  <if-stat name="ethernet13/1" node_name="sw.net.manlan.internet2.edu" stat="1">
+    <bps i="5027951013.12" o="3793988724.16"></bps>
+    <pps i="677535.5" o="609576.44"></pps>
+    <err i="0" o="0"></err>
+  </if-stat>
+</opt>

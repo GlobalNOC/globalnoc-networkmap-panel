@@ -1,0 +1,7 @@
+body {
+    background-image: url("atlas_logo_60o.png");
+    background-repeat: no-repeat;
+    background-origin: padding-box;
+    background-size: 100px;
+    background-position: right 10px top 60px;
+}

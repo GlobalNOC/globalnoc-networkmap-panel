@@ -1,0 +1,65 @@
+<html>
+    <meta charset="utf-8">
+    <head>
+        <link rel="stylesheet" type="text/css" href="../../css/atlas3_dialog.css">
+        <script src="../../js/atlas3_dialog.js"></script>
+    </head>
+    <script>
+
+
+        var count = 0;
+        var dialog = GlobalNOC.Atlas.Dialog();
+
+        function show(){
+            var position = document.getElementById('position').value;
+            var anchor   = document.getElementById('anchor').value;
+
+
+            var content = document.createElement('div');
+            content.innerHTML = 'Oh hi there! '+ count;
+            dialog.show({
+                content: content,
+                align: { 
+                    node: document.getElementById('rect'),
+                    position: position, 
+                    anchor: anchor
+                }
+            });
+            count++;
+        }
+    </script>
+    <h2>Dialog</h2>
+    <p>The dialog widget allows you to easily display a dialog for use in conjuction with a map widget.</p>
+    <div style="height: 200px; width: 800px;">
+        <div style="margin-bottom: 20px;">
+        <span>
+            <span>Position:</span>
+            <select id='position' style="margin-right: 10px;">
+              <option value="bl">Bottom Left</option>
+              <option value="tl">Top Left</option>
+              <option value="tr">Top Right</option>
+              <option value="br">Bottom Right</option>
+              <option value="lc">Left Center</option>
+              <option value="tc">Top Center</option>
+              <option value="rc">Right Center</option>
+              <option value="bc">Bottom Center</option>
+            </select>
+            <span>Anchor:</span>
+            <select id='anchor' style="margin-right: 10px;">
+              <option value="bl">Bottom Left</option>
+              <option value="tl">Top Left</option>
+              <option value="tr">Top Right</option>
+              <option value="br">Bottom Right</option>
+              <option value="lc">Left Center</option>
+              <option value="tc">Top Center</option>
+              <option value="rc">Right Center</option>
+              <option value="bc">Bottom Center</option>
+            </select>
+            <button onClick="show({align: { node: this, position: 'tl' }});">Show Dialog</button>
+        </span>
+        </div>
+        <div style="height: 300px; width: 800px; display: table-cell; vertical-align: middle;">
+            <div id="rect" style="margin: auto; width: 100px; height: 100px; border: solid 2px;"></div>
+        </div>
+    </div>
+</html>

@@ -1,0 +1,69 @@
+<html>
+    <meta charset="utf-8">
+    <head>
+     <link rel="stylesheet" type="text/css" href="../../css/atlas3_editormap.css">
+      <link rel="stylesheet" type="text/css" href="../../css/atlas3_dialog.css">
+      <script src="../../js/atlas3_editormap.js"></script>
+    </head>
+    <h2>EditorMap</h2>
+    <p>The editor tool allows users to edit and export new network models for use in various map widgets</p>
+    <div style="height: 400px; width: 800px;" id="map"></div>
+    <script>
+      var jsonData =
+        {
+          "pops": [
+            {"name" : "New York",       "lat":40.7, "lon":-73.9, "real_lat": 40.7, "real_lon": -76 },
+            {"name" : "Amsterdam",      "lat":52,   "lon":4.89,  "real_lat": 40.7, "real_lon": -76 },
+            {"name" : "London",         "lat":52,   "lon":1.89,  "real_lat": 40.7, "real_lon": -76 },
+            {"name" : "Paris",          "lat":48.8588377,   "lon":2.2775167,   "real_lat": 40.7, "real_lon": -76 }
+          ],
+
+          "adjacencies" : [
+            {
+              "name": "NY-PARIS", 
+              "path": [ 
+                {"lat":40.7, "lon":-73.9},
+                {"lat":52, "lon":-30},
+                {"lat":52, "lon":1.89}
+              ],
+              "circuits": [
+                {
+                  "name":      "ANA100 to Paris",
+                  "endpoints": [
+                    {"pop_code": "NY", "node_name": "sw.net.manlan.internet2.edu", "interface_name": "ethernet7/2"},
+                    {"pop_code": "PARIS", "node_name": "ps.net.manlan.internet2.edu", "interface_name": "ethernet7/2"}]
+
+                }
+              ] 
+            },
+            {
+              "name": "NY-AMS",
+              "path": [ 
+                {"lat":40.7, "lon":-73.9},
+                {"lat":35,   "lon":-30},
+                {"lat":50, "lon":6},
+                {"lat":52,   "lon":4.89}
+              ] ,
+              "circuits": [
+                {
+                  "name": "MAN-AMST-NEWY-100GE-01630",
+                  "endpoints": [
+                    {"pop_code": "NY", "node_name": "sw.net.manlan.internet2.edu", "interface_name": "ethernet13/1"},
+                    {"pop_code": "AMS", "node_name": "ams.net.manlan.internet2.edu", "interface_name": "ethernet13/1"}]
+                }
+              ]
+            }
+          ]
+        };
+        var map = GlobalNOC.Atlas.EditorMap({
+            containerId: 'map',
+            //mapSource: '../networks/manlan.json'
+            topology: jsonData
+        });
+
+      function undo(){
+      map.undo();
+      }
+    </script>
+    <p onclick='undo()'>Undo</p>
+</html>
