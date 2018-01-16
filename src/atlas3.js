@@ -172,7 +172,7 @@ export class Atlas3 extends MetricsPanelCtrl {
 			    max = value;
 			}
 			
-			if(bps === null){
+			if(bps === undefined){
 			    bps = value;
 			}
 		    }
