@@ -25,8 +25,6 @@ var bing             = require('leaflet-bing-layer');
 var plugins          = require('leaflet-plugins/layer/vector/KML');
 var TrafficLayer     = require('../map/TrafficLayer');
 var SingleTubeLayer  = require('../map/SingleTubeLayer');
-var InfoDiv          = require('../widget/InfoDiv.js');
-var Legend           = require('../widget/Legend.js');
 var LAYER_TYPES = require('../util/Enums.js').LAYER_TYPES;
 /**
 * An extension of the BaseMap that renders onto the Google Maps platform
