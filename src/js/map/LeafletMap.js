@@ -490,55 +490,7 @@ var LeafletMap = function(params) {
 
     map.onInit(function(){
             var container = d3.select("#" + map.containerId());
-            bg = container.select("svg");
-         /*   if(legend.show && legend.adjLoadLegend){
-                var legendContainer = d3.select(map.wrapper()).select('div')
-                    .append('div')
-                    .classed('legend-wrapper', true);
-                    
-                // align the legend
-                var align = legend.adjLoadLegend.horizontal ? {
-                    relative: true,
-                    node: legendContainer.node(),
-                    position: 'bl',
-                } : null;
-                if(!align) {
-                    console.error("Do not currently support anything other than horizontal legends");
-                    return; 
-                }
-
-                // generate legend colors
-                var items = [];
-                for(let i=1;i<51;i++){
-                    items.push({
-                        value: i*2,
-                        color: legend.legend_colors[i-1]
-                    });
-                }
-                
-                // determine legend width
-                var legend_width;
-                if(legend.adjLoadLegend.width){
-                    // check if % is passed in to compute % of map width
-                    if(legend.adjLoadLegend.width.constructor === String && legend.adjLoadLegend.width.match('%')){
-                        legend_width = Math.round(map.width() * (parseInt(legend.adjLoadLegend.width) / 100));
-                    } else {
-                        legend_width = parseInt(legend.adjLoadLegend.width); // width in pixels
-                    }
-                } else {
-                    legend_width = Math.round(map.width() * 0.7); // Default legend width 40% of map's width;
-                }
-                console.log(`Legend width: ${legend_width}`);
-                // instantiate the Legend
-                Legend({
-                    width: legend_width,
-                    //description: (this.mapType() === 'mini') ? 'Lines show the maximum directional flow of traffic, the arrow indicates direction, the color shows the percent of total capacity.' : 'Line color shows the percent of total capacity currently measured on the adjacency',
-                    items: items,
-                    align: align,
-                    orientation: legend.adjLoadLegend.horizontal ? 'horizontal' : null,
-                    numberLocations: legend.adjLoadLegend.numberLocations
-                });
-            } //endif */
+            bg = container.select("svg"); 
         });
 
     lmap.on("viewreset", function(d){
