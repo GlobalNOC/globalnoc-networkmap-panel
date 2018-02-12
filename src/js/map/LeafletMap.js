@@ -62,7 +62,9 @@ var LeafletMap = function(params) {
     params.mapType = 'leaflet';
     var map = BaseMap(params);
 
-    var zoom;
+    var zoom,lat,lng;
+    lat = params.lat;
+    lng = params.lng;
     if(params.zoom){
         zoom = params.zoom;
     }
@@ -80,18 +82,17 @@ var LeafletMap = function(params) {
 
     //initialize the google maps object
     var lmapOptions = {
-        center: {lat: params.lat, lng: params.lng},
+        center: {lat: lat, lng: lng},
         preferCanvas: false,
         mapTypeId: "hybrid",
         minZoom: 1,
         zoom: zoom,
         zoomAnimation: true,
         worldCopyJump: true,
-	scrollWheelZoom: false
+        scrollWheelZoom: false
     };
 
     var lmap = L.map(document.getElementById(params.containerId), lmapOptions);
-
     var bingApiKey = params.bing_api_key;
     var mapTileURL = params.map_tile_url;
     var tiles = L.tileLayer(mapTileURL,{ }).addTo(lmap);
@@ -192,8 +193,7 @@ var LeafletMap = function(params) {
     //define how to pan to a lat/lng coordinate on the map
     map.onPanTo(function(params){
         var latlng = params.latlng;
-        lmap.panTo(L.latLng(latlng[0], latlng[1]), {animate: false,
-                                                    duration: 0});
+        lmap.panTo(L.latLng(latlng[0], latlng[1]));
         });
 
     //define how to zoom the camera
@@ -483,8 +483,15 @@ var LeafletMap = function(params) {
   
     map.removeMap = function() {
         lmap.remove();
-    }; 
+    };
 
+    map.adjustZoom = function(zoom){
+        lmap.setZoom(zoom);
+    } 
+    
+    map.setCenter = function(lat,lng){
+        lmap.panTo(L.latLng(lat,lng));
+    }
 
     map.onInit(function(){
             var container = d3.select("#" + map.containerId());

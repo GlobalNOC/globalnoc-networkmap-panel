@@ -995,11 +995,12 @@ var BaseMap = function(config){
 
         if(legend.show && legend.adjLoadLegend){
             // check if legend already exists and remove it if it does
-            if(d3.select(".legend-wrapper")){
-                d3.select(".legend-wrapper").remove();
-            }
+            //if(d3.select("."+config.containerId)){
+            //    d3.select("."+config.containerId).remove();
+            //}
             let legendContainer = d3.select(map.wrapper()).select('div')
                 .append('div')
+                .classed(config.containerId, true)
                 .classed('legend-wrapper', true);
 
             // determine legend alignment 
@@ -1046,7 +1047,7 @@ var BaseMap = function(config){
             });
         }
         else{
-            d3.select(".legend-wrapper").remove();
+            d3.selectAll("."+config.containerId).remove();
         }
     }
     

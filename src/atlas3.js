@@ -304,11 +304,7 @@ export class Atlas3 extends MetricsPanelCtrl {
 
 	ctrl.events.on('render', function() {
         ctrl.display();
-        
-        //let show_legend = ctrl.getState();
-
-        //console.log(`Panel Legend: ${ctrl.panel.legend.show}`);
-        
+        console.log(`Panel Legend: ${ctrl.panel.legend.show}`);
         ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
         ctrl.panel.legend.adjLoadLegend = {
             horizontal: true,
@@ -318,14 +314,16 @@ export class Atlas3 extends MetricsPanelCtrl {
         if(ctrl.map_drawn == true){
             console.log(`Map existing: ${ctrl.map}`);
             ctrl.map.drawLegend();
-	    }
-        if(ctrl.map_drawn == true){
+            ctrl.map.adjustZoom(ctrl.panel.zoom);
+            ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
             return;
-        }
-	    if(!elem.find('container_map_' + ctrl.panel.id)){
+	    }
+	    if(!document.getElementById('container_map_' + ctrl.panel.id)){
+            console.log("Container not found");
+           // return;
 	    }
 	    
-        let map = new LeafletMap({ containerId: 'container_map_' + ctrl.panel.id,
+        let map = LeafletMap({ containerId: ctrl.containerDivId,
             bing_api_key: ctrl.panel.bing_api_key,
             map_tile_url: ctrl.panel.map_tile_url,
             lat: ctrl.panel.lat,
@@ -334,12 +332,12 @@ export class Atlas3 extends MetricsPanelCtrl {
             tooltip: ctrl.panel.tooltip,					
             legend: ctrl.panel.legend
         });
-	    ctrl.map = map;
+	    ctrl.map = map; 
+        ctrl.map_drawn = true;
         if(ctrl.panel.legend.show){
             ctrl.map.drawLegend();
         }
         // map.onUpdate(map);
-        ctrl.map_drawn = true;
 	    //ctrl.map.removeMap(); 
 	    if(ctrl.map === undefined){
 		    return;

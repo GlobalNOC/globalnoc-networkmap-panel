@@ -1,3 +1,3 @@
-<div id="mapid_{{ctrl.panel.id}}" class="mapcontainer worldview-map-container {{ctrl.saturationClass}}" ng-style="{height: ctrl.height}">
-  <div id="container_map_{{ctrl.panel.id}}" style="height: 100%; width:100%; z-index:0" ng-init="ctrl.render()" ></div>
+<div id="{{ctrl.map_holder_id}}" class="mapcontainer worldview-map-container {{ctrl.saturationClass}}" ng-style="{height: ctrl.height}">
+    <div id="{{ctrl.containerDivId}}" style="height: 100%; width:100%; z-index:0" ng-init="ctrl.render()" ></div>
 </div>
