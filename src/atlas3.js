@@ -73,6 +73,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     this.map_holder_id = 'map_' + this.panel.id;
     this.containerDivId = 'container_'+this.map_holder_id;
     this.map_drawn = false;
+    this.layer_ids = [];
     this.show_legend = true;
     this.custom_hover = new CustomHover(this.panel.tooltip.content);
     this.scale = new Scale(this.colorScheme);
@@ -266,16 +267,20 @@ export class Atlas3 extends MetricsPanelCtrl {
     
     
     addNewChoice() {
-	    var num = this.panel.choices.length + 1;
-	    this.panel.choices.push(num);
-	    this.panel.name.push('');
-	    this.panel.mapSrc.push('');
-	    this.panel.max.push('');
-	    this.panel.min.push('');
+        var num = this.panel.choices.length + 1;
+        this.panel.choices.push(num);
+        this.layer_ids.push('');
+        this.panel.name.push('');
+        this.panel.mapSrc.push('');
+        this.panel.max.push('');
+        this.panel.min.push('');
     }
     
     removeChoice(index) {
         this.panel.choices.splice(index,1);
+        const el = document.querySelector("#"+this.layer_ids[index]);
+        el.parentNode.removeChild(el);
+        this.layer_ids.splice(index,1);
         this.panel.name.splice(index,1);
         this.panel.mapSrc.splice(index,1);
         this.panel.max.splice(index,1);
@@ -289,8 +294,6 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     getState(){
-       // console.log(`From render() - Legend Toggle: ${this.panel.legend.show}`);
-        //this.legend.state.show = this.panel.legend.show;
         this.show_legend = this.panel.legend.show;
     }
    
@@ -299,9 +302,6 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     link(scope, elem, attrs, ctrl){
-
-    console.log(`${this.panel.legend.show}`);
-
 	ctrl.events.on('render', function() {
         ctrl.display();
         console.log(`Panel Legend: ${ctrl.panel.legend.show}`);
@@ -314,15 +314,52 @@ export class Atlas3 extends MetricsPanelCtrl {
         if(ctrl.map_drawn == true){
             console.log(`Map existing: ${ctrl.map}`);
             ctrl.map.drawLegend();
+            ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
+            // ctrl.map.setBingKey(ctrl.panel.bing_api_key);
             ctrl.map.adjustZoom(ctrl.panel.zoom);
             ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
+          
+            // Remove existing layers from DOM as well as map before adding new layers.
+
+            let all_layers = ctrl.layer_ids;
+            _.forEach(all_layers, function(layer){
+                if(layer!==''){
+                    let elem = document.querySelector("#"+layer);
+                    elem.parentNode.removeChild(elem);
+                    ctrl.map.removeLayers(layer);
+                }
+            });
+
+            ctrl.layer_ids = [];
+            for(let j=0; j<ctrl.panel.choices.length;j++){
+                if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined) {
+                    return;
+                }
+               
+                let networkLayer = ctrl.map.addNetworkLayer({
+                    name: ctrl.panel.name[j],
+                    max: ctrl.panel.max[j],
+                    min: ctrl.panel.min[j],
+                    linewidth: 3.7,
+                    mapSource: ctrl.panel.mapSrc[j]
+                });
+                if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
+                    ctrl.layer_ids.push(''); 
+                    continue; 
+                }
+                ctrl.layer_ids.push(networkLayer.layerId()); 
+                ctrl.panel.layers.push(networkLayer);
+                networkLayer.onInitComplete(function() {
+                    ctrl.process_data(recentData);
+                });
+            }
             return;
 	    }
+
 	    if(!document.getElementById('container_map_' + ctrl.panel.id)){
             console.log("Container not found");
-           // return;
 	    }
-	    
+	     
         let map = LeafletMap({ containerId: ctrl.containerDivId,
             bing_api_key: ctrl.panel.bing_api_key,
             map_tile_url: ctrl.panel.map_tile_url,
@@ -337,22 +374,22 @@ export class Atlas3 extends MetricsPanelCtrl {
         if(ctrl.panel.legend.show){
             ctrl.map.drawLegend();
         }
-        // map.onUpdate(map);
-	    //ctrl.map.removeMap(); 
+    
 	    if(ctrl.map === undefined){
 		    return;
 	    }
-	    for(var i=0; i < ctrl.panel.choices.length; i++){
+	    for(let i=0; i < ctrl.panel.choices.length; i++){
 		if(ctrl.panel.mapSrc[i] === null || ctrl.panel.mapSrc[i] === undefined){
 		    return;
 		}
-		var networkLayer = ctrl.map.addNetworkLayer({
+		let networkLayer = ctrl.map.addNetworkLayer({
 		    name: ctrl.panel.name[i],
 		    max: ctrl.panel.max[i],
 		    min: ctrl.panel.min[i],
 		    lineWidth: 3.7,
 		    mapSource: ctrl.panel.mapSrc[i]
         });
+        ctrl.layer_ids.push(networkLayer.layerId());
 		ctrl.panel.layers.push(networkLayer);		
 		networkLayer.onInitComplete(function(){
 		    ctrl.process_data(recentData);

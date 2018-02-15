@@ -684,8 +684,8 @@ var BaseMap = function(config){
         if(!onAddNetworkLayer){
             console.error("Must set onAddNetworkLayer function in extending map class!");
             return;
-        }
-        //modify arguements on layer
+        } 
+       //modify arguements on layer
         var network_layer = onAddNetworkLayer.apply(map, arguments);
 
         if(!_assertLayerIsType(network_layer, LAYER_TYPES.NETWORK)){

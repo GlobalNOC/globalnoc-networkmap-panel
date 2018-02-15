@@ -95,12 +95,20 @@ var LeafletMap = function(params) {
     var lmap = L.map(document.getElementById(params.containerId), lmapOptions);
     var bingApiKey = params.bing_api_key;
     var mapTileURL = params.map_tile_url;
-    var tiles = L.tileLayer(mapTileURL,{ }).addTo(lmap);
+    var tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }).addTo(lmap);
+    map.setMapUrl = function(map_tile_url){
+        tiles.setUrl(map_tile_url);
+        console.log(tiles);
+    }
     
-    var satTiles = L.tileLayer.bing({bingMapsKey: bingApiKey, imagerySet: "AerialWithLabels",  opacity: 0}).addTo(lmap);
+  //  var satTiles;
+  //  map.setBingKey = function(bingApiKey) {
+  //      satTiles = L.tileLayer.bing({bingMapsKey: bingApiKey, imagerySet: "AerialWithLabels", opacity: 0}).addTo(lmap);
+  //  }
+    //var satTiles = L.tileLayer.bing({bingMapsKey: bingApiKey, imagerySet: "AerialWithLabels",  opacity: 0}).addTo(lmap);
 
     //setup our svg layer to drawn on
-    svgLayer = L.svg();
+    var svgLayer = L.svg();
     svgLayer.addTo(lmap);
 
     //helper function to convert an altitude in meters to a google maps zoom level 
