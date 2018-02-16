@@ -8,13 +8,13 @@
         <input type="text" class="gf-form-input" ng-model="ctrl.panel.bing_api_key" ng-change="ctrl.render()"><br>
         
         <label class="gf-form-label width-10">Latitude:</label>
-        <input type="text" class="gf-form-input" ng-model="ctrl.panel.lat" ng-change="ctrl.render()"><br>
+        <input type="number" class="gf-form-input" ng-model="ctrl.panel.lat" ng-change="ctrl.render()"><br>
         
         <label class="gf-form-label width-10">Longitude:</label>
-        <input type="text" class="gf-form-input" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
+        <input type="number" class="gf-form-input" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
         
         <label class="gf-form-label width-5">Zoom:</label>
-        <input type="text" class="gf-form-input" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
+        <input type="number" min="0" class="gf-form-input" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
     </div>
 </div>
 
@@ -26,14 +26,14 @@
             <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.name[$index]">
     
             <label class="gf-form-label width-8">Map Source:</label>
-            <input type="text" class="gf-form-input width-16 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.mapSrc[$index]">
+            <input type="text" class="gf-form-input width-16 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.mapSrc[$index]">
     
             <label class="gf-form-label width-8">Max:</label>
-            <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.max[$index]">
+            <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.max[$index]">
     
             <label class="gf-form-label width-8">Min:</label>
-            <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.min[$index]">
-            
+            <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.min[$index]">
+
             <button class="btn btn-inverse gf-form-btn" ng-click="ctrl.removeChoice($index)">-</button>
         </div>
     </div>

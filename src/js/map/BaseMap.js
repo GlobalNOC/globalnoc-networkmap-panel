@@ -684,8 +684,8 @@ var BaseMap = function(config){
         if(!onAddNetworkLayer){
             console.error("Must set onAddNetworkLayer function in extending map class!");
             return;
-        }
-        //modify arguements on layer
+        } 
+       //modify arguements on layer
         var network_layer = onAddNetworkLayer.apply(map, arguments);
 
         if(!_assertLayerIsType(network_layer, LAYER_TYPES.NETWORK)){
@@ -988,6 +988,73 @@ var BaseMap = function(config){
         onInit = value;
         return map;
     };
+    
+
+    // helper function to draw legend
+    function _drawLegend() {
+
+        if(legend.show && legend.adjLoadLegend){
+            // check if legend already exists and remove it if it does
+            //if(d3.select("."+config.containerId)){
+            //    d3.select("."+config.containerId).remove();
+            //}
+            let legendContainer = d3.select(map.wrapper()).select('div')
+                .append('div')
+                .classed(config.containerId, true)
+                .classed('legend-wrapper', true);
+
+            // determine legend alignment 
+            let align = legend.adjLoadLegend.horizontal ? {
+                relative: true,
+                node: legendContainer.node(),
+                position: 'bl',      
+            } : 'null';
+            if(!align){
+                console.error('Do not currently support anything other than horizontal legends');
+                return;
+            }
+
+            //generate legend colors
+            let items = [];
+            for(let i = 0;i < 51; i++){
+                items.push({
+                    value: i*2,
+                    color: legend.legend_colors[i-1]
+                });
+            }
+
+            // determine legend width
+            let legend_width;
+            if(legend.adjLoadLegend.width){
+                // check if % is passed in and compute leged width to be % of map width
+                if(legend.adjLoadLegend.width.constructor === String && legend.adjLoadLegend.width.match('%')){
+                    legend_width = Math.round(map.width() * (parseInt(legend.adjLoadLegend.width) / 100));
+                } else {
+                    legend_width = parseInt(legend.adjLoadLegend.width); // width in pixels
+                }
+            } else {
+                legend_width = Math.round(map.width() * 0.4); // Default legend 40% of map's width
+            }
+
+            // Instantiate the Legend
+            Legend({
+                width: legend_width,
+                description: (map.mapType() === 'mini') ? 'Lines show the maximum directional flow of traffic, the arrow indicates direction, the color shows the percent of total capacity.' : 'Line color shows the percent of total capacity currently measured on the adjacency',
+                items: items,
+                align: align, 
+                orientation: legend.adjLoadLegend.horizontal ? 'horizontal' : null,
+                numberLocations: legend.adjLoadLegend.numberLocations
+            });
+        }
+        else{
+            d3.selectAll("."+config.containerId).remove();
+        }
+    }
+    
+    // Function to draw legend. 
+    map.drawLegend = function(){
+        _drawLegend();
+    }
 
     /**
      * Initializes the map
@@ -1055,64 +1122,8 @@ var BaseMap = function(config){
                 map.update();
             });
         }
-
-
-        //show the load legend if the parameter was passed in 
-        if(legend.show && legend.adjLoadLegend){
-            var legendContainer = d3.select(map.wrapper()).select('div')
-                .append('div')
-                .classed('legend-wrapper', true);
-
-            //figure out how to align the legend
-            var align = legend.adjLoadLegend.horizontal ? {
-                relative: true,
-                node: legendContainer.node(), 
-                position: 'bl',
-            } : null; 
-            if(!align){
-                console.error('Do not currently support anything other than horizontal legneds');
-                return;
-            }
-
-            //generate our color values
-            var items = [];
-            for(var i=1; i < 51; i++){
-                items.push({
-                    value: i*2, //(i === 0 || i === values.length - 1) ? values[i] + '%' : '',
-                    color: legend.legend_colors[i-1]
-                });
-            }
-    
-            //figure out how wide to make the legend
-            var legend_width;
-            if(legend.adjLoadLegend.width){ 
-                //if a percent was passed in compute the % of the map width
-                if(legend.adjLoadLegend.width.constructor === String && legend.adjLoadLegend.width.match('%')){
-                    legend_width = Math.round(map.width() * (parseInt(legend.adjLoadLegend.width) / 100));
-                }
-                //otherwise assume it's in pixels
-                else {
-                    legend_width = parseInt(legend.adjLoadLegend.width);
-                }
-            }
-            //otherwise default to 40% of the map width 
-            else {
-                legend_width = Math.round(map.width() * 0.4);
-            }
-
-            //instantiate the legend
-            Legend({
-                width: legend_width,
-                description: (this.mapType() === 'mini') ? 'Lines show the maximum directional flow of traffic, the arrow indicates direction, the color shows the percent of total capacity.'
-                 : 'Lines color show the percent of total capacity currently measured on the adjacency',
-                items: items,
-                align: align,
-                orientation: legend.adjLoadLegend.horizontal ? 'horizontal' : null,
-                numberLocations: legend.adjLoadLegend.numberLocations
-            });
-        }
-
-        return map;
+       // _drawLegend();
+       return map;
     });
 
     return map;

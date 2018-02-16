@@ -141,6 +141,7 @@ limitations under the License.
 .map-wrapper .legend-wrapper{
     position: absolute;
     bottom: 14px;
+    z-index: 400;
     left: 0px;
 }
 

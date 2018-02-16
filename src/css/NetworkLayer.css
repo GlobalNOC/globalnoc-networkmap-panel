@@ -66,3 +66,7 @@ div.adj-info > div:last-child {
 .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container {
     pointer-events: all !important;
 }
+
+.leaflet-top {
+    z-index: 400 !important;
+}
