@@ -139,7 +139,7 @@ export class Atlas3 extends MetricsPanelCtrl {
 		_.forEach(links, function(l){
 		    _.forEach(l.endpoints, function(ep){
 			var str = l.name + " " + ep;
-			if(data.target == str){
+			if(data.target == ep){
 			    target_links.push({link: l, endpoint: ep, full: str});
 			}
 		    });
