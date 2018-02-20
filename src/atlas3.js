@@ -67,59 +67,58 @@ var tempArray=[];
 
 export class Atlas3 extends MetricsPanelCtrl {
     constructor($scope, $injector) {
-	super($scope, $injector);
+        super($scope, $injector);
 	
-	_.defaults(this.panel, panelDefaults);
-    this.map_holder_id = 'map_' + this.panel.id;
-    this.containerDivId = 'container_'+this.map_holder_id;
-    this.map_drawn = false;
-    this.layer_ids = [];
-    this.show_legend = true;
-    this.custom_hover = new CustomHover(this.panel.tooltip.content);
-    this.scale = new Scale(this.colorScheme);
-    this.colorSchemes=this.scale.getColorSchemes();
-    this.events.on('data-received', this.onDataReceived.bind(this));
-    this.events.on('data-error', this.onDataError.bind(this));
-    this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
-    this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
-    this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
-    //this.events.on('panel-initialized', () => {
-   // });
+        _.defaults(this.panel, panelDefaults);
+        this.map_holder_id = 'map_' + this.panel.id;
+        this.containerDivId = 'container_'+this.map_holder_id;
+        this.map_drawn = false; 
+        this.layer_ids = [];
+        this.show_legend = true;
+        this.custom_hover = new CustomHover(this.panel.tooltip.content);
+        this.scale = new Scale(this.colorScheme);
+        this.colorSchemes=this.scale.getColorSchemes();
+        this.events.on('data-received', this.onDataReceived.bind(this));
+        this.events.on('data-error', this.onDataError.bind(this));
+        this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
+        this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
+        this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
+        //this.events.on('panel-initialized', () => {
+        // });
     }
     
     
     onDataReceived(dataList) {
-    if(!this.map_drawn){
-        recentData = dataList;
-        this.render();
-        this.map_drawn = true;
-    }
+        if(!this.map_drawn){
+            recentData = dataList;
+            this.render();
+            this.map_drawn = true;
+        }
 
-    recentData = dataList;
-    this.process_data(dataList);
+        recentData = dataList;
+        this.process_data(dataList);
     }
     
     process_data(dataList){
-
-    var self = this;
+        var self = this;
 	
-	//update with the data!
-	_.forEach(dataList, function(data){
-	    _.forEach(self.panel.layers, function(layer){
-		//find the link associated with this data
+        //update with the data!
+        _.forEach(dataList, function(data){
+            _.forEach(self.panel.layers, function(layer){
+                //find the link associated with this data
 
-		if(typeof layer.active !== "function"){
-		    return;
-		}
+                if(typeof layer.active !== "function"){
+                    return;
+                }
 		
-		if(layer.topology() === undefined){
-		    return;
-		}
+                if(layer.topology() === undefined){
+                    return;
+                }
 		
-		var links = layer.topology().links();
+                var links = layer.topology().links();
 
-		var target;
-		var dir;
+                var target;
+                var dir;
 
 		
 
@@ -134,108 +133,108 @@ export class Atlas3 extends MetricsPanelCtrl {
 		}
 */
 		
-		//var links = layer.topology().links({linkNames: [target]});
-		var target_links = [];
-		_.forEach(links, function(l){
-		    _.forEach(l.endpoints, function(ep){
-			var str = l.name + " " + ep;
-			if(data.target == str){
-			    target_links.push({link: l, endpoint: ep, full: str});
-			}
-		    });
-		});
+            //var links = layer.topology().links({linkNames: [target]});
+                var target_links = [];
+                    _.forEach(links, function(l){
+                        _.forEach(l.endpoints, function(ep){
+                            var str =  ep;
+                            if(data.target == str){
+                                target_links.push({link: l, endpoint: ep, full: str});
+			                }
+		                });
+		            });
 
-		var bps;
+                var bps;
 
-		var min;
-		var max;
-		var avg = 0;
-		var total = 0;
-		var interval;
+                var min;
+                var max;
+                var sum = 0;
+                var count = 0;
+                var interval;
 
-		//find the last valid value
-		//find the min
-		//find the max
-		//find the average
-		//find the total datapoints
-		for (var i = (data.datapoints.length - 1); i >= 0; i--){
-		    var value = data.datapoints[i][0];
-		    if(value !== undefined && value !== null){
-			avg += value;
-			total += 1;
-			if(min === undefined){
-			    min = value;
-			    max = value;
-			}
-			if(value < min){
-			    min = value;
-			}
-			if(value > max){
-			    max = value;
-			}
+                //find the last valid value
+                //find the min
+                //find the max
+                //find the average
+                //find the total datapoints
+                for (var i = (data.datapoints.length - 1); i >= 0; i--){
+                    var value = data.datapoints[i][0];
+                    if(value !== undefined && value !== null){
+                        sum += value;
+                        count += 1;
+                        if(min === undefined){
+                            min = value;
+                            max = value;
+                        }
+                        if(value < min){
+                            min = value;
+                        }
+                        if(value > max){
+                            max = value;
+                        }
 			
-			if(bps === undefined){
-			    bps = value;
-			}
-		    }
-		}
+                        if(bps === undefined){
+                            bps = value;
+                        }
+                    }
+                }
 
-		if(total > 1){
-		    var start = data.datapoints[0][1];
-		    var end = data.datapoints[1][1];
-		    interval = start - end;
-		}
+                if(total > 1){
+                    var start = data.datapoints[0][1];
+                    var end = data.datapoints[1][1];
+                    interval = start - end;
+                }
 		
-		_.forEach(target_links, function(obj){
-		    var layer_max = layer.max();
-		    var layer_min = layer.min();
+                _.forEach(target_links, function(obj){
+                    var layer_max = layer.max();
+                    var layer_min = layer.min();
 
-		    var l = obj.link
+                    var l = obj.link
+                    l.count = count;
+                    var color_value = ((bps - layer_min) / (layer_max-layer_min)) * 100;
 
-		    var color_value = ((bps - layer_min) / (layer_max-layer_min)) * 100;
-
-		    var lineColor =self.scale.getColor(color_value);//,this.panel.values);
+                    var lineColor =self.scale.getColor(color_value);//,this.panel.values);
 		    
-		    l.lineColor = lineColor;
+                    l.lineColor = lineColor;
 		    
-		    //check for AZ or ZA based on the endpoint the data was found at!
-		    if(l.endpoints[0] == obj.endpoint){
-			l.az.cur = color_value;
-			l.azLineColor = lineColor;
-			l.az.max = self.toSI(max);
-			l.az.min = self.toSI(min);
-			l.az.avg = self.toSI(avg / total);
-			l.arrow = 1;
-		    }else{
-			l.za.cur = color_value;
-			l.zaLineColor = lineColor;
-			l.za.max = self.toSI(max);
-			l.za.min = self.toSI(min);
-			l.za.avg = self.toSI(avg / total);
-			l.arrow = 2;
-		    }
+                    //check for AZ or ZA based on the endpoint the data was found at!
+                    if(l.endpoints[0] == obj.endpoint){
+                        l.az.cur = color_value;
+                        l.azLineColor = lineColor;
+                        l.az.max = self.toSI(max);
+                        l.az.min = self.toSI(min);
+                        l.az.sum = self.toSI(sum);
+                        l.az.avg = self.toSI(sum / count);
+                        l.arrow = 1;
+                    } else{
+                        l.za.cur = color_value;
+                        l.zaLineColor = lineColor;
+                        l.za.max = self.toSI(max);
+                        l.za.min = self.toSI(min);
+                        l.za.sum = self.toSI(sum);
+                        l.za.avg = self.toSI(sum / total);
+                        l.arrow = 2;
+                    }
 		    
-		    if(l.az.cur != null && l.za.cur != null){
-			if(l.az.cur > l.za.cur){
-			    l.lineColor = l.azLineColor;
-			    l.arrow = 1;
-			}else{
-			    l.lineColor = l.zaLineColor;
-			    l.arrow = 2;
-			}
-		    }
-		   
-		});	
-	    });
-	});
+                    if(l.az.cur != null && l.za.cur != null){
+                        if(l.az.cur > l.za.cur){
+                            l.lineColor = l.azLineColor;
+                            l.arrow = 1;
+                        } else{
+                            l.lineColor = l.zaLineColor;
+                            l.arrow = 2;
+                        }
+                    }
+                });	
+            });
+        });
 	
-	_.forEach(this.panel.layers, function(layer){
-	    if(typeof layer.active !== "function"){
-		    return;
-	    }
-	    layer.update();
-	});
-	
+        _.forEach(this.panel.layers, function(layer){
+            if(typeof layer.active !== "function"){
+                return;
+            }
+            layer.update();
+        });
     }
 
     toSI(num){
@@ -244,25 +243,24 @@ export class Atlas3 extends MetricsPanelCtrl {
         }
         if(this.panel.to_si <= 0){ 
             num = num / panelDefaults.to_si;
-        }
-        else{
+        } else{
             num = num / this.panel.to_si;
         }
         return num.toFixed(2);
     }
     
     onDataError(err) {
-	    this.dataRaw = [];
+        this.dataRaw = [];
     }
     
     onInitEditMode() {
-	    this.addEditorTab('Options', 'public/plugins/worldview/editor.html', 2);
-	    this.addEditorTab('Display', 'public/plugins/worldview/display_editor.html', 3);
-	    tempArray=this.scale.displayColor(this.panel.colorScheme);
+        this.addEditorTab('Options', 'public/plugins/worldview/editor.html', 2);
+        this.addEditorTab('Display', 'public/plugins/worldview/display_editor.html', 3);
+        tempArray=this.scale.displayColor(this.panel.colorScheme);
     }  
    
     onInitPanelActions(actions) {
-	    this.render();
+         this.render();
     }
     
     
@@ -278,7 +276,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     
     removeChoice(index) {
         this.panel.choices.splice(index,1);
-        const el = document.querySelector("#"+this.layer_ids[index]);
+        const el = document.querySelector("."+this.containerDivId+".single-tube");
         el.parentNode.removeChild(el);
         this.layer_ids.splice(index,1);
         this.panel.name.splice(index,1);
@@ -302,103 +300,102 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     link(scope, elem, attrs, ctrl){
-	ctrl.events.on('render', function() {
-        ctrl.display();
-        console.log(`Panel Legend: ${ctrl.panel.legend.show}`);
-        ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
-        ctrl.panel.legend.adjLoadLegend = {
-            horizontal: true,
-        }
-        let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
-        ctrl.panel.tooltip.content = html_content;
-        if(ctrl.map_drawn == true){
-            console.log(`Map existing: ${ctrl.map}`);
-            ctrl.map.drawLegend();
-            ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
-            // ctrl.map.setBingKey(ctrl.panel.bing_api_key);
-            ctrl.map.adjustZoom(ctrl.panel.zoom);
-            ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
+        ctrl.events.on('render', function() {
+            ctrl.display();
+            console.log(`Panel Legend: ${ctrl.panel.legend.show}`);
+            ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+            ctrl.panel.legend.adjLoadLegend = {
+                horizontal: true,
+            }
+            let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
+            ctrl.panel.tooltip.content = html_content;
+            if(ctrl.map_drawn == true){
+                console.log(`Map existing: ${ctrl.map}`);
+                ctrl.map.drawLegend();
+                ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
+                // ctrl.map.setBingKey(ctrl.panel.bing_api_key);
+                ctrl.map.adjustZoom(ctrl.panel.zoom);
+                ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
           
-            // Remove existing layers from DOM as well as map before adding new layers.
+                // Remove existing layers from DOM as well as map before adding new layers.
 
-            let all_layers = ctrl.layer_ids;
-            _.forEach(all_layers, function(layer){
-                if(layer!==''){
-                    let elem = document.querySelector("#"+layer);
-                    elem.parentNode.removeChild(elem);
-                    ctrl.map.removeLayers(layer);
+                let all_layers = ctrl.layer_ids;
+                _.forEach(all_layers, function(layer){
+                    if(layer!==''){
+                        let elem = document.querySelector("."+ctrl.containerDivId+".single-tube");
+                        elem.parentNode.removeChild(elem);
+                        ctrl.map.removeLayers(layer);
+                    }
+                });
+
+                ctrl.layer_ids = [];
+                ctrl.panel.layers = [];
+                for(let j=0; j<ctrl.panel.choices.length;j++){
+                    if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined) {
+                        return;
+                    }
+               
+                    let networkLayer = ctrl.map.addNetworkLayer({
+                        name: ctrl.panel.name[j],
+                        max: ctrl.panel.max[j],
+                        min: ctrl.panel.min[j],
+                        linewidth: 3.7,
+                        mapSource: ctrl.panel.mapSrc[j]
+                    });
+                    if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
+                        ctrl.layer_ids.push(''); 
+                        continue; 
+                    }
+                    ctrl.layer_ids.push(networkLayer.layerId()); 
+                    ctrl.panel.layers.push(networkLayer);
+                    networkLayer.onInitComplete(function() {
+                        ctrl.process_data(recentData);
+                    });
                 }
-            });
+                return;
+            }
 
-            ctrl.layer_ids = [];
-            for(let j=0; j<ctrl.panel.choices.length;j++){
-                if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined) {
+            if(!document.getElementById('container_map_' + ctrl.panel.id)){
+                console.log("Container not found");
+            }
+	     
+            let map = LeafletMap({ containerId: ctrl.containerDivId,
+                bing_api_key: ctrl.panel.bing_api_key,
+                map_tile_url: ctrl.panel.map_tile_url,
+                lat: ctrl.panel.lat,
+                lng: ctrl.panel.lng,
+                zoom: ctrl.panel.zoom,
+                tooltip: ctrl.panel.tooltip,					
+                legend: ctrl.panel.legend
+            });
+            ctrl.map = map; 
+            ctrl.map_drawn = true;
+            if(ctrl.panel.legend.show){
+                ctrl.map.drawLegend();
+            }
+    
+            if(ctrl.map === undefined){
+                return;
+            }
+            for(let i=0; i < ctrl.panel.choices.length; i++){
+                if(ctrl.panel.mapSrc[i] === null || ctrl.panel.mapSrc[i] === undefined){
                     return;
                 }
-               
                 let networkLayer = ctrl.map.addNetworkLayer({
-                    name: ctrl.panel.name[j],
-                    max: ctrl.panel.max[j],
-                    min: ctrl.panel.min[j],
-                    linewidth: 3.7,
-                    mapSource: ctrl.panel.mapSrc[j]
+                    name: ctrl.panel.name[i],
+                    max: ctrl.panel.max[i],
+                    min: ctrl.panel.min[i],
+                    lineWidth: 3.7,
+                    mapSource: ctrl.panel.mapSrc[i]
                 });
-                if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
-                    ctrl.layer_ids.push(''); 
-                    continue; 
-                }
-                ctrl.layer_ids.push(networkLayer.layerId()); 
-                ctrl.panel.layers.push(networkLayer);
-                networkLayer.onInitComplete(function() {
+                ctrl.layer_ids.push(networkLayer.layerId());
+                ctrl.panel.layers.push(networkLayer);		
+                networkLayer.onInitComplete(function(){
                     ctrl.process_data(recentData);
                 });
             }
-            return;
-	    }
-
-	    if(!document.getElementById('container_map_' + ctrl.panel.id)){
-            console.log("Container not found");
-	    }
-	     
-        let map = LeafletMap({ containerId: ctrl.containerDivId,
-            bing_api_key: ctrl.panel.bing_api_key,
-            map_tile_url: ctrl.panel.map_tile_url,
-            lat: ctrl.panel.lat,
-            lng: ctrl.panel.lng,
-            zoom: ctrl.panel.zoom,
-            tooltip: ctrl.panel.tooltip,					
-            legend: ctrl.panel.legend
         });
-	    ctrl.map = map; 
-        ctrl.map_drawn = true;
-        if(ctrl.panel.legend.show){
-            ctrl.map.drawLegend();
-        }
-    
-	    if(ctrl.map === undefined){
-		    return;
-	    }
-	    for(let i=0; i < ctrl.panel.choices.length; i++){
-		if(ctrl.panel.mapSrc[i] === null || ctrl.panel.mapSrc[i] === undefined){
-		    return;
-		}
-		let networkLayer = ctrl.map.addNetworkLayer({
-		    name: ctrl.panel.name[i],
-		    max: ctrl.panel.max[i],
-		    min: ctrl.panel.min[i],
-		    lineWidth: 3.7,
-		    mapSource: ctrl.panel.mapSrc[i]
-        });
-        ctrl.layer_ids.push(networkLayer.layerId());
-		ctrl.panel.layers.push(networkLayer);		
-		networkLayer.onInitComplete(function(){
-		    ctrl.process_data(recentData);
-		});
-	    }
-	});
-	
     }
-    
 }
 
 Atlas3.templateUrl = 'module.html';
