@@ -179,7 +179,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     }
                 }
 
-                if(total > 1){
+                if(count > 1){
                     var start = data.datapoints[0][1];
                     var end = data.datapoints[1][1];
                     interval = start - end;
@@ -212,7 +212,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.za.max = self.toSI(max);
                         l.za.min = self.toSI(min);
                         l.za.sum = self.toSI(sum);
-                        l.za.avg = self.toSI(sum / total);
+                        l.za.avg = self.toSI(sum / count);
                         l.arrow = 2;
                     }
 		    
