@@ -62,7 +62,8 @@ var SingleTubeLayer = function(params){
     //add an id and class to the layer
     var svg = params.svg;
     svg.attr('id', layer.layerId());
-    svg.attr('class', 'single-tube');
+    svg.classed(params.map.containerId(), true);
+    svg.classed('single-tube', true);
 
     //define how to toggle the layer
     layer.onToggle(function(active){

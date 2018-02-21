@@ -995,9 +995,9 @@ var BaseMap = function(config){
 
         if(legend.show && legend.adjLoadLegend){
             // check if legend already exists and remove it if it does
-            //if(d3.select("."+config.containerId)){
-            //    d3.select("."+config.containerId).remove();
-            //}
+            if(d3.select("."+config.containerId)){
+               d3.select("."+config.containerId+".legend-wrapper").remove();
+            }
             let legendContainer = d3.select(map.wrapper()).select('div')
                 .append('div')
                 .classed(config.containerId, true)
@@ -1047,7 +1047,7 @@ var BaseMap = function(config){
             });
         }
         else{
-            d3.selectAll("."+config.containerId).remove();
+            d3.selectAll("."+config.containerId+".legend-wrapper").remove();
         }
     }
     

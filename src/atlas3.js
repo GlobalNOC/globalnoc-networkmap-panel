@@ -17,6 +17,7 @@ limitations under the License.
 
 import './css/atlas3_leafletmap.css!';
 import _ from 'lodash';
+import $ from 'jquery';
 import {MetricsPanelCtrl} from 'app/plugins/sdk';
 import LeafletMap from './js/atlas3_leafletmap.js';
 import {Scale} from './scale';
@@ -28,7 +29,6 @@ const panelDefaults = {
     data: [],
     lat: 33,
     lng: -80,
-    scale: 1,
     zoom: 3,
     choices: [],
     name: [],
@@ -58,8 +58,7 @@ const panelDefaults = {
     colorScheme : 'interpolateRdYlGn',
     rgb_values:[],
     hex_values:[],
-    colorModes : ['opacity','spectrum'],
-    custom_hover: ' '
+    colorModes : ['opacity','spectrum']
 };
 
 var recentData;
@@ -67,9 +66,9 @@ var tempArray=[];
 
 export class Atlas3 extends MetricsPanelCtrl {
     constructor($scope, $injector) {
-        super($scope, $injector);
-	
+        super($scope, $injector);	
         _.defaults(this.panel, panelDefaults);
+        this.panel.title = "GlobalNoc Network-map";
         this.map_holder_id = 'map_' + this.panel.id;
         this.containerDivId = 'container_'+this.map_holder_id;
         this.map_drawn = false; 
@@ -83,10 +82,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
         this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
         this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
-        //this.events.on('panel-initialized', () => {
-        // });
     }
-    
     
     onDataReceived(dataList) {
         if(!this.map_drawn){
@@ -276,8 +272,9 @@ export class Atlas3 extends MetricsPanelCtrl {
     
     removeChoice(index) {
         this.panel.choices.splice(index,1);
-        const el = document.querySelector("."+this.containerDivId+".single-tube");
-        el.parentNode.removeChild(el);
+        if(this.layer_ids[index]){
+           $("#"+this.layer_ids[index]).remove();
+        }
         this.layer_ids.splice(index,1);
         this.panel.name.splice(index,1);
         this.panel.mapSrc.splice(index,1);
@@ -322,8 +319,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                 let all_layers = ctrl.layer_ids;
                 _.forEach(all_layers, function(layer){
                     if(layer!==''){
-                        let elem = document.querySelector("."+ctrl.containerDivId+".single-tube");
-                        elem.parentNode.removeChild(elem);
+                        $("#"+layer).remove();
                         ctrl.map.removeLayers(layer);
                     }
                 });
