@@ -53,6 +53,10 @@ const panelDefaults = {
         showDefault: true,
         content: ' '
     },
+    line: {
+        criteria: ['Minimum', 'Maximum', 'Average','Current'],
+        selected: 'Current'
+    },
     to_si: 1000000000,
     scales: ['linear', 'sqrt'],
     colorScheme : 'interpolateRdYlGn',
@@ -146,6 +150,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                 var max;
                 var sum = 0;
                 var count = 0;
+                var avg;
                 var interval;
 
                 //find the last valid value
@@ -187,8 +192,18 @@ export class Atlas3 extends MetricsPanelCtrl {
 
                     var l = obj.link
                     l.count = count;
-                    var color_value = ((bps - layer_min) / (layer_max-layer_min)) * 100;
-
+                    avg = sum/count;
+                    var color_value;
+                    let color_criteria = self.panel.line.selected;
+                    if(color_criteria === "Average") {
+                        color_value = ((avg - layer_min) / (layer_max-layer_min)) * 100;
+                    } else if(color_criteria === "Minimum") {
+                        color_value = ((min - layer_min) / (layer_max-layer_min)) * 100;
+                    } else if(color_criteria === "Maximum") {
+                        color_value = ((max - layer_min) / (layer_max-layer_min)) * 100;
+                    } else {
+                        color_value = ((bps - layer_min) / (layer_max-layer_min)) * 100;
+                    }
                     var lineColor =self.scale.getColor(color_value);//,this.panel.values);
 		    
                     l.lineColor = lineColor;
@@ -200,7 +215,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.az.max = self.toSI(max);
                         l.az.min = self.toSI(min);
                         l.az.sum = self.toSI(sum);
-                        l.az.avg = self.toSI(sum / count);
+                        l.az.avg = self.toSI(avg);
                         l.arrow = 1;
                     } else{
                         l.za.cur = color_value;
@@ -253,7 +268,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.addEditorTab('Options', 'public/plugins/worldview/editor.html', 2);
         this.addEditorTab('Display', 'public/plugins/worldview/display_editor.html', 3);
         tempArray=this.scale.displayColor(this.panel.colorScheme);
-    }  
+    } 
    
     onInitPanelActions(actions) {
          this.render();

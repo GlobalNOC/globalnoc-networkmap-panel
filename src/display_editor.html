@@ -58,6 +58,14 @@
     </div>
 
     <div class="section gf-form-group">
+        <h5 class="section-heading">Line Color</h5>
+        <div class="gf-form-select-wrapper width-8">
+            <select class="input-small gf-form-input" ng-model="ctrl.panel.line.selected" ng-options="s for s in ctrl.panel.line.criteria" ng-change="ctrl.render()" >
+            </select>
+        </div>   
+    </div>
+
+    <div class="section gf-form-group">
         <h5 class="section-heading">Tooltip</h5>
         <gf-form-switch class="gf-form" label-class="width-8"
             label="Show tooltip"
