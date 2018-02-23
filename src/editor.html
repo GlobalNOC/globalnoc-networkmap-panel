@@ -1,20 +1,21 @@
 <div class="section gf-form-group">
     <h5 class="section-heading">Map Options</h5> 
     <div class="gf-form"> 
-        <label class="gf-form-label width-8">Map URL:</label>
-        <input type="text" class="gf-form-input" ng-model="ctrl.panel.map_tile_url" ng-change="ctrl.render()"><br>
+        <label class="gf-form-label width-8">Map URL</label>
+        <input type="text" class="gf-form-input width-16" ng-model="ctrl.panel.map_tile_url" ng-change="ctrl.render()"><br>
         
-        <label class="gf-form-label width-8">Bing API Key:</label>
-        <input type="text" class="gf-form-input" ng-model="ctrl.panel.bing_api_key" ng-change="ctrl.render()"><br>
+        <label class="gf-form-label width-8">Latitude</label>
+        <input type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lat" ng-change="ctrl.render()"><br>
         
-        <label class="gf-form-label width-10">Latitude:</label>
-        <input type="number" class="gf-form-input" ng-model="ctrl.panel.lat" ng-change="ctrl.render()"><br>
+        <label class="gf-form-label width-8">Longitude</label>
+        <input type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
         
-        <label class="gf-form-label width-10">Longitude:</label>
-        <input type="number" class="gf-form-input" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
-        
-        <label class="gf-form-label width-5">Zoom:</label>
-        <input type="number" min="0" class="gf-form-input" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
+        <label class="gf-form-label width-5">Zoom</label>
+        <input type="number" min="0" class="gf-form-input width-4" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
+        <gf-form-switch class="gf-form" label-class="width-14" 
+            label="Hide Layers with no values"
+            checked="ctrl.panel.hide_layers" on-change="ctrl.render()">
+        </gf-form-switch>
     </div>
 </div>
 
@@ -22,16 +23,16 @@
     <h5 class="section-heading">Layers</h5>
     <div ng-repeat="x in ctrl.panel.choices track by $index">
         <div class="gf-form">
-            <label class="gf-form-label width-8">Name:</label>
+            <label class="gf-form-label width-8">Name</label>
             <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.name[$index]">
     
-            <label class="gf-form-label width-8">Map Source:</label>
+            <label class="gf-form-label width-8">Map Source</label>
             <input type="text" class="gf-form-input width-16 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.mapSrc[$index]">
     
-            <label class="gf-form-label width-8">Max:</label>
+            <label class="gf-form-label width-8">Max</label>
             <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.max[$index]">
     
-            <label class="gf-form-label width-8">Min:</label>
+            <label class="gf-form-label width-8">Min</label>
             <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.min[$index]">
 
             <button class="btn btn-inverse gf-form-btn" ng-click="ctrl.removeChoice($index)">-</button>

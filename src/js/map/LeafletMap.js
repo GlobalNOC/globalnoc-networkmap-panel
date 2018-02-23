@@ -500,10 +500,13 @@ var LeafletMap = function(params) {
     map.setCenter = function(lat,lng){
         lmap.panTo(L.latLng(lat,lng));
     }
-
+   
+    // svg element to hold layers
+    var bg;
     map.onInit(function(){
             var container = d3.select("#" + map.containerId());
-            bg = container.select("svg"); 
+            bg = container.select("svg");
+            bg.classed(map.containerId(), true);
         });
 
     lmap.on("viewreset", function(d){
