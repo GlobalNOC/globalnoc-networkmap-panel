@@ -36,6 +36,7 @@ const panelDefaults = {
     max: [],
     min: [],
     layers: [],
+    hide_layers: false,
     color: {
         mode: 'spectrum',
         cardColor: '#b4ff00',
@@ -101,7 +102,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     
     process_data(dataList){
         var self = this;
-	
+	    var data_targets = dataList.map(target => target.target);
         //update with the data!
         _.forEach(dataList, function(data){
             _.forEach(self.panel.layers, function(layer){
@@ -116,7 +117,17 @@ export class Atlas3 extends MetricsPanelCtrl {
                 }
 		
                 var links = layer.topology().links();
-
+                
+                // Hide layers without data
+                if(self.panel.hide_layers){
+                    _.forEach(links, function(l){
+                        _.forEach(l.endpoints, function(ep){
+                            if(!data_targets.includes(ep)){       
+                                layer.toggle(false);
+                            }
+                        }); 
+                    }); 
+                }
                 var target;
                 var dir;
 
