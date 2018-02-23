@@ -25,7 +25,6 @@ import {CustomHover} from './CustomHover';
 
 const panelDefaults = {
     map_tile_url: "http://api.tiles.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}.png?access_token=",
-    bing_api_key: "bing api key",
     data: [],
     lat: 33,
     lng: -80,
@@ -55,7 +54,7 @@ const panelDefaults = {
         content: ' '
     },
     line: {
-        criteria: ['Minimum', 'Maximum', 'Average','Current'],
+        criteria: ['Minimum', 'Maximum', 'Average', 'Current'],
         selected: 'Current'
     },
     to_si: 1000000000,
@@ -66,7 +65,6 @@ const panelDefaults = {
     colorModes : ['opacity','spectrum']
 };
 
-var recentData;
 var tempArray=[];
 
 export class Atlas3 extends MetricsPanelCtrl {
@@ -76,6 +74,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.title = "GlobalNoc Network-map";
         this.map_holder_id = 'map_' + this.panel.id;
         this.containerDivId = 'container_'+this.map_holder_id;
+        this.recentData = [];
         this.map_drawn = false; 
         this.layer_ids = [];
         this.show_legend = true;
@@ -91,12 +90,12 @@ export class Atlas3 extends MetricsPanelCtrl {
     
     onDataReceived(dataList) {
         if(!this.map_drawn){
-            recentData = dataList;
+            this.recentData = dataList;
             this.render();
             this.map_drawn = true;
         }
 
-        recentData = dataList;
+        this.recentData = dataList;
         this.process_data(dataList);
     }
     
@@ -323,6 +322,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     link(scope, elem, attrs, ctrl){
+        var self = this;
         ctrl.events.on('render', function() {
             ctrl.display();
             console.log(`Panel Legend: ${ctrl.panel.legend.show}`);
@@ -371,7 +371,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.layer_ids.push(networkLayer.layerId()); 
                     ctrl.panel.layers.push(networkLayer);
                     networkLayer.onInitComplete(function() {
-                        ctrl.process_data(recentData);
+                        ctrl.process_data(self.recentData);
                     });
                 }
                 return;
@@ -413,10 +413,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                 ctrl.layer_ids.push(networkLayer.layerId());
                 ctrl.panel.layers.push(networkLayer);		
                 networkLayer.onInitComplete(function(){
-                    ctrl.process_data(recentData);
+                    ctrl.process_data(self.recentData);
                 });
             }
         });
+    
     }
 }
 
