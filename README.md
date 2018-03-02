@@ -18,6 +18,7 @@ Options tab has the following feautures:
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
   ![Layer Options](/src/images/layer-options.png)
   Example map source json object.
+  
   ```{
   "results": [
     {
@@ -62,7 +63,7 @@ Options tab has the following feautures:
       ]
     }
   ]
-}```
+  }```
 
   
   
