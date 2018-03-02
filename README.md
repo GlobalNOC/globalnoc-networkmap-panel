@@ -21,15 +21,16 @@ The Network Map Panel also provides the ability to configure different map optio
   Example map source json object.
   
 ```
-  results: [
+{
+  "results": [
     {
-      links: [
+      "links": [
         {
-          endpoints: [
+          "endpoints": [
 	    "enpoint1",
             "endpoint2"
           ],
-          path: [
+          "path": [
             {
               "lon": "138.8671875",
               "order": "10",
@@ -41,29 +42,30 @@ The Network Map Panel also provides the ability to configure different map optio
               "lat": "47.5652166492485"
             }
           ],
-          name: "Link Name"
+          "name": "Link Name"
         }
       ],
-      endpoints: [
+      "endpoints": [
         {
-          pop_id: null,
-          lon: "139.853142695116",
-          real_lon: null,
-          real_lat: null,
-          name: "endpoint name",
-          lat: "35.7653023546885"
+          "pop_id": null,
+          "lon": "139.853142695116",
+          "real_lon": null,
+          "real_lat": null,
+          "name": "endpoint name",
+          "lat": "35.7653023546885"
         },
         {
-          pop_id: null,
-          lon: "-122.335927373024",
-          real_lon: null,
-          real_lat: null,
-          name: "endpoint name",
-          lat: "47.5652166492485"
+          "pop_id": null,
+          "lon": "-122.335927373024",
+          "real_lon": null,
+          "real_lat": null,
+          "name": "endpoint name",
+          "lat": "47.5652166492485"
         }
       ]
     }
   ]
+}
 ```
 ### Other Features
 * Ability to set the map's center by providing the lat and long coordinates.
