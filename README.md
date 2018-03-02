@@ -16,7 +16,7 @@ The Network Map Panel also provides the ability to configure different map optio
 
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
 
-  ![Layer Options](/src/images/layer-options.png)
+![Layer Options](/src/images/layer-options.png)
   
   Example map source json object.
   
@@ -74,7 +74,7 @@ Display tab provides different options for the user to customize the monitoring 
 ### Biggest Features
 * Colors: Ability to change the color scheme for the layers on the map. Currently there are 19 different color schemes to choose from.
 
-![colors-1](/src/images/colors-1.png) ![colors-2](/src/images/colors-2.png) ![colors-3](/src/images/colors-3-2.png)
+![colors-1](/src/images/colors-1.png)	![colors-2](/src/images/colors-2.png)	![colors-3](/src/images/colors-3-2.png)
 
 * Line Color: Ability to choose the behavior of the line colors based on metric. 
 
