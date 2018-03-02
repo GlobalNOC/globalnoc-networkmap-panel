@@ -19,7 +19,7 @@ Options tab has the following feautures:
   ![Layer Options](/src/images/layer-options.png)
   Example map source json object.
   
-  ```{
+```{
   "results": [
     {
       "links": [
@@ -63,7 +63,7 @@ Options tab has the following feautures:
       ]
     }
   ]
-  }```
+}```
 
   
   
