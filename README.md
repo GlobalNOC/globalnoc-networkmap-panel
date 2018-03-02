@@ -1,7 +1,7 @@
 # Network Map Panel for Grafana
 The Network Map Panel is a worldmap that provides the ability to monitor and visualize realtime traffic statistics. It uses timeseries data to represent traffic between nodes as circuits.
 
-![Network Map](/src/images/network-map.png)
+![Network Map](/src/images/network-map-1.png)
 
 # Features
 The Network Map Panel also provides the ability to configure different map options and display options. 
@@ -66,7 +66,7 @@ The Network Map Panel also provides the ability to configure different map optio
   ]
 ```
 ### Other Features
-* Ability to provide Latitude and Longitude for the map's center.
+* Ability to set the map's center by providing the lat and long coordinates.
 * Ability to specify the zoom level on the map. 
 
 ## Display Tab
@@ -74,7 +74,9 @@ Display tab provides different options for the user to customize the monitoring 
 ### Biggest Features
 * Colors: Ability to change the color scheme for the layers on the map. Currently there are 19 different color schemes to choose from.
 
-![colors-1](/src/images/colors-1.png)	![colors-2](/src/images/colors-2.png)	![colors-3](/src/images/colors-3-2.png)
+![colors-1](/src/images/colors-3-2.png)	![colors-2](/src/images/colors-2.png)	![colors-3](/src/images/colors-1.png)
+
+![New Color Scheme](/src/images/network-map.png)
 
 * Line Color: Ability to choose the behavior of the line colors based on metric. 
 
