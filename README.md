@@ -19,16 +19,16 @@ Options tab has the following feautures:
   ![Layer Options](/src/images/layer-options.png)
   Example map source json object.
   
-```{
-  "results": [
+`{
+  results: [
     {
-      "links": [
+      links: [
         {
-          "endpoints": [
-	    "TransPAC: Seattle to Tokyo 100GE input",
-            "TransPAC: Seattle to Tokyo 100GE output"
+          endpoints: [
+	    "enpoint1",
+            "endpoint2"
           ],
-          "path": [
+          path: [
             {
               "lon": "138.8671875",
               "order": "10",
@@ -40,30 +40,30 @@ Options tab has the following feautures:
               "lat": "47.5652166492485"
             }
           ],
-          "name": "TransPAC: Seattle to Tokyo 100GE"
+          name: "Link Name"
         }
       ],
-      "endpoints": [
+      endpoints: [
         {
-          "pop_id": null,
-          "lon": "139.853142695116",
-          "real_lon": null,
-          "real_lat": null,
-          "name": "TOKY",
-          "lat": "35.7653023546885"
+          pop_id: null,
+          lon: "139.853142695116",
+          real_lon: null,
+          real_lat: null,
+          name: "endpoint name",
+          lat: "35.7653023546885"
         },
         {
-          "pop_id": null,
-          "lon": "-122.335927373024",
-          "real_lon": null,
-          "real_lat": null,
-          "name": "SEAT-TP",
-          "lat": "47.5652166492485"
+          pop_id: null,
+          lon: "-122.335927373024",
+          real_lon: null,
+          real_lat: null,
+          name: "endpoint name",
+          lat: "47.5652166492485"
         }
       ]
     }
   ]
-}```
+}`
 
   
   
