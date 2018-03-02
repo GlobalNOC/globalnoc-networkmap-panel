@@ -98,12 +98,3 @@ The Network Map Panel makes use of the following libraries:
 * Atlas3
 * D3
 * Lodash
-
-
-  
-  
-
-
-     
-     
-
