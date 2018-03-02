@@ -92,7 +92,47 @@ Display tab provides different options for the user to customize the monitoring 
 * Show or Hide Legend
 * Show or Hide Tooltip
 
-## Technology
+# Timeseries data for the Network Map
+The Network Map Panel takes the timeseries data. An example of a query is as follows. Not that the query is for the GlobalNoc's TSDS Datasource.
+
+`get link_name, node, aggregate(values.input, 60, average), aggregate(values.output, 60, average) between (1520024588, 1520024888) by link_name from interface where (link_name like ".+")`
+
+Example of the response datalist that is used by the Network Map Panel to process and render the circuits is shown in the block below.
+
+```
+"results":[  
+      {  
+         "aggregate(values.input, 60, average)":[  
+            [  
+               1520025240,
+               648834025.97
+            ],
+            [  
+               1520025300,
+               492937454
+            ],
+            [  
+               1520025360,
+               549512091.53
+            ],
+            [  
+               1520025420,
+               533842290.4
+            ],
+            [  
+               1520025480,
+               499130349.07
+            ]
+         ],
+         "node":"node name",
+         "link_name":"Link name",
+      }, {...}
+]
+```
+
+![TSDS Query](/src/images/tsds-query.png)
+
+# Technology
 The Network Map Panel makes use of the following libraries:
 * Leaflet
 * Atlas3
