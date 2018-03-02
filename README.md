@@ -84,9 +84,7 @@ Display tab provides different options for the user to customize the monitoring 
 
 * Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to customize the look of the hover box.
 
-![Tooltip Options](/src/images/tooltip-options.png)
-
-![Tooltip](/src/images/custom-hover-box.png)
+![Tooltip Options](/src/images/tooltip-options.png)	![Tooltip](/src/images/custom-hover-box.png)
 
 ### Other Features
 * Show or Hide Legend
