@@ -185,10 +185,10 @@ This section demonstrates how the map topology is lined up with the data returne
             "name": "aggregate(values.output, 60, average)", "target": "C: endpoint1 to endpoint5 output", "datapoints": [[...],[...],[...]]
         },
         {
-            "name": "aggregate(values.input, 60, average)", "target": "D: endpoint1 to Tokyo input", "datapoints": [[...],[...],[...]]
+            "name": "aggregate(values.input, 60, average)", "target": "D: endpoint1 to endpoint2 input", "datapoints": [[...],[...],[...]]
         },
         {
-            "name": "aggregate(values.output, 60, average)", "target": "D: endpoint1 to Tokyo output", "datapoints": [[...],[...],[...]]
+            "name": "aggregate(values.output, 60, average)", "target": "D: endpoint1 to endpoint2 output", "datapoints": [[...],[...],[...]]
         }
     ]
 }
