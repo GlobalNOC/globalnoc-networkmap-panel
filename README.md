@@ -93,44 +93,40 @@ Display tab provides different options for the user to customize the monitoring 
 * Show or Hide Tooltip
 
 # Timeseries data for the Network Map
-The Network Map Panel takes the timeseries data. An example of a query is as follows. Not that the query is for the GlobalNoc's TSDS Datasource.
+The Network Map Panel takes the timeseries data to represent the traffic between nodes. An example of a query is as follows. Note that the query is for the GlobalNoc's TSDS Datasource.
 
 `get link_name, node, aggregate(values.input, 60, average), aggregate(values.output, 60, average) between (1520024588, 1520024888) by link_name from interface where (link_name like ".+")`
 
-Example of the response datalist that is used by the Network Map Panel to process and render the circuits is shown in the block below.
-
-```
-"results":[  
-      {  
-         "aggregate(values.input, 60, average)":[  
-            [  
-               1520025240,
-               648834025.97
-            ],
-            [  
-               1520025300,
-               492937454
-            ],
-            [  
-               1520025360,
-               549512091.53
-            ],
-            [  
-               1520025420,
-               533842290.4
-            ],
-            [  
-               1520025480,
-               499130349.07
-            ]
-         ],
-         "node":"node name",
-         "link_name":"Link name",
-      }, {...}
-]
-```
+The query can also be built using the visual query builder from the metrics tab in the map editor. It is shown in the picture below.
 
 ![TSDS Query](/src/images/tsds-query.png)
+
+Example of the response `dataList` that is used by the Network Map Panel to process and render the circuits is shown in the block below.
+
+```
+{
+  "dataList": [
+  {
+     "datapoints": [
+        [32583665.47, 1520260620000],[28523481.33, 1520260680000],[23701115.87, 1520260740000],[26656626.8, 1520260800000],[null, 1520260860000]
+     ],
+     "name": "aggregate(values.input, 60, average)",
+     "target": "Target Name"
+  },
+  {
+     "datapoints": [
+      [1171793116.67, 1520260620000],[1075541011.2, 1520260680000],[1005332018.67, 1520260740000],[1087891948.67, 1520260800000],[null, 1520260860000]
+     ],
+     "name": "aggregate(values.output, 60, average)",
+     "target": "Target Name"
+  },
+  {...},
+  {...}
+  ]
+}
+```
+
+The target name from each data object in the `dataList` is matched with the `endpoint` name from the map source json object provided by the user. This allows the map to show the appropriate information for each circuit returned by the TSDS query.
 
 # Technology
 The Network Map Panel makes use of the following libraries:
