@@ -301,7 +301,30 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
   ]
 }
 ```
-In the example above, the first six results in the `dataList` object match with the `endpoints` from each of the three `links` in the `map source json object`. Therefore, the network map renders three circuits and uses the corresponding data from `datapoints` to calculate the metrics for each of the three circuits. 
+
+Network Map converts the mapsource json into an array of `links`. Each element in this array is an object that is represented in the block below.
+
+```
+[
+  {
+	  "endpoints": ["A: endpoint1 to endpoint3 input","A: endpoint1 to endpoint3 output"].
+	  "link_id": "link_1234",
+	  "name": "A: endpoint1 to endpoint3",
+	  "path": [{lat,lng,name,...},{lat,lng,name,...},{lat,lng,name,...}]
+  }, 
+  {...},
+  {...},
+  {...},
+    .
+    .
+    .
+]
+```
+The map renders circuits if the `endpoints` of these `links` match with the `target` name in the `dataList` array. In addition, the corresponding data for each circuit is used to calculate the metrics to be shown on the map.
+
+In the example above, the first six results in the `dataList` object match with the `endpoints` from each of the three `links`. Therefore, the network map renders three circuits for the provided `map source json object`.
+
+![example circuit](/src/images/example.png)
 
 # Technology
 The Network Map Panel makes use of the following libraries:
