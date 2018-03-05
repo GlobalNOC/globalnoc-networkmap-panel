@@ -27,8 +27,8 @@ The Network Map Panel also provides the ability to configure different map optio
       "links": [
         {
           "endpoints": [
-	    "enpoint1",
-            "endpoint2"
+	    "enpoint1 to endpoint2 input",
+            "endpoint1 to endpoint2 output"
           ],
           "path": [
             {
@@ -51,7 +51,7 @@ The Network Map Panel also provides the ability to configure different map optio
           "lon": "139.853142695116",
           "real_lon": null,
           "real_lat": null,
-          "name": "endpoint name",
+          "name": "endpoint1",
           "lat": "35.7653023546885"
         },
         {
@@ -59,7 +59,7 @@ The Network Map Panel also provides the ability to configure different map optio
           "lon": "-122.335927373024",
           "real_lon": null,
           "real_lat": null,
-          "name": "endpoint name",
+          "name": "endpoint2",
           "lat": "47.5652166492485"
         }
       ]
@@ -111,14 +111,14 @@ Example of the response `dataList` that is used by the Network Map Panel to proc
         [32583665.47, 1520260620000],[28523481.33, 1520260680000],[23701115.87, 1520260740000],[26656626.8, 1520260800000],[null, 1520260860000]
      ],
      "name": "aggregate(values.input, 60, average)",
-     "target": "Target Name"
+     "target": "endpoint1 to endpoint2 input"
   },
   {
      "datapoints": [
       [1171793116.67, 1520260620000],[1075541011.2, 1520260680000],[1005332018.67, 1520260740000],[1087891948.67, 1520260800000],[null, 1520260860000]
      ],
      "name": "aggregate(values.output, 60, average)",
-     "target": "Target Name"
+     "target": "endpoint1 to endpoint2 output"
   },
   {...},
   {...}
@@ -126,7 +126,182 @@ Example of the response `dataList` that is used by the Network Map Panel to proc
 }
 ```
 
-The target name from each data object in the `dataList` is matched with the `endpoint` name from the map source json object provided by the user. This allows the map to show the appropriate information for each circuit returned by the TSDS query.
+The target name from each data object in the `dataList` is matched with the `endpoints` from the map source json object provided by the user. This allows the map to show the appropriate information for each circuit returned by the TSDS query.
+
+# Example
+This section demonstrates how the map topology is lined up with the data returned by the TSDS query.
+
+#### `dataList` object returned by the TSDS datasource.
+
+```
+{
+    "dataList":[
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "A: endpoint2 to endpoint3 input", "datapoints": [[32583665.47, 1520260620000],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "A: endpoint2 to endpoint3 output", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "A: endpoint1 to endpoint2 input", "datapoints":[[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "A: endpoint1 to endpoint2 output", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "A: endpoint1 to endpoint3 input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "A: endpoint1 to endpoint3 input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "B: endpoint1 to endpoint2 input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "B: endpoint1 to endpoint2 output", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "C: endpoint2 to endpoint3 input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "C: endpoint2 to endpoint3 output", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "C: endpoint3 to endpoint4 input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "C: endpoint3 to endpoint4 output", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "C: endpoint5 to endpoint4 input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "C: endpoint5 to endpoint4 output", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "C: endpoint1 to endpoint5 input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "C: endpoint1 to endpoint5 output", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.input, 60, average)", "target": "D: endpoint1 to Tokyo input", "datapoints": [[...],[...],[...]]
+        },
+        {
+            "name": "aggregate(values.output, 60, average)", "target": "D: endpoint1 to Tokyo output", "datapoints": [[...],[...],[...]]
+        }
+    ]
+}
+```
+The `target` names from the above `dataList` are matched with the `endpoints` from `links` field in the `Map Source JSON object`.
+
+#### `Map Source JSON object` with three endpoints.
+
+```
+{
+  "results": [
+    {
+      "links": [
+        {
+          "endpoints": [
+            "A: endpoint1 to endpoint3 input",
+            "A: endpoint1 to endpoint3 output"
+          ],
+          "path": [
+            {
+              "lon": "-80.4992152",
+              "lat": "26.2118715",
+              "name": "ep1"
+            },
+            {
+              "lon": "-55",
+              "lat": "0"
+            },
+            {
+              "lon": "-46.5952992",
+              "lat": "-23.6824124",
+              "name": "ep3"
+            }
+          ],
+          "name": "A: endpoint1 to endpoint3"
+        },
+        {
+          "endpoints": [
+            "A: endpoint2 to endpoint3 input",
+            "A: endpoint2 to endpoint3 output"
+          ],
+          "path": [
+            {
+              "lon": "-46.5952992",
+              "lat": "-23.6824124",
+              "name": "ep3"
+            },
+            {
+              "lon": "-55",
+              "lat": "-32"
+            },
+            {
+              "lon": "-70.6791936",
+              "lat": "-33.4533673",
+              "name": "ep2"
+            }
+          ],
+          "name": "A: endpoint2 to endpoint3"
+        },
+        {
+          "endpoints": [
+            "A: endpoint1 to endpoint2 input",
+            "A: endpoint1 to endpoint2 output"
+          ],
+          "path": [
+            {
+              "lon": "-70.6791936",
+              "lat": "-33.4533673",
+              "name": "ep2"
+            },
+            {
+              "lon": "-88",
+              "lat": "5"
+            },
+            {
+              "lon": "-79.7240525",
+              "lat": "9.1422762"
+            },
+            {
+              "lon": "-75",
+              "lat": "15"
+            },
+            {
+              "lon": "-80.4992152",
+              "lat": "26.2118715",
+              "name": "ep1"
+            }
+          ],
+          "name": "A: endpoint1 to endpoint2"
+        }
+      ],
+      "endpoints": [
+        {
+          "lon": "-80.4992152",
+          "lat": "26.2118715",
+          "name": "endpoint1"
+        },
+        {
+          "lon": "-46.5952992",
+          "lat": "-23.6824124",
+          "name": "endpoint2"
+        },
+        {
+          "lon": "-70.6791936",
+          "lat": "-33.4533673",
+          "name": "endpoint3"
+        }
+      ]
+    }
+  ]
+}
+```
+In the example above, the first six results in the `dataList` object match with the `endpoints` from each of the three `links` in the `map source json object`. Therefore, the network map renders three circuits and uses the corresponding data from `datapoints` to calculate the metrics for each of the three circuits. 
 
 # Technology
 The Network Map Panel makes use of the following libraries:
