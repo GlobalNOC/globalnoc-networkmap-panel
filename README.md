@@ -302,7 +302,7 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
 }
 ```
 
-Network Map converts the mapsource json into an array of `links`. Each element in this array is an object that is represented in the block below.
+Network Map converts the `map source json` into an array of `links`. Each element in this array is an object that is represented in the block below.
 
 ```
 [
