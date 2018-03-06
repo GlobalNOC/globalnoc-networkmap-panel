@@ -71,7 +71,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     constructor($scope, $injector) {
         super($scope, $injector);	
         _.defaults(this.panel, panelDefaults);
-        this.panel.title = "GlobalNoc Network-map";
+        this.panel.title = "GlobalNoc Network Map";
         this.map_holder_id = 'map_' + this.panel.id;
         this.containerDivId = 'container_'+this.map_holder_id;
         this.recentData = [];
@@ -275,8 +275,8 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
     
     onInitEditMode() {
-        this.addEditorTab('Options', 'public/plugins/worldview/editor.html', 2);
-        this.addEditorTab('Display', 'public/plugins/worldview/display_editor.html', 3);
+        this.addEditorTab('Options', 'public/plugins/networkmap/editor.html', 2);
+        this.addEditorTab('Display', 'public/plugins/networkmap/display_editor.html', 3);
         tempArray=this.scale.displayColor(this.panel.colorScheme);
     } 
    

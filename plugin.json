@@ -1,17 +1,17 @@
 {
   "type": "panel",
-  "name": "Worldview",
-  "id": "worldview",
+  "name": "Network Map",
+  "id": "networkmap",
 
   "info": {
-    "description": "GlobalNOC Worldview Grafana Plugin",
+    "description": "GlobalNOC Network Map Grafana Plugin",
     "author": {
       "name": "GlobalNOC Software Engineering",
       "url": "http://globalnoc.iu.edu"
     },
-    "keywords": ["worldview", "map", "network"],
-    "version": "0.0.2",
-    "updated": "2017-10-10"
+    "keywords": ["network-map", "map", "network"],
+    "version": "1.0.2",
+    "updated": "2018-03-05"
   },
 
   "dependencies": {
