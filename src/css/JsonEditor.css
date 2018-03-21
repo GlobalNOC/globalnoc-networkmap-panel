@@ -1,0 +1,38 @@
+#json_valid {
+    max-height: 500px;
+    background-color: #09090B;
+    font-size: 9pt;
+    overflow:auto;
+    max-width: 450px;
+    min-width: 300px;
+    white-space: pre;
+    word-break: normal;
+}
+
+pre .line-number {
+    float:left;
+    margin 0 1em 0 -1em;
+    border-right: 1px solid;
+    text-align: right;
+    display: block;
+    font-size: 9pt;
+    color: #888;
+}
+
+pre .line-number span{
+    display: block;
+    padding: 0 .5em 0 1em;
+}
+
+pre .cl{
+    display:block;
+    clear: both;
+}
+
+.json-err {
+    color: red;
+}
+
+.json-success {
+    color: green;
+}
