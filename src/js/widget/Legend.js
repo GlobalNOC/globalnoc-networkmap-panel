@@ -151,6 +151,9 @@ var Legend = function(params){
 
         // create legend numbers
         var numberLocations = params.numberLocations;
+        if(mode === 'opacity'){
+            numberLocations = [0,25,50,75,100];
+        }
         if(!_.isArray(numberLocations)){ numberLocations = [0,100]; }
 
         var numberDiv = d3.select(legend.legendDiv().node())
