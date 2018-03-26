@@ -50,6 +50,7 @@ singleTubeLayer = SingleTubeLayer({
 
 var SingleTubeLayer = function(params){
     params.lineColor = params.lineColor || '#ddd';
+    params.lineOpacity = params.lineOpacity || 1;
     var layer = NetworkLayer(params);
     if(!params.svg){
         console.error('Must pass in a svg element to render into');
@@ -276,6 +277,9 @@ var SingleTubeLayer = function(params){
                     return strokeWidth+'px';
                 }
             })
+            .style('opacity',function(d){
+                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
+            })
             .style('stroke', function(d){
                 return d.lineColor === undefined ? d3.rgb(layer.lineColor()).darker() : d3.rgb(d.lineColor).darker();
             });
@@ -289,6 +293,9 @@ var SingleTubeLayer = function(params){
                 } else {
                     return strokeWidth+'px';
                 }
+            })
+            .style('opacity', function(d){
+                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
             })
             .style('stroke', function(d){
                 return d.lineColor === undefined ? d3.rgb(layer.lineColor()) : d3.rgb(d.lineColor);

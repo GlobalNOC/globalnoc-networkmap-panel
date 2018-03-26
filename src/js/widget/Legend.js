@@ -42,7 +42,7 @@ var Legend = function(params){
     params = params || {};
 
     var legend = {};
-
+    
     if(!params.align){
         console.error("Must pass in an align object!");
         return;
@@ -50,7 +50,9 @@ var Legend = function(params){
     if(!params.items){
         console.error("Must pass in a list of items to create a legend for");
     }
-
+    
+    var mode = params.mode;
+    
     var infoDiv;
     var legendDiv = InfoDiv({
         className: 'atlas-legend', 
@@ -107,19 +109,45 @@ var Legend = function(params){
             .style('width', function(d){
                 return d.width + '%';
             })
-
+            .style('height', function(d){
+                return '8px';
+            });
 
         items.append('div')
             .classed('color', true)
             .style('width', function(d){
                 return '100%';
             })
+            .style('height', function(d){
+                return '100%';
+            })
             .style('background-color', function(d){
                 return d.color;
-            })
-            .style('border-color', function(d){
-                return d3.rgb(d.color);
             });
+        
+        if(mode === 'spectrum'){
+            items.selectAll('.color')
+                .style('border-style', function(d){
+                    return "none";
+                });
+        }
+        
+        if(mode === 'opacity'){
+            items.selectAll('.color')
+                .style('opacity', function(d){
+                    return d.opacity;
+                })
+                .style('border-right-style', function(d){
+                    return "solid";
+                })
+                .style('border-color', function(d){
+                    return d3.rgb(d.color).darker();
+                })
+                .style('border-width', function(d){
+                    return "1px";
+                });
+        }
+        
 
         // create legend numbers
         var numberLocations = params.numberLocations;
