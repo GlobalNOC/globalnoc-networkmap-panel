@@ -111,7 +111,8 @@ var NetworkLayer = function(params){
     var onEndpointEvent = params.onEndpointEvent || {
         mouseover: function(params){
             layer.showEndpointInfo({
-                endpoint: params.data
+                endpoint: params.data,
+                pos: params.pos
             }); 
         },
         mouseout: function(params){
@@ -313,6 +314,27 @@ var NetworkLayer = function(params){
         return customContent;
     }
 
+    //helper function to create the body markup for the details div when hovering over an endpoint
+
+    function _createEndpointInfoMarkup(endpoint){
+        var endpointStr =`<div class="pop-info">`;
+        endpointStr += `<div><b>Endpoint Name: </b> ${endpoint.name} </div>`;
+        endpointStr += `<hr>`;
+        endpointStr += `<div>`;
+
+        endpointStr += `<div><table>`;
+        endpointStr += `<tr><td style="font-weight: bold">Id:</td><td> ${endpoint.endpointId} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold">Lat:</td><td> ${endpoint.lat} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold">Lon:</td><td> ${endpoint.lon} </td></tr>`;
+        endpointStr += `</table></div>`;
+        
+        endpointStr += `</div>`;
+
+        endpointStr += `</div>`;
+        return endpointStr;
+    }
+
+
     //helper function to create the body markup for the details div when hovering over a link
     function _createLinkInfoMarkup(link){
 
@@ -358,10 +380,9 @@ var NetworkLayer = function(params){
      */
     layer.showLinkInfo = function(params){
         var link = params.link; 
-	var div_pos = params.pos;
-//	console.log("Mouse position: ",cur_pos);
+        var div_pos = params.pos;
         if(!tooltip.show) return;
-	var linkStr = _createLinkInfoMarkup(link);
+        var linkStr = _createLinkInfoMarkup(link);
 
         //if the infoDiv is not already pinned and we were told to pin this
         //select and update 
@@ -377,7 +398,7 @@ var NetworkLayer = function(params){
             width: 400,
             content: linkStr,
             pin: params.pin,
-	    pos: div_pos // cursor coordinates
+	        pos: div_pos // cursor coordinates
         });
     };
 
@@ -398,6 +419,16 @@ var NetworkLayer = function(params){
         });
     };
 
+    
+    layer.updateEndpointInfo = function(params){
+        var endpoint = params.endpoint;
+       // var endpointStr = '<div class="pop-info"><div><b>Endpoint: </b>' +endpoint.name+ '</div></div>';
+        var endpointStr = _createEndpointInfoMarkup(endpoint);
+        layer.map().infoDiv().setContent({
+            content: endpointStr
+        });
+    };
+
     /**
      * Displays a panel in the lower right corner of the map containing information about a endpoint
      * @method showEndpointInfo 
@@ -408,18 +439,21 @@ var NetworkLayer = function(params){
      */
     layer.showEndpointInfo = function(params){
         var endpoint = params.endpoint; 
-        var endpoingStr = '<div class="pop-info"><div><b>Endpoint:</b> ' + endpoint.name+'</div></div>' 
-        
+        var div_pos = params.pos;
+        if(!tooltip.show) return;
+
+        var endpointStr = _createEndpointInfoMarkup(endpoint); 
         //if it's pinned select the link
         if(params.pin){
             endpoint.selected = true;
-            layer.update();
+            layer.map().update();
         }
 
         layer.map().infoDiv().show({
             width: 100,
             content: endpointStr,
-            pin: params.pin
+            pin: params.pini,
+            pos: div_pos
         });
     };
     
@@ -465,7 +499,7 @@ var NetworkLayer = function(params){
 
     /**
      * A Getter/Setter for the onLinks
-     * @method onLinks
+      @method onLinks
      * @param {Function} value - The method describing how to get link elements for the layer
      * @chainable
      */

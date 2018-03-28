@@ -59,6 +59,15 @@ div.adj-info {
 div.adj-info > div {
     padding-right: 5px;
 }
+
+div.pop-info > div {
+    padding-right: 5px;
+}
+
+div.pop-info > div:last-child {
+    padding-right: 0px;
+}
+
 div.adj-info > div:last-child {
     padding-right: 0px;
 }
@@ -67,6 +76,3 @@ div.adj-info > div:last-child {
     pointer-events: all !important;
 }
 
-.leaflet-top {
-    z-index: 400 !important;
-}
