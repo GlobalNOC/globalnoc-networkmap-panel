@@ -20,14 +20,20 @@
         <div class="gf-form">
             <label class="gf-form-label width-9">Scale</label>
             <div class="gf-form-select-wrapper width-8"> 
-                <select class="input-small gf-form-input" ng-model="ctrl.panel.color.colorScale" ng-options="s for s in ctrl.panel.scales" ng-change="ctrl.render()"></select>
+                <select class="input-small gf-form-input" ng-model="ctrl.panel.color.colorScale" ng-options="s for s in ctrl.panel.opacityScales" ng-change="ctrl.render()"></select>
             </div>
         </div>
    
         <div class="gf-form" ng-if="ctrl.panel.color.colorScale === 'sqrt'">
             <label class="gf-form-label width-9">Exponent</label>
-            <input type="number" class="gf-form-input width-8" data-placement="right" ng-model="ctrl.panel.color.exponent" ng-change="ctrl.refresh()" ng-model-onblur=""  >
+            <input type="number" class="gf-form-input width-8" data-placement="right" ng-model="ctrl.panel.color.exponent" ng-change="ctrl.render()" ng-model-onblur=""  >
         </div>
+        
+        <div class="gf-form">
+            <div style="background-color:{{ctrl.panel.color.cardColor}}; opacity: {{x}}; display:inline;width:0.50rem;height:24px;" ng-repeat="x in ctrl.panel.opacity_values track by $index"></div>
+        </div>
+
+
     </div>
 
     <div ng-show="ctrl.panel.color.mode === 'spectrum'">
@@ -42,10 +48,6 @@
             <div style="background-color:{{x}}; display:inline;width:0.34rem;height:24px;" ng-repeat="x in ctrl.panel.hex_values track by $index"></div>
         </div>
 
-        <div class="gf-form">
-            <label class="gf-form-label width-9"> Color </label>
-            <input type="text" class="gf-form-input width-8" ng-model="ctrl.panel.inputColor" ng-change="ctrl.render()">
-        </div>
     </div>
 </div>
 
@@ -55,6 +57,9 @@
             label="Show legend"
             checked="ctrl.panel.legend.show" on-change="ctrl.render()">
         </gf-form-switch>
+        <gf-form-switch ng-if="ctrl.panel.legend.show" class="gf-form" label-class="width-8"
+            label="Invert legend"
+            checked="ctrl.panel.legend.invert" on-change="ctrl.render()">
     </div>
 
     <div class="section gf-form-group">

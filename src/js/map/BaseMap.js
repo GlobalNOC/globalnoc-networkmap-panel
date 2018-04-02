@@ -45,7 +45,7 @@ var Functions   = require('../util/Functions.js');
 
 var BaseMap = function(config){
     config = config || {};
-    var legend = config.legend;
+    //var legend = config.legend;
     if(!config.containerId){
         console.error('Must pass in a containerId');
         return;
@@ -991,7 +991,7 @@ var BaseMap = function(config){
     
 
     // helper function to draw legend
-    function _drawLegend() {
+    function _drawLegend(legend) {
 
         if(legend.show && legend.adjLoadLegend){
             // check if legend already exists and remove it if it does
@@ -1014,15 +1014,33 @@ var BaseMap = function(config){
                 return;
             }
 
-            //generate legend colors
+    
             let items = [];
-            for(let i = 0;i < 51; i++){
-                items.push({
-                    value: i*2,
-                    color: legend.legend_colors[i-1]
-                });
+            //if mode === spectrum,  generate legend colors
+            if(legend.mode === 'spectrum'){
+                items = [];
+                let col_len = legend.legend_colors.length;
+                let width_factor = 100/col_len;
+                for(let i = 1; i < col_len+1; i++){
+                    items.push({
+                        value: i*width_factor,
+                        color: legend.legend_colors[i-1],
+                        opacity: 1
+                    });
+                }
+            }else if(legend.mode === 'opacity'){ //if mode === opacity, generate opacity values;
+                items = [];
+                let op_len = legend.opacity.length;
+                let width_factor = 100/op_len;
+                for( let i = 1; i<op_len+1; i++){
+                    items.push({
+                        value: i*width_factor,
+                        color: legend.card_color,
+                        opacity: legend.opacity[i-1]
+                    });
+                }
             }
-
+            
             // determine legend width
             let legend_width;
             if(legend.adjLoadLegend.width){
@@ -1043,7 +1061,8 @@ var BaseMap = function(config){
                 items: items,
                 align: align, 
                 orientation: legend.adjLoadLegend.horizontal ? 'horizontal' : null,
-                numberLocations: legend.adjLoadLegend.numberLocations
+                numberLocations: legend.adjLoadLegend.numberLocations,
+                mode: legend.mode
             });
         }
         else{
@@ -1052,8 +1071,8 @@ var BaseMap = function(config){
     }
     
     // Function to draw legend. 
-    map.drawLegend = function(){
-        _drawLegend();
+    map.drawLegend = function(legend){
+        _drawLegend(legend);
     }
 
     /**

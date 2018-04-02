@@ -55,6 +55,13 @@ var NetworkLayer = function(params){
      * @private
      */
     var lineColor;
+    
+    /**
+     * A css opacity value to set the opacity of link lines
+     * @property {Integer} lineOpacity
+     * @private
+     */
+    var lineOpacity;
     /**
      * The width of lines representing links on the layer 
      * @property {Integer} lineWidth
@@ -689,6 +696,19 @@ var NetworkLayer = function(params){
         return layer;
     };
 
+    /** 
+     * Getter/Setter the lineOpacity of lines representing links on the layer 
+     * @method lineOpacity
+     * @param {Integer} value - The new value of the lineOpacity as a css opacity style
+     * @return lineOpacity - Returns the current lineOpacity
+     * @chainable
+     */
+    layer.lineOpacity = function(value){
+        if(arguments.length === 0){ return lineOpacity; }
+        lineOpacity = value;
+        return layer;
+    };
+
     function _isJson(str){
         try {
             JSON.parse(str);
@@ -762,6 +782,7 @@ var NetworkLayer = function(params){
     }
 
     layer.lineColor(params.lineColor || '#262F36');
+    layer.lineOpacity(params.lineOpacity || 1);
 
     return layer; 
 };
