@@ -138,7 +138,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(self.panel.hide_layers){
                     _.forEach(links, function(l){
                         _.forEach(l.endpoints, function(ep){
-                            if(!data_targets.includes(ep)){       
+                            if(!data_targets.includes(ep.name)){       
                                 layer.toggle(false);
                             }
                         }); 
@@ -151,9 +151,13 @@ export class Atlas3 extends MetricsPanelCtrl {
                 var target_links = [];
                     _.forEach(links, function(l){
                         _.forEach(l.endpoints, function(ep){
-                            var str =  l.name + " " + ep;
-                            if(data.target == ep){
-                                target_links.push({link: l, endpoint: ep, full: str});
+                            var str =  l.name + " " + ep.name;
+                            if(data.target == ep.name){
+                                if(ep.label){
+                                    target_links.push({link: l, endpoint: ep.name, label: ep.label, full: str});
+                                }else{
+                                    target_links.push({link: l, endpoint: ep.name, label: null, full: str});
+                                }
 			                }
 		                });
 		            });
@@ -238,7 +242,9 @@ export class Atlas3 extends MetricsPanelCtrl {
                     }
 
                     //check for AZ or ZA based on the endpoint the data was found at!
-                    if(l.endpoints[0] == obj.endpoint){
+                    if(l.endpoints[0].name === obj.endpoint){
+                        l.az.name = l.endpoints[0].name;
+                        if(l.endpoints[0].label) l.az.label = l.endpoints[0].label;
                         l.az.cur = color_value;
                         l.azLineColor = lineColor;
                         l.azLineOpacity = lineOpacity;
@@ -248,6 +254,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.az.avg = self.toSI(avg);
                         l.arrow = 1;
                     } else{
+                        l.za.name = l.endpoints[1].name;
+                        if(l.endpoints[1].label) l.za.label = l.endpoints[1].label;
                         l.za.cur = color_value;
                         l.zaLineColor = lineColor;
                         l.zaLineOpacity = lineOpacity;

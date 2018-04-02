@@ -269,6 +269,12 @@ var NetworkLayer = function(params){
 
     function _parseHtml(htmlContent, link){
         var customContent = htmlContent;
+        if(link.az.label){
+            link.az.name = link.az.label;
+        }
+        if(link.za.label){
+            link.za.name = link.za.label;
+        }
         const possible_vars = ['$input.min','$input.max','$input.avg','$input.sum','$output.min','$output.max','$output.avg','$output.sum','$name','$input.name','$output.name','$count'];
         _.forEach(possible_vars, function(variable){
             switch(variable){ 
@@ -290,7 +296,7 @@ var NetworkLayer = function(params){
                     customContent = customContent.replace(/\$input.sum/g, link.az.sum);
                     break;
                 case '$input.name':
-                    customContent = customContent.replace(/\$input.name/g, link.endpoints[0]);
+                    customContent = customContent.replace(/\$input.name/g, link.az.name);
                     break;
                 case '$output.min':
                     customContent = customContent.replace(/\$output.min/g,link.za.min);
@@ -305,7 +311,7 @@ var NetworkLayer = function(params){
                     customContent = customContent.replace(/\$output.sum/g, link.za.sum);
                     break;
                 case '$output.name':
-                    customContent = customContent.replace(/\$output.name/g, link.endpoints[1]);
+                    customContent = customContent.replace(/\$output.name/g, link.za.name);
                     break;
                 default:
                     break;
@@ -349,16 +355,23 @@ var NetworkLayer = function(params){
         linkStr    += '<div><b>Link:</b> ' + link.name +'</div>';
         linkStr += '<hr>';
         linkStr += '<div>';
-        
-        linkStr += '<div style="float: left"><div><center> To <b>' + link.endpoints[0] + '</b></center></div>'; 
+        if(link.az.label){
+            linkStr += '<div style="float: left"><div><center> To <b>' + link.az.label + '</b></center></div>'; 
+        }else {
+            linkStr += '<div style="float: left"><div><center> To <b>' + link.az.name + '</b></center></div>';  
+        }
         linkStr += '<div><table>';
         linkStr += '<tr><td style="font-weight:bold">Min:</td><td>' + link.az.min + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Max:</td><td>' + link.az.max + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Avg:</td><td>' + link.az.avg + '</td><td>Gbps</td></tr>'; 
         linkStr += '<tr><td style="font-weight:bold">Sum:</td><td>' + link.az.sum + '</td><td>Gbps</td></tr>';
         linkStr += '</table></div></div>';
-
-        linkStr += '<div style="float: right"><div><center> To <b>' + link.endpoints[1] + '</b></center></div>';	
+        
+        if(link.za.label){
+            linkStr += '<div style="float: right"><div><center> To <b>' + link.za.label + '</b></center></div>';
+        } else{
+            linkStr += '<div style="float: left"><div><center> To <b>' + link.za.name + '</b></center></div>';
+        } 
         linkStr += '<div><table>';
         linkStr += '<tr><td style="font-weight:bold">Min:</td><td>' + link.za.min + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Max:</td><td>' + link.za.max + '</td><td>Gbps</td></tr>';
