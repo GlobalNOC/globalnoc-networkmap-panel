@@ -9,10 +9,15 @@ The Network Map Panel also provides the ability to configure different map optio
 ## Options Tab
 ### Biggest Features
 * Map Options
+![Map Options](/src/images/map-options.png)
   - Map URL: A valid map url should be provided so that the map loads with all the tiles. In the screenshot below, mapbox api is used to specify the map tiles. A valid access token is necessary for the mapbox API.
   - Hide Layers with no values: This option allows the user to hide any layers/circuits when there's no data returned for them.
+  - JSON Validator: This option provides the user with a JSON validator to validate and edit the JSON map source object. 
+  	1. Ability to automatically load the JSON map source when double clicked on Map Source field.
+	2. Ability to validate the JSON and display validation messages.
+	3. Ability to save the valid JSON back to its Map Source.
   
-![Map Options](/src/images/map-options.png)
+![JSON Validator](/src/images/json-validator.png)
 
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
 
@@ -27,9 +32,15 @@ The Network Map Panel also provides the ability to configure different map optio
       "links": [
         {
           "endpoints": [
-	    "enpoint1 to endpoint2 input",
-            "endpoint1 to endpoint2 output"
-          ],
+	    {
+	      "name": "enpoint1 to endpoint2 input",
+              "label": "label for endpoint1"
+	    },
+	    {
+	      "name": "endpoint1 to endpoint2 output",
+              "label": "label for endpoint2"
+	    }
+	  ],
           "path": [
             {
               "lon": "138.8671875",
@@ -74,17 +85,27 @@ The Network Map Panel also provides the ability to configure different map optio
 ## Display Tab
 Display tab provides different options for the user to customize the monitoring experience of the metrics on the map.
 ### Biggest Features
-* Colors: Ability to change the color scheme for the layers on the map. Currently there are 19 different color schemes to choose from.
+* Colors: Ability to change the color scheme for the layers on the map based on two different modes.
 
+  - Mode: Spectrum. This mode currently has 19 different color schemes to choose from.
+  
 ![colors-1](/src/images/colors-3-2.png)	![colors-2](/src/images/colors-2.png)	![colors-3](/src/images/colors-1.png)
 
 ![New Color Scheme](/src/images/network-map.png)
+
+  - Mode: Opacity. This mode provides the ability to choose from two different scales, i.e., linear, sqrt. It also provides the option to choose a custom color from the color picker. 
+    
+![opacity-1](/src/images/colors-3-2.png)  ![opacity-2](/src/images/colors-2.png)    ![opacity-3](/src/images/colors-1.png)
+
+![Opacity Scheme](/src/images/network-map.png)
+    
+* Legend: Invert legend. This option inverts the current legend on the map and also affects the map to use the inverted scheme.
 
 * Line Color: Ability to choose the behavior of the line colors based on metric. 
 
 ![Line Color](/src/images/line-color.png)
 
-* Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to customize the look of the hover box.
+* Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to have a customized hover box.
 
 ![Tooltip Options](/src/images/tooltip-options.png)	![Tooltip](/src/images/custom-hover-box-2.png)
 
