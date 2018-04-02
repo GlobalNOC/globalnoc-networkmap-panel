@@ -689,23 +689,43 @@ var NetworkLayer = function(params){
         return layer;
     };
 
+    function _isJson(str){
+        try {
+            JSON.parse(str);
+        } catch(e){
+            return false;
+        }
+        return true;
+    }
+
     /**
      * A method that takes a [DataSource](DataSource.html) source object and restrieves a map topology
      * @method loadMap
      * @chainable
      */
     layer.loadMap = function(source){
-        var req = ds({
-            source: source,
-            onSuccess: function(params){
-                var d = params.data.results[0];
-                if(!d){
-                    console.error('No map topology returned for '+layer.name()+' ',req);
-                    return;
-                }
-                layer.topology(d);
+        let json_obj;
+        if(_isJson(source)){
+            json_obj = JSON.parse(source);
+            let topo = json_obj.results[0];
+            if(!topo){
+                console.log('No map topology returned for the given source');
+                return;
             }
-        });
+            layer.topology(topo);
+        } else {
+            var req = ds({
+                source: source,
+                onSuccess: function(params){
+                    var d = params.data.results[0];
+                    if(!d){
+                        console.error('No map topology returned for '+layer.name()+' ',req);
+                        return;
+                    }
+                    layer.topology(d);
+                }
+            });
+        }
         return layer;
     };
 

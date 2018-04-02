@@ -16,30 +16,59 @@
             label="Hide Layers with no values"
             checked="ctrl.panel.hide_layers" on-change="ctrl.render()">
         </gf-form-switch>
+        <!-- <button type="button" class="btn btn-secondary" ng-click="ctrl.jsonModal()">
+            <i class="fa fa-code"></i>&nbsp; Open Json Validator
+        </button> -->
+        
+        <gf-form-switch class="gf-form" label-class="width-10" 
+            label="JSON Validator"
+            checked="ctrl.panel.use_json" on-change="ctrl.render()">
+        </gf-form-switch>
     </div>
 </div>
 
-<div class="section gf-form-group">
-    <h5 class="section-heading">Layers</h5>
-    <div ng-repeat="x in ctrl.panel.choices track by $index">
-        <div class="gf-form">
-            <label class="gf-form-label width-8">Name</label>
-            <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.name[$index]">
-    
-            <label class="gf-form-label width-8">Map Source</label>
-            <input type="text" class="gf-form-input width-16 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.mapSrc[$index]">
-    
-            <label class="gf-form-label width-8">Max</label>
-            <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.max[$index]">
-    
-            <label class="gf-form-label width-8">Min</label>
-            <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.min[$index]">
+<div class="editor-row">
+    <div class="section gf-form-group">
+        <h5 class="section-heading">Layers</h5>
+        <div ng-repeat="x in ctrl.panel.choices track by $index">
+            <div class="gf-form">
+            <!-- <gf-form-switch class="gf-form" label-class="width-18" 
+                label="Use JSON for Map Source"
+                checked="ctrl.panel.use_json" on-change="ctrl.render()">
+                </gf-form-switch>-->
+                <label class="gf-form-label width-8">Name</label>
+                <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.name[$index]">
 
-            <div class="gf-form" ng-if="$last">
-              <button class="btn btn-inverse gf-form-btn" ng-click="ctrl.removeChoice($index)">-</button>
+                <label class="gf-form-label width-8 gf-form-inline" ng-dblclick="ctrl.useValidator($index)">{{1!==1 ? 'JSON':'Map Source'}}</label>
+                <input  type="text" class="gf-form-input gf-form-inline width-16 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-dblclick="ctrl.useValidator($index)" ng-model="ctrl.panel.mapSrc[$index]">
+           <!-- <textarea ng-if="ctrl.panel.use_json" class="gf-form-input ng-pristine ng-valid ng-not-empty ng-touched" ng-change="ctrl.render()" ng-model="ctrl.panel.mapSrc[$index]" rows="8" cols="50" style="width:100%" give-focus="true"></textarea>
+            -->
+                <label class="gf-form-label width-8">Max</label>
+                <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.max[$index]">
+    
+                <label class="gf-form-label width-8">Min</label>
+                <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.min[$index]">
+
+                <button class="btn btn-inverse gf-form-btn" ng-click="ctrl.removeChoice($index)">-</button>
             </div>
         </div>
+        <button class="gf-form-input width-6" ng-click="ctrl.addNewChoice()">+</button>
     </div>
-    <button class="gf-form-input width-6" ng-click="ctrl.addNewChoice()">+</button>
-</div>
 
+    <div ng-if="ctrl.panel.use_json" class="section gf-form-group">
+        <h5 class="section-heading">Json Validator</h5>
+        <div class="gf-form--grow">
+           <!-- <textarea id="json_edit" class="gf-form-input" ng-model="ctrl.panel.json_text" rows="20" cols="40" style="width:100%">Hello world</textarea>-->
+           <pre id="json_valid" class="" contenteditable="true"><span style="color:silver">Double click on Map Source or paste your JSON to Validate.</span></pre>
+            <div class="gf-form-button-row">
+
+                <button type="button" class="btn btn-success" ng-click="ctrl.validateJson()">Validate</button>
+                <button class="btn btn-secondary" ng-click="ctrl.copyToClip()">
+                    <i class="fa fa-clipboard"></i>&nbsp;Copy to Clipboard
+                </button>
+                <p id="json-info" style="font-weight: bold;font-size:11pt;padding-top:1px;">{{ctrl.panel.json_info}}</p> 
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -207,7 +207,8 @@ var buildAll = function(options){
                         './src/css/NetworkLayer.css',
                         './node_modules/leaflet/dist/leaflet.css',
                         './src/css/TrafficLayer.css',
-                        './src/css/Legend.css' 
+                        './src/css/Legend.css',
+                        './src/css/JsonEditor.css' 
                         ],
                 dev: options.dev
                 });
