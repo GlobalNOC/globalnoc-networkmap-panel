@@ -9,7 +9,7 @@ The Network Map Panel also provides the ability to configure different map optio
 ## Options Tab
 ### Biggest Features
 * Map Options
-![Map Options](/src/images/map-options.png)
+![Map Options](/src/images/map-options-1.png)
   - Map URL: A valid map url should be provided so that the map loads with all the tiles. In the screenshot below, mapbox api is used to specify the map tiles. A valid access token is necessary for the mapbox API.
   - Hide Layers with no values: This option allows the user to hide any layers/circuits when there's no data returned for them.
   - JSON Validator: This option provides the user with a JSON validator to validate and edit the JSON map source object. 
@@ -21,7 +21,7 @@ The Network Map Panel also provides the ability to configure different map optio
 
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
 
-![Layer Options](/src/images/layer-options-2.png)
+![Layer Options](/src/images/layer-options-1.png)
   
   Example map source json object.
   
