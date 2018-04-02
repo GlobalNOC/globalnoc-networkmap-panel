@@ -138,7 +138,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(self.panel.hide_layers){
                     _.forEach(links, function(l){
                         _.forEach(l.endpoints, function(ep){
-                            if(!data_targets.includes(ep)){       
+                            if(!data_targets.includes(ep.name)){       
                                 layer.toggle(false);
                             }
                         }); 
