@@ -83,6 +83,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.layer_ids = [];
         this.show_legend = true;
         this.opacity = [];
+        this.json_index = null;
         this.custom_hover = new CustomHover(this.panel.tooltip.content);
         this.scale = new Scale($scope,this.panel.colorScheme);
         this.colorSchemes=this.scale.getColorSchemes(); 
@@ -322,9 +323,25 @@ export class Atlas3 extends MetricsPanelCtrl {
         let json = this.panel.mapSrc[index];
         if(!json) return;
         $("#json_valid").text(json);
+        this.json_index = index;
         this.validateJson();
     }
-     
+    
+    saveToMapSrc(index){
+        if(index===null) return;
+        if($(".line-number")) $(".line-number").remove();
+        let json = $('#json_valid').text();
+        if(!this.isJson(json)){
+            this.panel.json_info = "Can't save invalid JSON!";
+            $("#json-info").removeClass("json-success").addClass("json-err");
+            return;
+        }
+        this.panel.mapSrc[index] = json;
+        this.json_index = null;
+        this.lineNumbering();
+        this.render();
+    }
+
     removeChoice(index) {
         this.panel.choices.splice(index,1);
         if(this.layer_ids[index]){
@@ -339,17 +356,17 @@ export class Atlas3 extends MetricsPanelCtrl {
 
     copyToClip(){
         if($(".line-number")) $(".line-number").remove();
-        let text = $("#json_valid").text();
+        let text = $("#json_valid");
         if(!text) return;
-        if(!this.isJson(text)){
+        let content = text.text();
+        if(!this.isJson(content)){
             this.panel.json_info = "Can't copy invalid JSON!";
             $("#json-info").removeClass("json-success").addClass("json-err");
             return;
         }
-        this.lineNumbering();
-        text = document.getElementById("json_valid");
-        this.selectText(text);
+        this.selectText(text[0]);
         document.execCommand("Copy");
+        this.lineNumbering();
     }
 
     selectText(element) {
