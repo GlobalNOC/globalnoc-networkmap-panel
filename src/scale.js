@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import _ from "lodash";
+import  * as d3 from 'd3';
 
 let colorSchemes = [
       {name: 'RdYlGn',    value: 'interpolateRdYlGn',   invert: 'always'},
@@ -40,9 +41,10 @@ let colorSchemes = [
 
 export class Scale {
     constructor($scope, colorScheme)  {
-	    this.colorScheme = colorScheme;
-	    this.hexArray = [];
+        this.colorScheme = $scope.ctrl.panel.colorScheme;
+        this.hexArray = [];
         this.rgbArray = [];
+        this.opacity_values = [];
     }
 
     setColorScheme(colorScheme)  {
@@ -50,19 +52,27 @@ export class Scale {
     }
 
     getColorSchemes()  {	
-	    return colorSchemes;
+        return colorSchemes;
     }
-	
+
     getColor(percentage) {
-	    for(var i=1; i < this.hexArray.length;i++){
+        for(var i=1; i < this.hexArray.length;i++){
             if (i * (100 / this.hexArray.length) >= percentage){
-                //console.log("Line",this.hexArray[i-1]);
                 return this.hexArray[i];
-	        }
+            }
         }
         return this.hexArray[this.hexArray.length-1];
     }
 
+    getOpacity(percentage, opacity_values){
+        for(let i = 0;i < opacity_values.length; i++){
+            if(i*(100/opacity_values.length)>=percentage){
+                return opacity_values[i];
+            }
+        }
+        return opacity_values[opacity_values.length-1];
+    }
+    
     componentToHex(c) {
         var hex = c.toString(16);
         var code = hex.length === 1 ? '0' + hex : hex;
@@ -76,7 +86,7 @@ export class Scale {
             b=b+z;
             var str='rgb('+r+','+g+','+b+')';
             this.rgbArray.push(str);
-		    this.hexArray.push("#" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b));
+            this.hexArray.push("#" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b));
         }
     }
 
@@ -165,11 +175,31 @@ export class Scale {
                 break;
 
         }
-
         return {
             rgb_values: this.rgbArray,
             hex_values: this.hexArray
         }
     }
-}
 
+    getOpacityScale(options, legendWidth){
+        let legendOpacityScale;
+        let opacity_values = [];
+        if(options.colorScale === 'linear'){
+            legendOpacityScale = d3
+                .scaleLinear()
+                .domain([0, legendWidth])
+                .range([0,1]);
+        } else if (options.colorScale === 'sqrt') {
+            legendOpacityScale = d3
+                .scalePow()
+                .exponent(options.exponent)
+                .domain([0, legendWidth])
+                .range([0,1]);
+        }
+        let valueRange = d3.range(0, legendWidth, 22);
+        for(let i = 0; i< valueRange.length; i++){
+            opacity_values.push(legendOpacityScale(valueRange[i]));
+        }
+        return opacity_values;
+    }
+}
