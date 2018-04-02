@@ -93,19 +93,11 @@ var LeafletMap = function(params) {
     };
 
     var lmap = L.map(document.getElementById(params.containerId), lmapOptions);
-    var bingApiKey = params.bing_api_key;
     var mapTileURL = params.map_tile_url;
     var tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }).addTo(lmap);
     map.setMapUrl = function(map_tile_url){
         tiles.setUrl(map_tile_url);
-        console.log(tiles);
     }
-    
-  //  var satTiles;
-  //  map.setBingKey = function(bingApiKey) {
-  //      satTiles = L.tileLayer.bing({bingMapsKey: bingApiKey, imagerySet: "AerialWithLabels", opacity: 0}).addTo(lmap);
-  //  }
-    //var satTiles = L.tileLayer.bing({bingMapsKey: bingApiKey, imagerySet: "AerialWithLabels",  opacity: 0}).addTo(lmap);
 
     //setup our svg layer to drawn on
     var svgLayer = L.svg();
@@ -321,8 +313,8 @@ var LeafletMap = function(params) {
             onEndpointEvent: layer.onEndpointEvent,
             tooltip: tooltip,
             max: layer.max,
-	    min: layer.min,
-	    offsets: [-360,0,360]
+            min: layer.min,
+            offsets: [-360,0,360]
         };
 
         var network_layer;
@@ -396,15 +388,15 @@ var LeafletMap = function(params) {
 		});
 
 	    var leaflet_tile_layer = L.tileLayer.wms( layer.url, {
-		    layers: layer.params.layers,
-                    version: layer.params.version,
-		    format: layer.params.format,
-		    transparent: true,
-		    updateWhenZooming: false,
-		    updateInterval: 900,
-		    zoomAnimation: false,
-		    interactive: false,
-		    opacity: 0
+            layers: layer.params.layers,
+            version: layer.params.version,
+            format: layer.params.format,
+            transparent: true,
+            updateWhenZooming: false,
+            updateInterval: 900,
+            zoomAnimation: false,
+            interactive: false,
+            opacity: 0
 		});
 	    
 	    //remove the SVG layer cause suck!
@@ -442,10 +434,10 @@ var LeafletMap = function(params) {
                 name: layer.name,
                 maxZoom: 16,
                 opacity: 0,
-		updateWhenZooming: false,
-		updateInterval: 900,
+                updateWhenZooming: false,
+                updateInterval: 900,
                 cacheBuster: function() { return Math.random().toString().replace(/^[^.]*\./, ''); } //used to defeat overzealous browser caching
-	    });
+        });
 
 	svgLayer.remove();
 	leaflet_tile_layer.addTo(lmap);
@@ -507,6 +499,7 @@ var LeafletMap = function(params) {
     map.onInit(function(){
             var container = d3.select("#" + map.containerId());
             bg = container.select("svg");
+            bg.attr("pointer-events","auto");
             bg.classed(map.containerId(), true);
         });
 

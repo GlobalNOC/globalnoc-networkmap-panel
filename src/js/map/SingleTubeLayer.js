@@ -120,8 +120,15 @@ var SingleTubeLayer = function(params){
             d3.event.stopPropagation();
         },
         mouseover: function(d){
+            if(!tooltip.show){
+                d3.select(d.event.target).style("cursor","default");
+            }
             layer.showEndpointInfo({
-                endpoint: d.data
+                endpoint: d.data,
+                pos: {
+                    page_x: d.event.pageX,
+                    page_y: d.event.pageY
+                }
             });
             d3.select(d.event.target).style("cursor", "pointer");
         },
@@ -319,15 +326,16 @@ var SingleTubeLayer = function(params){
             .append("g")
             .attr("id", function(d) { return d.endpointId; })
             .attr("class","pop");        
-
+        
         endpointsEnter.append("circle")
-        .attr("cx", function (d) {
+            .attr("cx", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[0]; 
             })
-        .attr("cy", function (d) {
+            .attr("cy", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[1];
             })
-            .attr("r", "3px")
+            .attr("r", "5px")
+            .attr("class", "popHighlight")
             .call(function(selection){
                 _.forEach(layer.onEndpointEvent(), function(callback, evt){
                     selection.on(evt, function(d){
@@ -337,24 +345,26 @@ var SingleTubeLayer = function(params){
                         });
                     });
                 });
-            });
+            }); 
 
         //--- UPDATE -- update any existing endpointss 
-        endpoints.select('circle')
-        .attr("cx", function (d) {
+        endpoints.select('.popHighlight')
+            .attr("cx", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[0]; 
             })
-        .attr("cy", function (d) {
+            .attr("cy", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[1];
             })
             .attr("r",function(){ 
                 var r = 0;
                 if(layer.lineWidth() > 3){
-                    r = layer.lineWidth()-1.5;
+                    r = layer.lineWidth()+2;
                 }
-                return r+"px"
+                return r+"px";
             });
-        
+
+
+
         //--- EXIT -- remove any endpoint we no longer need
         endpoints.exit().remove();
 	

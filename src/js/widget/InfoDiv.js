@@ -114,7 +114,7 @@ var InfoDiv = function(params){
         options = options || {};
         options.align = options.align || params.align;
         options.content = options.content || params.content;
-	options.pos = options.pos;
+        options.pos = options.pos;
         //options.height = options.height || params.height;
         //options.width = options.width || params.width;
 
@@ -145,7 +145,6 @@ var InfoDiv = function(params){
           .transition()
           .duration(500)
           .style('opacity', 1);
-	//console.log("Returning infoDiv in show(): ",infoDiv);
         return infoDiv;
     };
 
@@ -167,22 +166,20 @@ var InfoDiv = function(params){
     * @param {Array} options.xy - The xy position to move the info div to
     */
     infoDiv.moveTo = function(position){
-	const padding_x = 20;
-	const padding_y = 10;
-	const infoDivWidth = _infoDiv.clientWidth;
-	const infoDivHeight = _infoDiv.clientHeight;
+        const padding_x = 20;
+        const padding_y = 10;
+        const infoDivWidth = _infoDiv.clientWidth;
+        const infoDivHeight = _infoDiv.clientHeight;
+        if(!position.page_x || !position.page_y) return;
+        let left = position.page_x + padding_x;
+        let top = position.page_y + padding_y;
+        if(position.page_x + infoDivWidth > window.innerWidth){
+            left = position.page_x - infoDivWidth - padding_x;
+        }
 
-	let left = position.page_x + padding_x;
-	let top = position.page_y + padding_y;
-	if(position.page_x + infoDivWidth > window.innerWidth){
-	  left = position.page_x - infoDivWidth - padding_x;
-	}
-
-	if(position.page_y - window.pageYOffset + infoDivHeight > window.innerHeight){
-	  top = position.page_y - infoDivHeight - padding_y;
-	}
-        //var cur_x = position.cur_x+10;
-	//var cur_y = position.cur_y+15;
+        if(position.page_y - window.pageYOffset + infoDivHeight > window.innerHeight){
+            top = position.page_y - infoDivHeight - padding_y;
+        }
         _infoDiv.style('left', left+'px'); 
         _infoDiv.style('top',  top+'px'); 
     };
