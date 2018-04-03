@@ -101,7 +101,7 @@ Display tab provides different options for the user to customize the monitoring 
     
 * Legend: Invert legend. This option inverts the current legend on the map and also affects the map to use the inverted scheme.
 
-![Invert Legend](/src/images/invert-legend.png) ![Inverted Scheme](/src/images/inver-scheme.png)
+![Invert Legend](/src/images/invert-legend.png) ![Inverted Scheme](/src/images/invert-scheme.png)
 
 * Line Color: Ability to choose the behavior of the line colors based on metric. 
 
