@@ -1,5 +1,5 @@
 # Network Map Panel for Grafana
-The Network Map Panel is a world map that provides the ability to monitor and visualize realtime traffic statistics. It uses timeseries data to represent traffic between nodes as circuits.
+The Network Map Panel is a world map that provides the ability to monitor and visualize realtime traffic statistics. It uses timeseries data to represent traffic between nodes as circuits. It provides this information when hovered over the circuits and nodes.
 
 ![Network Map](/src/images/network-map-main-2.png)
 
@@ -17,7 +17,7 @@ The Network Map Panel also provides the ability to configure different map optio
 	2. Ability to validate the JSON and display validation messages.
 	3. Ability to save the valid JSON back to its Map Source.
   
-![JSON Validator](/src/images/json-validator.png)
+![JSON Validator](/src/images/json-validator-1.png)
 
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
 
@@ -95,11 +95,13 @@ Display tab provides different options for the user to customize the monitoring 
 
   - Mode: Opacity. This mode provides the ability to choose from two different scales, i.e., linear, sqrt. It also provides the option to choose a custom color from the color picker. 
     
-![opacity-1](/src/images/colors-3-2.png)  ![opacity-2](/src/images/colors-2.png)    ![opacity-3](/src/images/colors-1.png)
+![opacity-1](/src/images/opacity-1.png) ![opacity-2](/src/images/opacity-2.png) ![opacity-3](/src/images/opacity-colors.png)
 
-![Opacity Scheme](/src/images/network-map.png)
+![Opacity Scheme](/src/images/opacity-scheme.png)
     
 * Legend: Invert legend. This option inverts the current legend on the map and also affects the map to use the inverted scheme.
+
+![Invert Legend](/src/images/invert-legend.png) ![Inverted Scheme](/src/images/inver-scheme.png)
 
 * Line Color: Ability to choose the behavior of the line colors based on metric. 
 
@@ -225,8 +227,14 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
       "links": [
         {
           "endpoints": [
-            "A: endpoint1 to endpoint3 input",
-            "A: endpoint1 to endpoint3 output"
+	     {
+	       "name": "A: endpoint1 to endpoint3 input",
+	       "label": "label for endpoint"
+	     },
+	     {
+	       "name": "A: endpoint1 to endpoint3 output",
+	       "label": "label for endpoint"
+	     }
           ],
           "path": [
             {
@@ -248,8 +256,14 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
         },
         {
           "endpoints": [
-            "A: endpoint2 to endpoint3 input",
-            "A: endpoint2 to endpoint3 output"
+	    {
+	      "name": "A: endpoint2 to endpoint3 input",
+	      "label": "label for endpoint"
+	    },
+	    {
+	      "name": "A: endpoint2 to endpoint3 output",
+	      "label": "label for endpoint"
+	    }
           ],
           "path": [
             {
@@ -271,8 +285,14 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
         },
         {
           "endpoints": [
-            "A: endpoint1 to endpoint2 input",
-            "A: endpoint1 to endpoint2 output"
+	    {
+	      "name": "A: endpoint1 to endpoint2 input",
+	      "label": "label for endpoint"
+	    },
+	    {
+	      "name": "A: endpoint1 to endpoint2 output",
+	      "label": "label for endpoint"
+	    }
           ],
           "path": [
             {
@@ -328,7 +348,7 @@ Network Map converts the `map source json` into an array of `links`. Each elemen
 ```
 [
   {
-	  "endpoints": ["A: endpoint1 to endpoint3 input","A: endpoint1 to endpoint3 output"].
+	  "endpoints": [{"name": "A: endpoint1 to endpoint3 input", "label": "label for endpoint"},{"name": "A: endpoint1 to endpoint3 output", "label": "label for endpoint"}].
 	  "link_id": "link_1234",
 	  "name": "A: endpoint1 to endpoint3",
 	  "path": [{lat,lng,name,...},{lat,lng,name,...},{lat,lng,name,...}]
@@ -341,9 +361,9 @@ Network Map converts the `map source json` into an array of `links`. Each elemen
     .
 ]
 ```
-The map renders circuits if the `endpoints` of these `links` match with the `target` name in the `dataList` array. In addition, the corresponding data for each circuit is used to calculate the metrics to be shown on the map.
+The map renders circuits if the `endpoints.name` of these `links` match with the `target` in the `dataList` array. In addition, the corresponding data for each circuit is used to calculate the metrics to be shown on the map.
 
-In the example above, the first six results in the `dataList` object match with the `endpoints` from each of the three `links`. Therefore, the network map renders three circuits for the provided `map source json object`.
+In the example above, the first six results in the `dataList` object match with the `endpoints.name` from each of the three `links`. Therefore, the network map renders three circuits for the provided `map source json object`.
 
 ![example circuit](/src/images/example.png)
 
