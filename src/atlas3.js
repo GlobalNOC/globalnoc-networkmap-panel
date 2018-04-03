@@ -38,15 +38,17 @@ const panelDefaults = {
     hide_layers: false,
     color: {
         mode: 'spectrum',
-        cardColor: '#b4ff00',
         colorScale: 'linear',
+        cardColor: '#2f575e',
         exponent: 0.5,
         colorScheme: 'interpolateOranges',
         fillBackground: false
     },
     legend: {
-        show: true,    
-        legend_colors: []
+        show: true,
+        mode: 'spectrum',
+        legend_colors: [],
+        opacity: []
     },
     tooltip:{
         show: true,
@@ -58,11 +60,12 @@ const panelDefaults = {
         selected: 'Current'
     },
     to_si: 1000000000,
-    scales: ['linear', 'sqrt'],
+    opacityScales: ['linear', 'sqrt'],
     colorScheme : 'interpolateRdYlGn',
     rgb_values:[],
     hex_values:[],
-    colorModes : ['opacity','spectrum']
+    opacity_values: [],
+    colorModes : ['opacity','spectrum'],
 };
 
 var tempArray=[];
@@ -71,21 +74,25 @@ export class Atlas3 extends MetricsPanelCtrl {
     constructor($scope, $injector) {
         super($scope, $injector);	
         _.defaults(this.panel, panelDefaults);
-        this.panel.title = "GlobalNoc Network-map";
+        this.panel.title = "GlobalNoc Network Map";
         this.map_holder_id = 'map_' + this.panel.id;
         this.containerDivId = 'container_'+this.map_holder_id;
         this.recentData = [];
+        this.json_info=null;
         this.map_drawn = false; 
         this.layer_ids = [];
         this.show_legend = true;
+        this.opacity = [];
+        this.json_index = null;
         this.custom_hover = new CustomHover(this.panel.tooltip.content);
-        this.scale = new Scale(this.colorScheme);
-        this.colorSchemes=this.scale.getColorSchemes();
+        this.scale = new Scale($scope,this.panel.colorScheme);
+        this.colorSchemes=this.scale.getColorSchemes(); 
         this.events.on('data-received', this.onDataReceived.bind(this));
         this.events.on('data-error', this.onDataError.bind(this));
         this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
         this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
         this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
+        console.log("Calling editPanelJson from panelCtrl:",this.editPanelJson);
     }
     
     onDataReceived(dataList) {
@@ -97,6 +104,16 @@ export class Atlas3 extends MetricsPanelCtrl {
 
         this.recentData = dataList;
         this.process_data(dataList);
+    }
+
+    jsonModal(){
+        var modalScope = this.$scope.$new(true);
+        modalScope.panel = this.panel; 
+
+        this.publishAppEvent('show-modal', {
+            src: 'public/plugins/networkmap/json_editor.html',
+            scope: modalScope,
+        });
     }
     
     process_data(dataList){
@@ -121,7 +138,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(self.panel.hide_layers){
                     _.forEach(links, function(l){
                         _.forEach(l.endpoints, function(ep){
-                            if(!data_targets.includes(ep)){       
+                            if(!data_targets.includes(ep.name)){       
                                 layer.toggle(false);
                             }
                         }); 
@@ -130,26 +147,17 @@ export class Atlas3 extends MetricsPanelCtrl {
                 var target;
                 var dir;
 
-		
-
-/*		if(data.target.endsWith("AZ")){
-		    target = data.target.substr(0,data.target.length - 3);
-		    dir = "AZ";
-		}else if(data.target.endsWith("ZA")){
-		    target = data.target.substr(0,data.target.length - 3);
-		    dir = "ZA";
-		}else{
-		    return;
-		}
-*/
-		
-            //var links = layer.topology().links({linkNames: [target]});
+                // var links = layer.topology().links({linkNames: [target]});
                 var target_links = [];
                     _.forEach(links, function(l){
                         _.forEach(l.endpoints, function(ep){
-                            var str =  l.name + " " + ep;
-                            if(data.target == ep){
-                                target_links.push({link: l, endpoint: ep, full: str});
+                            var str =  l.name + " " + ep.name;
+                            if(data.target == ep.name){
+                                if(ep.label){
+                                    target_links.push({link: l, endpoint: ep.name, label: ep.label, full: str});
+                                }else{
+                                    target_links.push({link: l, endpoint: ep.name, label: null, full: str});
+                                }
 			                }
 		                });
 		            });
@@ -214,22 +222,43 @@ export class Atlas3 extends MetricsPanelCtrl {
                     } else {
                         color_value = ((bps - layer_min) / (layer_max-layer_min)) * 100;
                     }
-                    var lineColor =self.scale.getColor(color_value);//,this.panel.values);
-		    
-                    l.lineColor = lineColor;
-		    
+
+                    // if mode === spectrum, set the line color based on % value
+                    // else if mode === opacity, set the line color with the card color and opacity based on % value
+                    // create a new property for links - l.opacity
+                    // apply opacity to circuits in the traffic layer
+                    let mode = self.panel.color.mode;
+                    var lineColor;
+                    var lineOpacity;
+                    if(mode === 'spectrum'){
+                        lineColor =self.scale.getColor(color_value);//,this.panel.values);
+                        l.lineColor = lineColor;
+                        l.lineOpacity = 1;
+                    }else if(mode === 'opacity'){
+                        lineColor = self.panel.color.cardColor;
+                        lineOpacity = self.scale.getOpacity(color_value, self.panel.opacity_values);
+                        l.lineColor = lineColor;
+                        l.lineOpacity = lineOpacity;
+                    }
+
                     //check for AZ or ZA based on the endpoint the data was found at!
-                    if(l.endpoints[0] == obj.endpoint){
+                    if(l.endpoints[0].name === obj.endpoint){
+                        l.az.name = l.endpoints[0].name;
+                        if(l.endpoints[0].label) l.az.label = l.endpoints[0].label;
                         l.az.cur = color_value;
                         l.azLineColor = lineColor;
+                        l.azLineOpacity = lineOpacity;
                         l.az.max = self.toSI(max);
                         l.az.min = self.toSI(min);
                         l.az.sum = self.toSI(sum);
                         l.az.avg = self.toSI(avg);
                         l.arrow = 1;
                     } else{
+                        l.za.name = l.endpoints[1].name;
+                        if(l.endpoints[1].label) l.za.label = l.endpoints[1].label;
                         l.za.cur = color_value;
                         l.zaLineColor = lineColor;
+                        l.zaLineOpacity = lineOpacity;
                         l.za.max = self.toSI(max);
                         l.za.min = self.toSI(min);
                         l.za.sum = self.toSI(sum);
@@ -240,9 +269,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                     if(l.az.cur != null && l.za.cur != null){
                         if(l.az.cur > l.za.cur){
                             l.lineColor = l.azLineColor;
+                            l.lineOpacity = l.azLineOpacity;
                             l.arrow = 1;
                         } else{
                             l.lineColor = l.zaLineColor;
+                            l.lineOpacity = l.azLineOpacity;
                             l.arrow = 2;
                         }
                     }
@@ -275,9 +306,10 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
     
     onInitEditMode() {
-        this.addEditorTab('Options', 'public/plugins/worldview/editor.html', 2);
-        this.addEditorTab('Display', 'public/plugins/worldview/display_editor.html', 3);
+        this.addEditorTab('Options', 'public/plugins/networkmap/editor.html', 2);
+        this.addEditorTab('Display', 'public/plugins/networkmap/display_editor.html', 3);
         tempArray=this.scale.displayColor(this.panel.colorScheme);
+        this.panel.json_info = null;
     } 
    
     onInitPanelActions(actions) {
@@ -295,6 +327,29 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.min.push('');
     }
     
+    useValidator(index) {
+        let json = this.panel.mapSrc[index];
+        if(!json) return;
+        $("#json_valid").text(json);
+        this.json_index = index;
+        this.validateJson();
+    }
+    
+    saveToMapSrc(index){
+        if(index===null) return;
+        if($(".line-number")) $(".line-number").remove();
+        let json = $('#json_valid').text();
+        if(!this.isJson(json)){
+            this.panel.json_info = "Can't save invalid JSON!";
+            $("#json-info").removeClass("json-success").addClass("json-err");
+            return;
+        }
+        this.panel.mapSrc[index] = json;
+        this.json_index = null;
+        this.lineNumbering();
+        this.render();
+    }
+
     removeChoice(index) {
         this.panel.choices.splice(index,1);
         if(this.layer_ids[index]){
@@ -306,11 +361,114 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.max.splice(index,1);
         this.panel.min.splice(index,1);
     }
+
+    copyToClip(){
+        if($(".line-number")) $(".line-number").remove();
+        let text = $("#json_valid");
+        if(!text) return;
+        let content = text.text();
+        if(!this.isJson(content)){
+            this.panel.json_info = "Can't copy invalid JSON!";
+            $("#json-info").removeClass("json-success").addClass("json-err");
+            return;
+        }
+        this.selectText(text[0]);
+        document.execCommand("Copy");
+        this.lineNumbering();
+    }
+
+    selectText(element) {
+        if (/INPUT|TEXTAREA/i.test(element.tagName)) {
+            element.focus();
+            if (element.setSelectionRange) {
+                element.setSelectionRange(0, element.value.length);
+            } else {
+                element.select(); // if textarea
+            }
+            return;
+        }    
+        if (window.getSelection) {
+            window.getSelection().selectAllChildren(element);
+        } else if (document.body.createTextRange) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(element);
+            range.select();
+        }
+    }
+
+    lineNumbering(){
+        let pre = document.getElementById('json_valid');
+        pre.innerHTML = '<span class="line-number"></span>'+pre.innerHTML+'<span class="cl"></span>';
+        let num = pre.innerHTML.split(/\n/).length;
+        for(let j = 0;j<num;j++){
+            let line=pre.getElementsByClassName("line-number")[0];
+            line.innerHTML+='<span>' +(j+1)+'</span>';
+        }
+    }
+
+    syntaxHighlight(json){
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|([\[\]\(\){}])|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match){
+            var span_elem = `<span style="color:darkorange">${match}</span>`;
+            if(/^"/.test(match)){
+                if(/:$/.test(match)){
+                    span_elem = `<span class="line" style="color:red">${match}</span>`;
+                }else {
+                    span_elem = `<span style="color:green">${match}</span>`;
+                }
+            }else if(/true|false/.test(match)){
+                span_elem = `<span style="color:blue"> ${match}</span>`;
+            }else if(/null/.test(match)){
+                span_elem = `<span style="color:magenta">${match}</span>`;
+            }else {
+                span_elem = `<span>${match}</span>`;
+            }
+            return span_elem;
+        });
+    }
+
+    validateJson(){
+        if($(".line-number")) $(".line-number").remove();
+        let json_ugly = $("#json_valid").text();
+        if(!json_ugly) return;
+        if(!this.isJson(json_ugly)){
+            if($(".line-number")) $(".line-number").remove();
+            this.lineNumbering();
+            try{
+                JSON.parse(json_ugly);
+            }catch(err){
+                this.panel.json_info = err;
+                $("#json-info").removeClass("json-success").addClass("json-err");
+            }
+        
+        } else {
+            this.panel.json_info=null;
+            let json_obj = JSON.parse(json_ugly);
+            let pretty = JSON.stringify(json_obj, undefined, 2);
+            this.panel.json_text = pretty;
+            $("#json-info").removeClass("json-err").addClass("json-success");
+            this.panel.json_info = "Valid JSON!";
+            document.getElementById("json_valid").innerHTML = this.syntaxHighlight(pretty);
+            if($(".line-number")) $(".line-number").remove();
+            this.lineNumbering();
+        }
+    }
  
     display() {
         this.panel.colors=this.scale.displayColor(this.panel.colorScheme);
         this.panel.rgb_values = this.panel.colors.rgb_values;
         this.panel.hex_values = this.panel.colors.hex_values;
+        if(this.panel.legend.invert){
+            _.reverse(this.panel.hex_values);
+            _.reverse(this.panel.rgb_values);
+        }
+    }
+
+    displayOpacity(options, legendWidth){
+        this.panel.opacity_values = this.scale.getOpacityScale(options, legendWidth);
+        if(this.panel.legend.invert){
+            _.reverse(this.panel.opacity_values);
+        } 
     }
 
     getState(){
@@ -321,27 +479,41 @@ export class Atlas3 extends MetricsPanelCtrl {
         return this.custom_hover.parseHtml(htmlContent);
     }
 
+    isJson(str){
+        try{
+            JSON.parse(str)
+        }catch(e){
+            return false;
+        }
+        return true;
+    }
+
     link(scope, elem, attrs, ctrl){
         var self = this;
         ctrl.events.on('render', function() {
-            ctrl.display();
-            console.log(`Panel Legend: ${ctrl.panel.legend.show}`);
-            ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
             ctrl.panel.legend.adjLoadLegend = {
                 horizontal: true,
             }
             let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
             ctrl.panel.tooltip.content = html_content;
+            if(!ctrl.panel.use_json) { ctrl.panel.json_info = null };
             if(ctrl.map_drawn == true){
-                console.log(`Map existing: ${ctrl.map}`);
-                ctrl.map.drawLegend();
+                if(ctrl.panel.color.mode === 'opacity'){
+                    ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width()*0.4);
+                    ctrl.panel.legend.mode = ctrl.panel.color.mode;
+                    ctrl.panel.legend.opacity = ctrl.panel.opacity_values;
+                    ctrl.panel.legend.card_color = ctrl.panel.color.cardColor;
+                } else if (ctrl.panel.color.mode === 'spectrum'){
+                    ctrl.display();
+                    ctrl.panel.legend.mode = ctrl.panel.color.mode;
+                    ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+                }
+                ctrl.map.drawLegend(ctrl.panel.legend);
                 ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
-                // ctrl.map.setBingKey(ctrl.panel.bing_api_key);
                 ctrl.map.adjustZoom(ctrl.panel.zoom);
                 ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
           
-                // Remove existing layers from DOM as well as map before adding new layers.
-
+                // Remove existing layers from DOM and the  map before adding new layers.
                 let all_layers = ctrl.layer_ids;
                 _.forEach(all_layers, function(layer){
                     if(layer!==''){
@@ -373,6 +545,9 @@ export class Atlas3 extends MetricsPanelCtrl {
                     networkLayer.onInitComplete(function() {
                         ctrl.process_data(self.recentData);
                     });
+                    if(ctrl.isJson(ctrl.panel.mapSrc[j])){
+                        ctrl.process_data(self.recentData);
+                    }
                 }
                 return;
             }
@@ -387,18 +562,28 @@ export class Atlas3 extends MetricsPanelCtrl {
                 lat: ctrl.panel.lat,
                 lng: ctrl.panel.lng,
                 zoom: ctrl.panel.zoom,
-                tooltip: ctrl.panel.tooltip,					
-                legend: ctrl.panel.legend
+                tooltip: ctrl.panel.tooltip
             });
             ctrl.map = map; 
             ctrl.map_drawn = true;
+            if(ctrl.panel.color.mode === 'opacity'){
+                ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width() * 0.4);
+                ctrl.panel.legend.mode = ctrl.panel.color.mode;
+                ctrl.panel.legend.opacity = ctrl.panel.opacity_values;
+                ctrl.panel.legend.card_color = ctrl.panel.color.cardColor;
+            } else if(ctrl.panel.color.mode === 'spectrum'){
+                ctrl.display();
+                ctrl.panel.legend.mode = ctrl.panel.color.mode;
+                ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+            }
             if(ctrl.panel.legend.show){
-                ctrl.map.drawLegend();
+                ctrl.map.drawLegend(ctrl.panel.legend);
             }
     
             if(ctrl.map === undefined){
                 return;
             }
+
             for(let i=0; i < ctrl.panel.choices.length; i++){
                 if(ctrl.panel.mapSrc[i] === null || ctrl.panel.mapSrc[i] === undefined){
                     return;
@@ -415,6 +600,9 @@ export class Atlas3 extends MetricsPanelCtrl {
                 networkLayer.onInitComplete(function(){
                     ctrl.process_data(self.recentData);
                 });
+                if(ctrl.isJson(ctrl.panel.mapSrc[i])){
+                    ctrl.process_data(self.recentData);
+                }
             }
         });
     

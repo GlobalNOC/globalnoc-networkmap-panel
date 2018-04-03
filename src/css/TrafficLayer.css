@@ -42,6 +42,16 @@ limitations under the License.
 
 .pop{
   fill: white;
-  stroke: #666;
   stroke-width: .5px;
 }
+
+.popHighlight{
+    fill:white;
+    stroke-width: 2px;
+    stroke: #ddd;
+}
+
+.popHighlight:hover{
+    fill:red;
+}
+

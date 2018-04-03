@@ -23,7 +23,7 @@ The Network Map Panel also provides the ability to configure different map optio
 
 ![Layer Options](/src/images/layer-options-1.png)
   
-  Example map source json object.
+Example map source json object.
   
 ```
 {

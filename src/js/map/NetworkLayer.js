@@ -55,6 +55,13 @@ var NetworkLayer = function(params){
      * @private
      */
     var lineColor;
+    
+    /**
+     * A css opacity value to set the opacity of link lines
+     * @property {Integer} lineOpacity
+     * @private
+     */
+    var lineOpacity;
     /**
      * The width of lines representing links on the layer 
      * @property {Integer} lineWidth
@@ -104,7 +111,8 @@ var NetworkLayer = function(params){
     var onEndpointEvent = params.onEndpointEvent || {
         mouseover: function(params){
             layer.showEndpointInfo({
-                endpoint: params.data
+                endpoint: params.data,
+                pos: params.pos
             }); 
         },
         mouseout: function(params){
@@ -261,6 +269,12 @@ var NetworkLayer = function(params){
 
     function _parseHtml(htmlContent, link){
         var customContent = htmlContent;
+        if(link.az.label){
+            link.az.name = link.az.label;
+        }
+        if(link.za.label){
+            link.za.name = link.za.label;
+        }
         const possible_vars = ['$input.min','$input.max','$input.avg','$input.sum','$output.min','$output.max','$output.avg','$output.sum','$name','$input.name','$output.name','$count'];
         _.forEach(possible_vars, function(variable){
             switch(variable){ 
@@ -282,7 +296,7 @@ var NetworkLayer = function(params){
                     customContent = customContent.replace(/\$input.sum/g, link.az.sum);
                     break;
                 case '$input.name':
-                    customContent = customContent.replace(/\$input.name/g, link.endpoints[0]);
+                    customContent = customContent.replace(/\$input.name/g, link.az.name);
                     break;
                 case '$output.min':
                     customContent = customContent.replace(/\$output.min/g,link.za.min);
@@ -297,7 +311,7 @@ var NetworkLayer = function(params){
                     customContent = customContent.replace(/\$output.sum/g, link.za.sum);
                     break;
                 case '$output.name':
-                    customContent = customContent.replace(/\$output.name/g, link.endpoints[1]);
+                    customContent = customContent.replace(/\$output.name/g, link.za.name);
                     break;
                 default:
                     break;
@@ -305,6 +319,27 @@ var NetworkLayer = function(params){
         });
         return customContent;
     }
+
+    //helper function to create the body markup for the details div when hovering over an endpoint
+
+    function _createEndpointInfoMarkup(endpoint){
+        var endpointStr =`<div class="pop-info">`;
+        endpointStr += `<div><b>Endpoint Name: </b> ${endpoint.name} </div>`;
+        endpointStr += `<hr>`;
+        endpointStr += `<div>`;
+
+        endpointStr += `<div><table>`;
+        endpointStr += `<tr><td style="font-weight: bold">Id:</td><td> ${endpoint.endpointId} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold">Lat:</td><td> ${endpoint.lat} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold">Lon:</td><td> ${endpoint.lon} </td></tr>`;
+        endpointStr += `</table></div>`;
+        
+        endpointStr += `</div>`;
+
+        endpointStr += `</div>`;
+        return endpointStr;
+    }
+
 
     //helper function to create the body markup for the details div when hovering over a link
     function _createLinkInfoMarkup(link){
@@ -320,16 +355,23 @@ var NetworkLayer = function(params){
         linkStr    += '<div><b>Link:</b> ' + link.name +'</div>';
         linkStr += '<hr>';
         linkStr += '<div>';
-        
-        linkStr += '<div style="float: left"><div><center> To <b>' + link.endpoints[0] + '</b></center></div>'; 
+        if(link.az.label){
+            linkStr += '<div style="float: left"><div><center> To <b>' + link.az.label + '</b></center></div>'; 
+        }else {
+            linkStr += '<div style="float: left"><div><center> To <b>' + link.az.name + '</b></center></div>';  
+        }
         linkStr += '<div><table>';
         linkStr += '<tr><td style="font-weight:bold">Min:</td><td>' + link.az.min + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Max:</td><td>' + link.az.max + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Avg:</td><td>' + link.az.avg + '</td><td>Gbps</td></tr>'; 
         linkStr += '<tr><td style="font-weight:bold">Sum:</td><td>' + link.az.sum + '</td><td>Gbps</td></tr>';
         linkStr += '</table></div></div>';
-
-        linkStr += '<div style="float: right"><div><center> To <b>' + link.endpoints[1] + '</b></center></div>';	
+        
+        if(link.za.label){
+            linkStr += '<div style="float: right"><div><center> To <b>' + link.za.label + '</b></center></div>';
+        } else{
+            linkStr += '<div style="float: left"><div><center> To <b>' + link.za.name + '</b></center></div>';
+        } 
         linkStr += '<div><table>';
         linkStr += '<tr><td style="font-weight:bold">Min:</td><td>' + link.za.min + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Max:</td><td>' + link.za.max + '</td><td>Gbps</td></tr>';
@@ -351,10 +393,9 @@ var NetworkLayer = function(params){
      */
     layer.showLinkInfo = function(params){
         var link = params.link; 
-	var div_pos = params.pos;
-//	console.log("Mouse position: ",cur_pos);
+        var div_pos = params.pos;
         if(!tooltip.show) return;
-	var linkStr = _createLinkInfoMarkup(link);
+        var linkStr = _createLinkInfoMarkup(link);
 
         //if the infoDiv is not already pinned and we were told to pin this
         //select and update 
@@ -370,7 +411,7 @@ var NetworkLayer = function(params){
             width: 400,
             content: linkStr,
             pin: params.pin,
-	    pos: div_pos // cursor coordinates
+	        pos: div_pos // cursor coordinates
         });
     };
 
@@ -391,6 +432,16 @@ var NetworkLayer = function(params){
         });
     };
 
+    
+    layer.updateEndpointInfo = function(params){
+        var endpoint = params.endpoint;
+       // var endpointStr = '<div class="pop-info"><div><b>Endpoint: </b>' +endpoint.name+ '</div></div>';
+        var endpointStr = _createEndpointInfoMarkup(endpoint);
+        layer.map().infoDiv().setContent({
+            content: endpointStr
+        });
+    };
+
     /**
      * Displays a panel in the lower right corner of the map containing information about a endpoint
      * @method showEndpointInfo 
@@ -401,18 +452,21 @@ var NetworkLayer = function(params){
      */
     layer.showEndpointInfo = function(params){
         var endpoint = params.endpoint; 
-        var endpoingStr = '<div class="pop-info"><div><b>Endpoint:</b> ' + endpoint.name+'</div></div>' 
-        
+        var div_pos = params.pos;
+        if(!tooltip.show) return;
+
+        var endpointStr = _createEndpointInfoMarkup(endpoint); 
         //if it's pinned select the link
         if(params.pin){
             endpoint.selected = true;
-            layer.update();
+            layer.map().update();
         }
 
         layer.map().infoDiv().show({
             width: 100,
             content: endpointStr,
-            pin: params.pin
+            pin: params.pini,
+            pos: div_pos
         });
     };
     
@@ -458,7 +512,7 @@ var NetworkLayer = function(params){
 
     /**
      * A Getter/Setter for the onLinks
-     * @method onLinks
+      @method onLinks
      * @param {Function} value - The method describing how to get link elements for the layer
      * @chainable
      */
@@ -689,23 +743,56 @@ var NetworkLayer = function(params){
         return layer;
     };
 
+    /** 
+     * Getter/Setter the lineOpacity of lines representing links on the layer 
+     * @method lineOpacity
+     * @param {Integer} value - The new value of the lineOpacity as a css opacity style
+     * @return lineOpacity - Returns the current lineOpacity
+     * @chainable
+     */
+    layer.lineOpacity = function(value){
+        if(arguments.length === 0){ return lineOpacity; }
+        lineOpacity = value;
+        return layer;
+    };
+
+    function _isJson(str){
+        try {
+            JSON.parse(str);
+        } catch(e){
+            return false;
+        }
+        return true;
+    }
+
     /**
      * A method that takes a [DataSource](DataSource.html) source object and restrieves a map topology
      * @method loadMap
      * @chainable
      */
     layer.loadMap = function(source){
-        var req = ds({
-            source: source,
-            onSuccess: function(params){
-                var d = params.data.results[0];
-                if(!d){
-                    console.error('No map topology returned for '+layer.name()+' ',req);
-                    return;
-                }
-                layer.topology(d);
+        let json_obj;
+        if(_isJson(source)){
+            json_obj = JSON.parse(source);
+            let topo = json_obj.results[0];
+            if(!topo){
+                console.log('No map topology returned for the given source');
+                return;
             }
-        });
+            layer.topology(topo);
+        } else {
+            var req = ds({
+                source: source,
+                onSuccess: function(params){
+                    var d = params.data.results[0];
+                    if(!d){
+                        console.error('No map topology returned for '+layer.name()+' ',req);
+                        return;
+                    }
+                    layer.topology(d);
+                }
+            });
+        }
         return layer;
     };
 
@@ -742,6 +829,7 @@ var NetworkLayer = function(params){
     }
 
     layer.lineColor(params.lineColor || '#262F36');
+    layer.lineOpacity(params.lineOpacity || 1);
 
     return layer; 
 };
