@@ -17,7 +17,7 @@ The Network Map Panel also provides the ability to configure different map optio
 	2. Ability to validate the JSON and display validation messages.
 	3. Ability to save the valid JSON back to its Map Source.
   
-![JSON Validator](/src/images/json-validator-1.png)
+	![JSON Validator](/src/images/json-validator-1.png)
 
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
 
