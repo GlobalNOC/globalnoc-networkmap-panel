@@ -51,6 +51,8 @@ singleTubeLayer = SingleTubeLayer({
 var SingleTubeLayer = function(params){
     params.lineColor = params.lineColor || '#ddd';
     params.lineOpacity = params.lineOpacity || 1;
+    params.endpointOpacity = params.endpointOpacity || 1;
+    params.endpointColor = params.endpointColor || '#ddd';
     var layer = NetworkLayer(params);
     if(!params.svg){
         console.error('Must pass in a svg element to render into');
@@ -354,6 +356,12 @@ var SingleTubeLayer = function(params){
             })
             .attr("cy", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[1];
+            })
+            .style("fill", function(d){
+                return d.endpointColor = undefined ? layer.endpointColor() : d.endpointColor;
+            })
+            .attr("fill-opacity", function(d){
+                return d.endpointOpacity = undefined ? layer.endpointOpacity() : d.endpointOpacity;
             })
             .attr("r",function(){ 
                 var r = 0;

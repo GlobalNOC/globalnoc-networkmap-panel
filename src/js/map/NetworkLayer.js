@@ -49,6 +49,21 @@ var NetworkLayer = function(params){
         tooltip = params.tooltip;
     }
    
+
+    /**
+     * A css hex color string used to define the color of the endpoints
+     * @property {String} endpointColor
+     * @private
+     */
+    var endpointColor;
+
+    /**
+     * A css opacity value to set the opacity of endpoints
+     * @property {Integer} endpointOpacity
+     * @private
+     */
+    var endpointOpacity;
+
     /**
      * A css hex color string used to define the color of link lines
      * @property {String} lineColor
@@ -324,14 +339,17 @@ var NetworkLayer = function(params){
 
     function _createEndpointInfoMarkup(endpoint){
         var endpointStr =`<div class="pop-info">`;
+        if(endpoint.label){
+            endpointStr += `<div><b>Endpoint Label: </b> ${endpoint.label} </div>`;
+        }
         endpointStr += `<div><b>Endpoint Name: </b> ${endpoint.name} </div>`;
-        endpointStr += `<hr>`;
-        endpointStr += `<div>`;
-
+        endpointStr += `<hr>`; 
+        endpointStr += `<div>`; 
         endpointStr += `<div><table>`;
-        endpointStr += `<tr><td style="font-weight: bold">Id:</td><td> ${endpoint.endpointId} </td></tr>`;
-        endpointStr += `<tr><td style="font-weight: bold">Lat:</td><td> ${endpoint.lat} </td></tr>`;
-        endpointStr += `<tr><td style="font-weight: bold">Lon:</td><td> ${endpoint.lon} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold;text-align:left">Min:</td><td> ${endpoint.min} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold;text-align:left">Max:</td><td> ${endpoint.max} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold;text-align:left">Average:</td><td> ${endpoint.avg} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight:bold;text-align:left">Current:</td><td> ${endpoint.cur} </td></tr>`;
         endpointStr += `</table></div>`;
         
         endpointStr += `</div>`;
@@ -435,7 +453,6 @@ var NetworkLayer = function(params){
     
     layer.updateEndpointInfo = function(params){
         var endpoint = params.endpoint;
-       // var endpointStr = '<div class="pop-info"><div><b>Endpoint: </b>' +endpoint.name+ '</div></div>';
         var endpointStr = _createEndpointInfoMarkup(endpoint);
         layer.map().infoDiv().setContent({
             content: endpointStr
@@ -461,7 +478,6 @@ var NetworkLayer = function(params){
             endpoint.selected = true;
             layer.map().update();
         }
-
         layer.map().infoDiv().show({
             width: 100,
             content: endpointStr,
@@ -729,6 +745,18 @@ var NetworkLayer = function(params){
     };
 
     /**
+     * Getter/Setter the endpointColor of the circles representing nodes on the layer
+     * @method endpointColor 
+     * @params {String} value - The new value of the endpointColor as a css color string
+     * @return {String} endpointColor - Returns the current endpointColor
+     */
+    layer.endpointColor = function(value){
+        if(arguments.length === 0){ return endpointColor; }
+        endpointColor = value;
+        return layer;
+    };
+
+    /**
      * Getter/Setter the lineColor of lines representing links on the layer
      * @method lineColor
      * @param  {String} value - The new value of the lineColor as a css color string
@@ -743,10 +771,23 @@ var NetworkLayer = function(params){
         return layer;
     };
 
+    /**
+     * Getter/Setter the endpointOpacity of circles representing nodes on the layer
+     * @method endpointOpacity
+     * @param {Integer} value - The new value of the endpointOpacity as a css opacity value
+     * @return endpointOpacity - Returns the current endpointOpacity
+     */
+    
+    layer.endpointOpacity = function(value){
+        if(arguments.length === 0){ return endpointOpacity; }
+        endpointOpacity = value;
+        return layer;
+    };
+
     /** 
      * Getter/Setter the lineOpacity of lines representing links on the layer 
      * @method lineOpacity
-     * @param {Integer} value - The new value of the lineOpacity as a css opacity style
+     * @param {Integer} value - The new value of the lineOpacity as a css opacity value
      * @return lineOpacity - Returns the current lineOpacity
      * @chainable
      */
@@ -828,6 +869,8 @@ var NetworkLayer = function(params){
 	layer.min(params.min);
     }
 
+    layer.endpointColor(params.endpointColor || '#dddddd');
+    layer.endpointOpacity(params.endpointOpacity || 1);
     layer.lineColor(params.lineColor || '#262F36');
     layer.lineOpacity(params.lineOpacity || 1);
 

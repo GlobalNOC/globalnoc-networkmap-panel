@@ -263,11 +263,17 @@ var Topology = function(params, offsets){
         data.links = links;
 	
         //add unique ids to all endpoints
-	_.forEach(data.endpoints, function(endpoint){
+	    _.forEach(data.endpoints, function(endpoint){
             _.forEach(offsets, function(off){
-		endpoint.endpointId = _.uniqueId('endpoint_');
+                endpoint.endpointId = _.uniqueId('endpoint_');
+                endpoint.endpointColor = "#dddddd";
+                endpoint.min = -1;
+                endpoint.max = -1;
+                endpoint.cur = -1;
+                endpoint.avg = -1;
+                endpoint.sum = -1;
             });
-	});
+	    });
     });
 
     /** 

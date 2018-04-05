@@ -56,6 +56,9 @@ export class Scale {
     }
 
     getColor(percentage) {
+        if(percentage<0){
+            return this.hexArray[0];
+        }
         for(var i=1; i < this.hexArray.length;i++){
             if (i * (100 / this.hexArray.length) >= percentage){
                 return this.hexArray[i];
@@ -65,6 +68,9 @@ export class Scale {
     }
 
     getOpacity(percentage, opacity_values){
+        if(percentage<0){
+            return opacity_values[0];
+        }
         for(let i = 0;i < opacity_values.length; i++){
             if(i*(100/opacity_values.length)>=percentage){
                 return opacity_values[i];
@@ -180,6 +186,8 @@ export class Scale {
             hex_values: this.hexArray
         }
     }
+
+    
 
     getOpacityScale(options, legendWidth){
         let legendOpacityScale;
