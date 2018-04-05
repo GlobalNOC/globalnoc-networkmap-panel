@@ -52,8 +52,10 @@ const panelDefaults = {
     },
     tooltip:{
         show: true,
-        showDefault: true,
-        content: ' '
+        showLinkHover: false,
+        showNodeHover: false,
+        content: ' ',
+        node_content: ' '
     },
     line: {
         criteria: ['Minimum', 'Maximum', 'Average', 'Current'],
@@ -84,7 +86,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.show_legend = true;
         this.opacity = [];
         this.json_index = null;
-        this.custom_hover = new CustomHover(this.panel.tooltip.content);
+        this.custom_hover = new CustomHover();
         this.scale = new Scale($scope,this.panel.colorScheme);
         this.colorSchemes=this.scale.getColorSchemes(); 
         this.events.on('data-received', this.onDataReceived.bind(this));
@@ -228,6 +230,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         e.min = min;
                         e.max = max;
                         e.sum = sum;
+                        e.count = count;
                         avg = sum/count;
                         e.avg = avg.toFixed(2);
                         let color_value; 
@@ -554,6 +557,8 @@ export class Atlas3 extends MetricsPanelCtrl {
             }
             let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
             ctrl.panel.tooltip.content = html_content;
+            let node_content = ctrl.getHtml(ctrl.panel.tooltip.node_content);
+            ctrl.panel.tooltip.node_content = node_content;
             if(!ctrl.panel.use_json) { ctrl.panel.json_info = null };
             if(ctrl.map_drawn == true){
                 if(ctrl.panel.color.mode === 'opacity'){
