@@ -76,25 +76,40 @@
             label="Show tooltip"
             checked="ctrl.panel.tooltip.show" on-change="ctrl.render()">
         </gf-form-switch>
-        
-        <div ng-if="ctrl.panel.tooltip.show">
-            <gf-form-switch class="gf-form" label-class="width-8"
-                label="Default Tooltip"
-                checked="ctrl.panel.tooltip.showDefault" on-change="ctrl.render()">
-            </gf-form-switch>    
-        </div>   
-        <div ng-if="ctrl.panel.tooltip.show && !ctrl.panel.tooltip.showDefault" class="gf-form">
+         <div ng-if="ctrl.panel.tooltip.show && ctrl.panel.tooltip.showLinkHover" class="gf-form">
             <label class="gf-form-label width-8">To SI</label> 
             <input type="number" min="1" class="gf-form-input width-8" ng-model="ctrl.panel.to_si" on-change="ctrl.render()"/>
+        </div>  
+        <div ng-if="ctrl.panel.tooltip.show">
+            <gf-form-switch class="gf-form" label-class="width-12"
+                label="Custom Link tooltip"
+                checked="ctrl.panel.tooltip.showLinkHover" on-change="ctrl.render()">
+            </gf-form-switch>    
         </div>
+        <div ng-if="ctrl.panel.tooltip.show">
+            <gf-form-switch class="gf-form" label-class="width-12"
+                label="Custom Node tooltip"
+                checked="ctrl.panel.tooltip.showNodeHover" on-change="ctrl.render()">
+            </gf-form-switch>
+        </div>
+
     </div>
     
   
-    <div ng-if="ctrl.panel.tooltip.show && !ctrl.panel.tooltip.showDefault" class="section gf-form-group">  
-        <h5 class="section-heading">Custom Hover Box</h5>  
+    <div ng-if="ctrl.panel.tooltip.show && ctrl.panel.tooltip.showLinkHover" class="section gf-form-group">  
+        <h5 class="section-heading">Custom Link Hover Box</h5>  
         <div class="gf-from-inline">
             <div class="gf-form gf-form--grow">
                 <textarea class="gf-form-input ng-pristine ng-valid ng-not-empty ng-touched" ng-model="ctrl.panel.tooltip.content" rows="8" cols="50" style="width:100%" give-focus="true" ng-change="ctrl.render()" ng-model-onblur=""></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="ctrl.panel.tooltip.show && ctrl.panel.tooltip.showNodeHover" class="section gf-form-group">  
+        <h5 class="section-heading">Custom Node Hover Box</h5>  
+        <div class="gf-from-inline">
+            <div class="gf-form gf-form--grow">
+                <textarea class="gf-form-input ng-pristine ng-valid ng-not-empty ng-touched" ng-model="ctrl.panel.tooltip.node_content" rows="8" cols="50" style="width:100%" give-focus="true" ng-change="ctrl.render()" ng-model-onblur=""></textarea>
             </div>
         </div>
     </div>
