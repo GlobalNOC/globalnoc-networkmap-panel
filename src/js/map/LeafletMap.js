@@ -306,6 +306,8 @@ var LeafletMap = function(params) {
             svg: bg,
             lineColor: layer.lineColor,
             lineOpacity: layer.lineOpacity,
+            endpointColor: layer.endpointColor,
+            endpointOpacity: layer.endpointOpacity,
             active: layer.active,
             name: layer.name,
             onLatLngToXy: map.onLatLngToXy(),
