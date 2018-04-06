@@ -137,12 +137,6 @@ export class Atlas3 extends MetricsPanelCtrl {
                 var links = layer.topology().links();
                 var endpoints = layer.topology().endpoints();
 
-                _.forEach(endpoints, function(end){
-                    end.test = "Test data";
-                });
-
-
-
                 // Hide layers without data
                 if(self.panel.hide_layers){
                     _.forEach(links, function(l){
