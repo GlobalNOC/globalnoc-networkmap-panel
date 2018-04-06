@@ -272,6 +272,7 @@ var Topology = function(params, offsets){
                 endpoint.cur = -1;
                 endpoint.avg = -1;
                 endpoint.sum = -1;
+                endpoint.count = -1;
             });
 	    });
     });
