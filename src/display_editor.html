@@ -5,10 +5,11 @@
         <div class="gf-form">
             <label class="gf-form-label width-9">Mode</label>
             <div class="gf-form-select-wrapper width-8">
-                <select class="input-small gf-form-input" ng-model="ctrl.panel.color.mode" ng-options="s for s in ctrl.panel.colorModes" ng-change="ctrl.render()" ></select>
+                <select class="input-small gf-form-input" ng-model="ctrl.panel.color.mode" ng-options="s for s in ctrl.panel.legendTypes" ng-change="ctrl.render()" ></select>
             </div>
         </div>
-
+        
+        <!-- Opacity mode for the legend  -->
         <div ng-show="ctrl.panel.color.mode === 'opacity'" class="ng-hide">
             <div class="gf-form">
                 <label class="gf-form-label width-9">Color</label>
@@ -17,39 +18,63 @@
                 </span>
             </div>
 
-        <div class="gf-form">
-            <label class="gf-form-label width-9">Scale</label>
-            <div class="gf-form-select-wrapper width-8"> 
-                <select class="input-small gf-form-input" ng-model="ctrl.panel.color.colorScale" ng-options="s for s in ctrl.panel.opacityScales" ng-change="ctrl.render()"></select>
+            <div class="gf-form">
+                <label class="gf-form-label width-9">Scale</label>
+                <div class="gf-form-select-wrapper width-8"> 
+                    <select class="input-small gf-form-input" ng-model="ctrl.panel.color.colorScale" ng-options="s for s in ctrl.panel.opacityScales" ng-change="ctrl.render()"></select>
+                </div>
             </div>
-        </div>
    
-        <div class="gf-form" ng-if="ctrl.panel.color.colorScale === 'sqrt'">
-            <label class="gf-form-label width-9">Exponent</label>
-            <input type="number" class="gf-form-input width-8" data-placement="right" ng-model="ctrl.panel.color.exponent" ng-change="ctrl.render()" ng-model-onblur=""  >
+            <div class="gf-form" ng-if="ctrl.panel.color.colorScale === 'sqrt'">
+                <label class="gf-form-label width-9">Exponent</label>
+                <input type="number" class="gf-form-input width-8" data-placement="right" ng-model="ctrl.panel.color.exponent" ng-change="ctrl.render()">
+            </div>
+        
+            <div class="gf-form">
+                <div style="background-color:{{ctrl.panel.color.cardColor}}; opacity: {{x}}; display:inline;width:0.50rem;height:24px;" ng-repeat="x in ctrl.panel.opacity_values track by $index"></div>
+            </div>
+
+        </div>
+
+        <!-- Spectrum mode for the legend -->
+        <div ng-show="ctrl.panel.color.mode === 'spectrum'">
+            <div class="gf-form">
+                <label class="gf-form-label width-9">Scheme</label>
+                <div class="gf-form-select-wrapper width-8">
+                    <select class="input-small gf-form-input" ng-model="ctrl.panel.colorScheme" ng-options="s.value as s.name for s in ctrl.colorSchemes" ng-change="ctrl.render()"></select>
+                </div>
+            </div>
+
+            <div class="gf-form">
+                <div style="background-color:{{x}}; display:inline;width:0.34rem;height:24px;" ng-repeat="x in ctrl.panel.hex_values track by $index"></div>
+            </div>
         </div>
         
-        <div class="gf-form">
-            <div style="background-color:{{ctrl.panel.color.cardColor}}; opacity: {{x}}; display:inline;width:0.50rem;height:24px;" ng-repeat="x in ctrl.panel.opacity_values track by $index"></div>
-        </div>
+        <!-- Threshold mode for the legend -->
 
-
-    </div>
-
-    <div ng-show="ctrl.panel.color.mode === 'spectrum'">
-        <div class="gf-form">
-            <label class="gf-form-label width-9">Scheme</label>
-            <div class="gf-form-select-wrapper width-8">
-                <select class="input-small gf-form-input" ng-model="ctrl.panel.colorScheme" ng-options="s.value as s.name for s in ctrl.colorSchemes" ng-change="ctrl.render()"></select>
+        <div ng-show="ctrl.panel.color.mode === 'threshold'" class="ng-hide">
+            <div class="gf-form">
+                <label class="gf-form-label width-8">Thresholds
+                    <tip>Comma separated values in increasing order between (0,100)</tip>
+                </label>
+                <input type="text" class="gf-form-input width-10" ng-model="ctrl.panel.legend.thresholds" placeholder="50,80" ng-blur="ctrl.render()" array-join>
             </div>
-        </div>
+            <div class="gf-form">
+                <label class="gf-form-label width-8">Colors</label>
+                <span class="gf-form-label" ng-hide="ctrl.panel.legend.thresholds.length < 1 || !ctrl.panel.legend.thresholds[0]">
+                    <spectrum-picker ng-model="ctrl.panel.threshold_colors[0]" ng-change="ctrl.render()"></spectrum-picker>
+                </span>
 
-        <div class="gf-form">
-            <div style="background-color:{{x}}; display:inline;width:0.34rem;height:24px;" ng-repeat="x in ctrl.panel.hex_values track by $index"></div>
+                <div ng-repeat="x in ctrl.panel.legend.thresholds track by $index">
+                    <span class="gf-form-label" ng-show="ctrl.panel.legend.thresholds[$index]"> 
+                        <spectrum-picker ng-model="ctrl.panel.threshold_colors[$index+1]" ng-change="ctrl.render()"></spectrum-picker>
+                    </span>
+                </div>
+            </div>
+
         </div>
 
     </div>
-</div>
 
     <div class="section gf-form-group">
         <h5 class="section-heading">Legend</h5>

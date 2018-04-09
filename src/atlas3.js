@@ -48,7 +48,8 @@ const panelDefaults = {
         show: true,
         mode: 'spectrum',
         legend_colors: [],
-        opacity: []
+        opacity: [],
+        thresholds: []
     },
     tooltip:{
         show: true,
@@ -62,12 +63,13 @@ const panelDefaults = {
         selected: 'Current'
     },
     to_si: 1000000000,
+    legendTypes: ['opacity','spectrum','threshold'],
     opacityScales: ['linear', 'sqrt'],
     colorScheme : 'interpolateRdYlGn',
     rgb_values:[],
     hex_values:[],
+    threshold_colors: [],
     opacity_values: [],
-    colorModes : ['opacity','spectrum'],
 };
 
 var tempArray=[];
@@ -549,6 +551,7 @@ export class Atlas3 extends MetricsPanelCtrl {
             ctrl.panel.legend.adjLoadLegend = {
                 horizontal: true,
             }
+            
             let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
             ctrl.panel.tooltip.content = html_content;
             let node_content = ctrl.getHtml(ctrl.panel.tooltip.node_content);
@@ -564,6 +567,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.display();
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
                     ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+                } else if(ctrl.panel.color.mode === 'threshold'){
+                
                 }
                 ctrl.map.drawLegend(ctrl.panel.legend);
                 ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
