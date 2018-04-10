@@ -132,7 +132,7 @@ var Legend = function(params){
                 });
         }
         
-        if(mode === 'opacity'){
+        if(mode === 'opacity' || mode === 'threshold'){
             items.selectAll('.color')
                 .style('opacity', function(d){
                     return d.opacity;
@@ -147,7 +147,6 @@ var Legend = function(params){
                     return "1px";
                 });
         }
-        
 
         // create legend numbers
         var numberLocations = params.numberLocations;
