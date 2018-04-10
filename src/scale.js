@@ -55,6 +55,20 @@ export class Scale {
         return colorSchemes;
     }
 
+    getThresholdColor(percentage, colors, thresholds) {
+        let threshold_arr = [];
+        _.forEach(thresholds, el => threshold_arr.push(parseInt(el)));
+        threshold_arr.unshift(0);
+        threshold_arr.push(100);
+        if(percentage<0) return colors[0];
+        if(percentage>100) return colors[colors.length-1];
+        for(let i = 1;i<threshold_arr.length;i++){
+            if(percentage<=threshold_arr[i]){
+                return colors[i-1];
+            }
+        }
+    }
+
     getColor(percentage) {
         if(percentage<0){
             return this.hexArray[0];
@@ -79,6 +93,20 @@ export class Scale {
         return opacity_values[opacity_values.length-1];
     }
     
+
+
+    getThresholdScale(thresholds, colors, invert){
+        if(thresholds[0]){
+            colors.splice(thresholds.length+1);
+        } else {
+            colors = [];
+        }
+        if(invert){
+           return _.reverse(colors); 
+        }
+        return colors;
+    }
+
     componentToHex(c) {
         var hex = c.toString(16);
         var code = hex.length === 1 ? '0' + hex : hex;

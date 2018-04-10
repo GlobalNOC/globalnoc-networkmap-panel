@@ -989,7 +989,6 @@ var BaseMap = function(config){
         return map;
     };
     
-
     // helper function to draw legend
     function _drawLegend(legend) {
 
@@ -1014,7 +1013,9 @@ var BaseMap = function(config){
                 return;
             }
 
-    
+            let numberLocations = legend.adjLoadLegend.numberLocations;
+            numberLocations = [];
+
             let items = [];
             //if mode === spectrum,  generate legend colors
             if(legend.mode === 'spectrum'){
@@ -1039,6 +1040,23 @@ var BaseMap = function(config){
                         opacity: legend.opacity[i-1]
                     });
                 }
+            }else if(legend.mode === 'threshold'){
+                items = [];
+                let col_len = legend.legend_colors.length;
+                let width_factor = [];
+                _.forEach(legend.thresholds,function(el){
+                    width_factor.push(parseInt(el));   
+                });
+                width_factor.unshift(0);
+                width_factor.push(100);
+                numberLocations = width_factor; 
+                for(let i = 1;i<col_len+1;i++){
+                    items.push({
+                        value: width_factor[i],
+                        color:legend.legend_colors[i-1],
+                        opacity: 1
+                    });
+                }
             }
             
             // determine legend width
@@ -1061,7 +1079,7 @@ var BaseMap = function(config){
                 items: items,
                 align: align, 
                 orientation: legend.adjLoadLegend.horizontal ? 'horizontal' : null,
-                numberLocations: legend.adjLoadLegend.numberLocations,
+                numberLocations: numberLocations,
                 mode: legend.mode
             });
         }

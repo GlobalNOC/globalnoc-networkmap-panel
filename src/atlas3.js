@@ -70,6 +70,7 @@ const panelDefaults = {
     hex_values:[],
     threshold_colors: [],
     opacity_values: [],
+    t_colors: []
 };
 
 var tempArray=[];
@@ -239,7 +240,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         } else {
                             color_value = cur;
                         }
-                        // use the color value to get color if mode === spectrum || opacity if mode === opacity
+                        // use the color value to get color if mode === spectrum or threshold || get opacity if mode === opacity
                         // set color or opacity for the endpoint (e.opacity, e.color)
                         // use these values in the single tube layer
                         let mode = self.panel.color.mode;
@@ -254,6 +255,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                             popOpacity = self.scale.getOpacity(color_value, self.panel.opacity_values);
                             e.endpointColor = popColor;
                             e.endpointOpacity = popOpacity;
+                        }else if(mode === 'threshold'){
+                            popColor = self.scale.getThresholdColor(color_value, self.panel.t_colors, self.panel.legend.thresholds);
+                            e.endpointColor = popColor;
+                            e.endpointOpacity = 1;
                         }
                     });
                 }
@@ -296,6 +301,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                         lineOpacity = self.scale.getOpacity(color_value, self.panel.opacity_values);
                         l.lineColor = lineColor;
                         l.lineOpacity = lineOpacity;
+                    }else if(mode === 'threshold'){
+                        lineColor = self.scale.getThresholdColor(color_value, self.panel.t_colors, self.panel.legend.thresholds);
+                        l.lineColor = lineColor;
+                        l.lineOpacity = 1;
                     }
 
                     //check for AZ or ZA based on the endpoint the data was found at!
@@ -527,6 +536,21 @@ export class Atlas3 extends MetricsPanelCtrl {
             _.reverse(this.panel.opacity_values);
         } 
     }
+    
+    isSorted(arr){
+        let original = arr.toString();
+        arr.sort(function(a,b){
+            return a-b;
+        });
+        return arr.toString() === original;
+    }
+
+    displayThresholds(){ 
+        let original_thresholds = [];
+        _.forEach(this.panel.threshold_colors, (el) => original_thresholds.push(el));
+        this.panel.t_colors = this.scale.getThresholdScale(this.panel.legend.thresholds, original_thresholds, this.panel.legend.invert);
+        return this.panel.t_colors;
+    }
 
     getState(){
         this.show_legend = this.panel.legend.show;
@@ -568,7 +592,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
                     ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
                 } else if(ctrl.panel.color.mode === 'threshold'){
-                
+                    ctrl.panel.legend.mode = ctrl.panel.color.mode;
+                    if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
+                        let colors = ctrl.displayThresholds();
+                        ctrl.panel.legend.legend_colors = colors;
+                    }
                 }
                 ctrl.map.drawLegend(ctrl.panel.legend);
                 ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
@@ -637,6 +665,12 @@ export class Atlas3 extends MetricsPanelCtrl {
                 ctrl.display();
                 ctrl.panel.legend.mode = ctrl.panel.color.mode;
                 ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+            } else if(ctrl.panel.color.mode === 'threshold'){
+                ctrl.panel.legend.mode = ctrl.panel.color.mode;
+                if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
+                    let colors = ctrl.displayThresholds();
+                    ctrl.panel.legend.legend_colors = colors;
+                }
             }
             if(ctrl.panel.legend.show){
                 ctrl.map.drawLegend(ctrl.panel.legend);
