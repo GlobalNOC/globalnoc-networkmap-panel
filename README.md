@@ -1,7 +1,7 @@
 # Network Map Panel for Grafana
 The Network Map Panel is a world map that provides the ability to monitor and visualize realtime traffic statistics. It uses timeseries data to represent traffic between nodes as circuits. It provides this information when hovered over the circuits and nodes.
 
-![Network Map](/src/images/networkmap-main1.png)
+![Network Map](/src/images/networkmap-main-1.png)
 
 # Features
 The Network Map Panel also provides the ability to configure different map options and display options. 
