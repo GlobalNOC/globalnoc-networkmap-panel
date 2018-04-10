@@ -49,6 +49,21 @@ var NetworkLayer = function(params){
         tooltip = params.tooltip;
     }
    
+
+    /**
+     * A css hex color string used to define the color of the endpoints
+     * @property {String} endpointColor
+     * @private
+     */
+    var endpointColor;
+
+    /**
+     * A css opacity value to set the opacity of endpoints
+     * @property {Integer} endpointOpacity
+     * @private
+     */
+    var endpointOpacity;
+
     /**
      * A css hex color string used to define the color of link lines
      * @property {String} lineColor
@@ -267,51 +282,102 @@ var NetworkLayer = function(params){
     }
     
 
-    function _parseHtml(htmlContent, link){
+    function _parseHtml(htmlContent, element){
         var customContent = htmlContent;
-        if(link.az.label){
-            link.az.name = link.az.label;
-        }
-        if(link.za.label){
-            link.za.name = link.za.label;
-        }
-        const possible_vars = ['$input.min','$input.max','$input.avg','$input.sum','$output.min','$output.max','$output.avg','$output.sum','$name','$input.name','$output.name','$count'];
+        const possible_vars = ['$input.min','$input.max','$input.avg','$input.sum','$output.min','$output.max','$output.avg','$output.sum','$name','$input.name','$output.name','$count', '$node.min', '$node.max', '$node.avg', '$node.sum', '$node.label','$node.current'];
         _.forEach(possible_vars, function(variable){
             switch(variable){ 
                 case '$name':
-                    customContent = customContent.replace(/\$name/g, link.name);
+                    if(customContent.search(/\$name/g) > 0) { 
+                        customContent = customContent.replace(/\$name/g, element.name);
+                    }
                     break;
                 case '$count':
-                    customContent = customContent.replace(/\$count/g, link.count);
+                    if(customContent.search(/\$count/g) > 0) {
+                        customContent = customContent.replace(/\$count/g, element.count);
+                    }
+                    break;
                 case '$input.min':
-                    customContent = customContent.replace(/\$input.min/g,link.az.min);
+                    if(customContent.search(/\$input.min/g) > 0) {
+                        customContent = customContent.replace(/\$input.min/g, element.az.min);
+                    }
                     break;
                 case '$input.max':
-                    customContent = customContent.replace(/\$input.max/g, link.az.max);
+                    if(customContent.search(/\$input.max/g) > 0) {
+                        customContent = customContent.replace(/\$input.max/g, element.az.max);
+                    }
                     break;
                 case '$input.avg':
-                    customContent = customContent.replace(/\$input.avg/g, link.az.avg);
+                    if(customContent.search(/\$input.avg/g) > 0) { 
+                        customContent = customContent.replace(/\$input.avg/g, element.az.avg);
+                    }
                     break;
                 case '$input.sum':
-                    customContent = customContent.replace(/\$input.sum/g, link.az.sum);
+                    if(customContent.search(/\$input.sum/g) > 0) {
+                        customContent = customContent.replace(/\$input.sum/g, element.az.sum);
+                    }
                     break;
                 case '$input.name':
-                    customContent = customContent.replace(/\$input.name/g, link.az.name);
+                    if(customContent.search(/\$input.name/g) > 0) {
+                        if(element.az.label) element.az.name = element.az.label;
+                        customContent = customContent.replace(/\$input.name/g, element.az.name);
+                    }
                     break;
                 case '$output.min':
-                    customContent = customContent.replace(/\$output.min/g,link.za.min);
+                    if(customContent.search(/\$output.min/g) > 0) {
+                        customContent = customContent.replace(/\$output.min/g,element.za.min);
+                    } 
                     break;
                 case '$output.max':
-                    customContent = customContent.replace(/\$output.max/g,link.za.max);
+                    if(customContent.search(/\$output.max/g) > 0) {
+                        customContent = customContent.replace(/\$output.max/g,element.za.max);
+                    }
                     break;
                 case '$output.avg':
-                    customContent = customContent.replace(/\$output.avg/g, link.za.avg);
+                    if(customContent.search(/\$output.avg/g) > 0) {
+                        customContent = customContent.replace(/\$output.avg/g, element.za.avg);
+                    }    
                     break;
                 case '$output.sum':
-                    customContent = customContent.replace(/\$output.sum/g, link.za.sum);
+                    if(customContent.search(/\$output.sum/g) > 0) {
+                        customContent = customContent.replace(/\$output.sum/g, element.za.sum);
+                    }
                     break;
                 case '$output.name':
-                    customContent = customContent.replace(/\$output.name/g, link.za.name);
+                    if(customContent.search(/\$output.name/g) > 0) {
+                        if(element.za.label) element.za.name = element.za.label;
+                        customContent = customContent.replace(/\$output.name/g, element.za.name);
+                    }
+                    break;
+                case '$node.label':
+                    if(customContent.search(/\$node.label/g) > 0) {
+                        customContent = customContent.replace(/\$node.label/g, element.label);
+                    }
+                    break;
+                case '$node.min':
+                    if(customContent.search(/\$node.min/g) > 0) {
+                        customContent = customContent.replace(/\$node.min/g, element.min);
+                    }
+                    break;
+                case '$node.max':
+                    if(customContent.search(/\$node.max/g) > 0) {
+                        customContent = customContent.replace(/\$node.max/g, element.max);
+                    }
+                    break;
+                case '$node.avg':
+                    if(customContent.search(/\$node.avg/g) > 0) {
+                        customContent = customContent.replace(/\$node.avg/g, element.avg);
+                    }
+                    break;
+                case '$node.sum':
+                    if(customContent.search(/\$node.sum/g) > 0) {
+                        customContent = customContent.replace(/\$node.sum/g, element.sum);
+                    }
+                    break;
+                case '$node.current':
+                    if(customContent.search(/\$node.current/g) > 0) {
+                        customContent = customContent.replace(/\$node.current/g, element.cur);
+                    }
                     break;
                 default:
                     break;
@@ -323,15 +389,25 @@ var NetworkLayer = function(params){
     //helper function to create the body markup for the details div when hovering over an endpoint
 
     function _createEndpointInfoMarkup(endpoint){
-        var endpointStr =`<div class="pop-info">`;
-        endpointStr += `<div><b>Endpoint Name: </b> ${endpoint.name} </div>`;
-        endpointStr += `<hr>`;
-        endpointStr += `<div>`;
 
+        if(tooltip.show && tooltip.showNodeHover && tooltip.node_content){
+            let customHtml = _parseHtml(tooltip.node_content, endpoint);
+            return customHtml;
+        } else if(tooltip.showNodeHover){
+            return '<div>Enter your custom node hover box display options or uncheck custom node tooltip option</div>';
+        }
+        var endpointStr =`<div class="pop-info">`;
+        if(endpoint.label){
+            endpointStr += `<div><b>Endpoint Label: </b> ${endpoint.label} </div>`;
+        }
+        endpointStr += `<div><b>Endpoint Name: </b> ${endpoint.name} </div>`;
+        endpointStr += `<hr>`; 
+        endpointStr += `<div>`; 
         endpointStr += `<div><table>`;
-        endpointStr += `<tr><td style="font-weight: bold">Id:</td><td> ${endpoint.endpointId} </td></tr>`;
-        endpointStr += `<tr><td style="font-weight: bold">Lat:</td><td> ${endpoint.lat} </td></tr>`;
-        endpointStr += `<tr><td style="font-weight: bold">Lon:</td><td> ${endpoint.lon} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold;text-align:left">Min:</td><td> ${endpoint.min} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold;text-align:left">Max:</td><td> ${endpoint.max} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight: bold;text-align:left">Average:</td><td> ${endpoint.avg} </td></tr>`;
+        endpointStr += `<tr><td style="font-weight:bold;text-align:left">Current:</td><td> ${endpoint.cur} </td></tr>`;
         endpointStr += `</table></div>`;
         
         endpointStr += `</div>`;
@@ -344,11 +420,11 @@ var NetworkLayer = function(params){
     //helper function to create the body markup for the details div when hovering over a link
     function _createLinkInfoMarkup(link){
 
-        if(tooltip.show && !tooltip.showDefault && tooltip.content){
+        if(tooltip.show && tooltip.showLinkHover && tooltip.content){
             let customHtml = _parseHtml(tooltip.content, link);
             return customHtml;
-        } else if(!tooltip.showDefault){
-            return '<div>Choose default tooltip or enter your hover box display options</div>';
+        } else if(tooltip.showLinkHover){
+            return '<div>Enter your custom link hover box display options or uncheck custom link tooltip option</div>';
         }  
         //create the markup
         var linkStr = '<div class="adj-info">';
@@ -435,7 +511,6 @@ var NetworkLayer = function(params){
     
     layer.updateEndpointInfo = function(params){
         var endpoint = params.endpoint;
-       // var endpointStr = '<div class="pop-info"><div><b>Endpoint: </b>' +endpoint.name+ '</div></div>';
         var endpointStr = _createEndpointInfoMarkup(endpoint);
         layer.map().infoDiv().setContent({
             content: endpointStr
@@ -461,7 +536,6 @@ var NetworkLayer = function(params){
             endpoint.selected = true;
             layer.map().update();
         }
-
         layer.map().infoDiv().show({
             width: 100,
             content: endpointStr,
@@ -729,6 +803,18 @@ var NetworkLayer = function(params){
     };
 
     /**
+     * Getter/Setter the endpointColor of the circles representing nodes on the layer
+     * @method endpointColor 
+     * @params {String} value - The new value of the endpointColor as a css color string
+     * @return {String} endpointColor - Returns the current endpointColor
+     */
+    layer.endpointColor = function(value){
+        if(arguments.length === 0){ return endpointColor; }
+        endpointColor = value;
+        return layer;
+    };
+
+    /**
      * Getter/Setter the lineColor of lines representing links on the layer
      * @method lineColor
      * @param  {String} value - The new value of the lineColor as a css color string
@@ -743,10 +829,23 @@ var NetworkLayer = function(params){
         return layer;
     };
 
+    /**
+     * Getter/Setter the endpointOpacity of circles representing nodes on the layer
+     * @method endpointOpacity
+     * @param {Integer} value - The new value of the endpointOpacity as a css opacity value
+     * @return endpointOpacity - Returns the current endpointOpacity
+     */
+    
+    layer.endpointOpacity = function(value){
+        if(arguments.length === 0){ return endpointOpacity; }
+        endpointOpacity = value;
+        return layer;
+    };
+
     /** 
      * Getter/Setter the lineOpacity of lines representing links on the layer 
      * @method lineOpacity
-     * @param {Integer} value - The new value of the lineOpacity as a css opacity style
+     * @param {Integer} value - The new value of the lineOpacity as a css opacity value
      * @return lineOpacity - Returns the current lineOpacity
      * @chainable
      */
@@ -828,6 +927,8 @@ var NetworkLayer = function(params){
 	layer.min(params.min);
     }
 
+    layer.endpointColor(params.endpointColor || '#dddddd');
+    layer.endpointOpacity(params.endpointOpacity || 1);
     layer.lineColor(params.lineColor || '#262F36');
     layer.lineOpacity(params.lineOpacity || 1);
 
