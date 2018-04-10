@@ -1042,6 +1042,7 @@ var BaseMap = function(config){
                 }
             }else if(legend.mode === 'threshold'){
                 items = [];
+                if(!legend.legend_colors) return;
                 let col_len = legend.legend_colors.length;
                 let width_factor = [];
                 _.forEach(legend.thresholds,function(el){

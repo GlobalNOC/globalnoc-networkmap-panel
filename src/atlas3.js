@@ -596,6 +596,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                     if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
                         let colors = ctrl.displayThresholds();
                         ctrl.panel.legend.legend_colors = colors;
+                    }else {
+                        ctrl.panel.t_colors = [];
+                        ctrl.panel.legend.thresholds = [];
+                        ctrl.panel.legend.legend_colors = [];
                     }
                 }
                 ctrl.map.drawLegend(ctrl.panel.legend);
@@ -670,6 +674,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
                     let colors = ctrl.displayThresholds();
                     ctrl.panel.legend.legend_colors = colors;
+                }else {
+                    ctrl.panel.t_colors = [];
+                    ctrl.panel.legend.thresholds = []
+                    ctrl.panel.legend.legend_colors = [];
                 }
             }
             if(ctrl.panel.legend.show){
