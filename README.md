@@ -335,17 +335,20 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
         {
           "lon": "-80.4992152",
           "lat": "26.2118715",
-          "name": "endpoint1"
+          "name": "endpoint1 cpu",
+	  "label": "endpoint1 label"
         },
         {
           "lon": "-46.5952992",
           "lat": "-23.6824124",
-          "name": "endpoint2"
+          "name": "endpoint2 cpu",
+	  "label": "endpoint2 label"
         },
         {
           "lon": "-70.6791936",
           "lat": "-33.4533673",
-          "name": "endpoint3"
+          "name": "endpoint3 cpu",
+	  "label": "endpoint3 label"
         }
       ]
     }
@@ -353,7 +356,7 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
 }
 ```
 
-Network Map converts the `map source json` into an array of `links`. Each element in this array is an object that is represented in the block below.
+Network Map converts the `map source json` into an array of `links` and `endpoints`. Each element in the `links` array is an object that is represented in the block below.
 
 ```
 [
