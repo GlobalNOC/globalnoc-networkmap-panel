@@ -79,7 +79,6 @@ export class Atlas3 extends MetricsPanelCtrl {
     constructor($scope, $injector) {
         super($scope, $injector);	
         _.defaults(this.panel, panelDefaults);
-        this.panel.title = "GlobalNoc Network Map";
         this.map_holder_id = 'map_' + this.panel.id;
         this.containerDivId = 'container_'+this.map_holder_id;
         this.recentData = [];
