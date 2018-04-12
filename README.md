@@ -1,7 +1,7 @@
 # Network Map Panel for Grafana
 The Network Map Panel is a world map that provides the ability to monitor and visualize realtime traffic statistics. It uses timeseries data to represent traffic between nodes as circuits. It provides this information when hovered over the circuits and nodes.
 
-![Network Map](/src/images/network-map-main-2.png)
+![Network Map](/src/images/networkmap-main-1.png)
 
 # Features
 The Network Map Panel also provides the ability to configure different map options and display options. 
@@ -98,7 +98,13 @@ Display tab provides different options for the user to customize the monitoring 
 ![opacity-1](/src/images/opacity-1.png) ![opacity-2](/src/images/opacity-2.png) ![opacity-3](/src/images/opacity-colors.png)
 
 ![Opacity Scheme](/src/images/opacity-scheme.png)
-    
+
+  - Mode: Threshold. This mode provides the ability to specify thresholds as comma separated values between 0 and 100 i.e. 0 < thresholds < 100. It provides the ability to choose a distinct color for each threshold.
+
+![threshold-1](/src/images/threshold-1.png)  ![threshold-2](/src/images/threshold-2.png)
+
+![threshold Scheme](/src/images/threshold-scheme.png)
+
 * Legend: Invert legend. This option inverts the current legend on the map and also affects the map to use the inverted scheme.
 
 ![Invert Legend](/src/images/invert-legend.png) ![Inverted Scheme](/src/images/invert-scheme.png)
@@ -107,9 +113,13 @@ Display tab provides different options for the user to customize the monitoring 
 
 ![Line Color](/src/images/line-color.png)
 
-* Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to have a customized hover box.
+* Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to have a customized link hover box and customized node hover box.
 
-![Tooltip Options](/src/images/tooltip-options.png)	![Tooltip](/src/images/custom-hover-box-2.png)
+![Tooltip Options](/src/images/tooltip-options-1.png) 
+
+![Tooltip](/src/images/custom-hover-box-2.png)
+
+![Tooltip](/src/images/custom-node-box.png)
 
 ### Other Features
 * Show or Hide Legend
@@ -325,17 +335,20 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
         {
           "lon": "-80.4992152",
           "lat": "26.2118715",
-          "name": "endpoint1"
+          "name": "endpoint1 cpu",
+	  "label": "endpoint1 label"
         },
         {
           "lon": "-46.5952992",
           "lat": "-23.6824124",
-          "name": "endpoint2"
+          "name": "endpoint2 cpu",
+	  "label": "endpoint2 label"
         },
         {
           "lon": "-70.6791936",
           "lat": "-33.4533673",
-          "name": "endpoint3"
+          "name": "endpoint3 cpu",
+	  "label": "endpoint3 label"
         }
       ]
     }
@@ -343,7 +356,7 @@ The `target` names from the above `dataList` are matched with the `endpoints` fr
 }
 ```
 
-Network Map converts the `map source json` into an array of `links`. Each element in this array is an object that is represented in the block below.
+Network Map converts the `map source json` into an array of `links` and `endpoints`. Each element in the `links` array is an object that is represented in the block below.
 
 ```
 [
