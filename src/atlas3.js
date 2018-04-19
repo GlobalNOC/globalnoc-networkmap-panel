@@ -19,6 +19,7 @@ import './css/atlas3_leafletmap.css!';
 import _ from 'lodash';
 import $ from 'jquery';
 import {MetricsPanelCtrl} from 'app/plugins/sdk';
+import {appEvents, coreModule} from 'app/core/core';
 import LeafletMap from './js/atlas3_leafletmap.js';
 import {Scale} from './scale';
 import {CustomHover} from './CustomHover';
@@ -88,6 +89,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.show_legend = true;
         this.opacity = [];
         this.json_index = null;
+        this.json_content = '';
         this.custom_hover = new CustomHover();
         this.scale = new Scale($scope,this.panel.colorScheme);
         this.colorSchemes=this.scale.getColorSchemes(); 
@@ -111,10 +113,10 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     jsonModal(){
-        var modalScope = this.$scope.$new(true);
+        var modalScope = this.$scope.$new(false);
         modalScope.panel = this.panel; 
-
-        this.publishAppEvent('show-modal', {
+        coreModule;
+        appEvents.emit('show-modal', {
             src: 'public/plugins/networkmap/json_editor.html',
             scope: modalScope,
         });
@@ -393,25 +395,28 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
     
     useValidator(index) {
+        this.jsonModal();
         let json = this.panel.mapSrc[index];
+        let json_obj = JSON.parse(json);
+        this.json_content = JSON.stringify(json_obj, undefined, 2);
         if(!json) return;
-        $("#json_valid").text(json);
+        //$("#json_valid").text(json);
         this.json_index = index;
-        this.validateJson();
+        //this.validateJson();
     }
     
     saveToMapSrc(index){
         if(index===null) return;
-        if($(".line-number")) $(".line-number").remove();
-        let json = $('#json_valid').text();
-        if(!this.isJson(json)){
-            this.panel.json_info = "Can't save invalid JSON!";
-            $("#json-info").removeClass("json-success").addClass("json-err");
-            return;
-        }
-        this.panel.mapSrc[index] = json;
+        //if($(".line-number")) $(".line-number").remove();
+        //let json = $('#json_valid').text();
+        //if(!this.isJson(json)){
+           // this.panel.json_info = "Can't save invalid JSON!";
+           // $("#json-info").removeClass("json-success").addClass("json-err");
+           // return;
+        // }
+        this.panel.mapSrc[index] = this.json_content;
         this.json_index = null;
-        this.lineNumbering();
+       // this.lineNumbering();
         this.render();
     }
 
@@ -427,6 +432,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.min.splice(index,1);
     }
 
+/*
     copyToClip(){
         if($(".line-number")) $(".line-number").remove();
         let text = $("#json_valid");
@@ -439,9 +445,12 @@ export class Atlas3 extends MetricsPanelCtrl {
         }
         this.selectText(text[0]);
         document.execCommand("Copy");
-        this.lineNumbering();
+        //this.lineNumbering();
     }
 
+*/
+
+/*
     selectText(element) {
         if (/INPUT|TEXTAREA/i.test(element.tagName)) {
             element.focus();
@@ -460,7 +469,8 @@ export class Atlas3 extends MetricsPanelCtrl {
             range.select();
         }
     }
-
+*/
+/*
     lineNumbering(){
         let pre = document.getElementById('json_valid');
         pre.innerHTML = '<span class="line-number"></span>'+pre.innerHTML+'<span class="cl"></span>';
@@ -470,7 +480,8 @@ export class Atlas3 extends MetricsPanelCtrl {
             line.innerHTML+='<span>' +(j+1)+'</span>';
         }
     }
-
+*/
+/*
     syntaxHighlight(json){
         json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|([\[\]\(\){}])|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match){
@@ -491,14 +502,15 @@ export class Atlas3 extends MetricsPanelCtrl {
             return span_elem;
         });
     }
-
+*/
+/*
     validateJson(){
-        if($(".line-number")) $(".line-number").remove();
+       // if($(".line-number")) $(".line-number").remove();
         let json_ugly = $("#json_valid").text();
         if(!json_ugly) return;
         if(!this.isJson(json_ugly)){
-            if($(".line-number")) $(".line-number").remove();
-            this.lineNumbering();
+           // if($(".line-number")) $(".line-number").remove();
+           // this.lineNumbering();
             try{
                 JSON.parse(json_ugly);
             }catch(err){
@@ -514,11 +526,12 @@ export class Atlas3 extends MetricsPanelCtrl {
             $("#json-info").removeClass("json-err").addClass("json-success");
             this.panel.json_info = "Valid JSON!";
             document.getElementById("json_valid").innerHTML = this.syntaxHighlight(pretty);
-            if($(".line-number")) $(".line-number").remove();
-            this.lineNumbering();
+           // if($(".line-number")) $(".line-number").remove();
+           // this.lineNumbering();
         }
     }
- 
+*/
+
     display() {
         this.panel.colors=this.scale.displayColor(this.panel.colorScheme);
         this.panel.rgb_values = this.panel.colors.rgb_values;
