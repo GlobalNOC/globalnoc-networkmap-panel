@@ -19,7 +19,7 @@ import './css/atlas3_leafletmap.css!';
 import _ from 'lodash';
 import $ from 'jquery';
 import {MetricsPanelCtrl} from 'app/plugins/sdk';
-import {appEvents, coreModule} from 'app/core/core';
+import {appEvents} from 'app/core/core';
 import LeafletMap from './js/atlas3_leafletmap.js';
 import {Scale} from './scale';
 import {CustomHover} from './CustomHover';
@@ -112,16 +112,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.process_data(dataList);
     }
 
-    jsonModal(){
-        var modalScope = this.$scope.$new(false);
-        modalScope.panel = this.panel; 
-        coreModule;
-        appEvents.emit('show-modal', {
-            src: 'public/plugins/networkmap/json_editor.html',
-            scope: modalScope,
-        });
-    }
-    
     process_data(dataList){
         var self = this;
 	    var data_targets = dataList.map(target => target.target);
@@ -382,8 +372,16 @@ export class Atlas3 extends MetricsPanelCtrl {
     onInitPanelActions(actions) {
          this.render();
     }
-    
-    
+     
+    jsonModal(){
+        var modalScope = this.$scope.$new(false);
+        modalScope.panel = this.panel; 
+        appEvents.emit('show-modal', {
+            src: 'public/plugins/networkmap/json_editor.html',
+            scope: modalScope,
+        });
+    }
+      
     addNewChoice() {
         var num = this.panel.choices.length + 1;
         this.panel.choices.push(num);
@@ -397,26 +395,20 @@ export class Atlas3 extends MetricsPanelCtrl {
     useValidator(index) {
         this.jsonModal();
         let json = this.panel.mapSrc[index];
-        let json_obj = JSON.parse(json);
-        this.json_content = JSON.stringify(json_obj, undefined, 2);
+        let json_obj;
+        try{
+            json_obj = JSON.parse(json);
+            this.json_content = JSON.stringify(json_obj, undefined, 2);
+        }catch(e){
+            this.json_content = json;
+        }
         if(!json) return;
-        //$("#json_valid").text(json);
         this.json_index = index;
-        //this.validateJson();
     }
     
     saveToMapSrc(index){
         if(index===null) return;
-        //if($(".line-number")) $(".line-number").remove();
-        //let json = $('#json_valid').text();
-        //if(!this.isJson(json)){
-           // this.panel.json_info = "Can't save invalid JSON!";
-           // $("#json-info").removeClass("json-success").addClass("json-err");
-           // return;
-        // }
         this.panel.mapSrc[index] = this.json_content;
-        this.json_index = null;
-       // this.lineNumbering();
         this.render();
     }
 
@@ -431,106 +423,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.max.splice(index,1);
         this.panel.min.splice(index,1);
     }
-
-/*
-    copyToClip(){
-        if($(".line-number")) $(".line-number").remove();
-        let text = $("#json_valid");
-        if(!text) return;
-        let content = text.text();
-        if(!this.isJson(content)){
-            this.panel.json_info = "Can't copy invalid JSON!";
-            $("#json-info").removeClass("json-success").addClass("json-err");
-            return;
-        }
-        this.selectText(text[0]);
-        document.execCommand("Copy");
-        //this.lineNumbering();
-    }
-
-*/
-
-/*
-    selectText(element) {
-        if (/INPUT|TEXTAREA/i.test(element.tagName)) {
-            element.focus();
-            if (element.setSelectionRange) {
-                element.setSelectionRange(0, element.value.length);
-            } else {
-                element.select(); // if textarea
-            }
-            return;
-        }    
-        if (window.getSelection) {
-            window.getSelection().selectAllChildren(element);
-        } else if (document.body.createTextRange) {
-            var range = document.body.createTextRange();
-            range.moveToElementText(element);
-            range.select();
-        }
-    }
-*/
-/*
-    lineNumbering(){
-        let pre = document.getElementById('json_valid');
-        pre.innerHTML = '<span class="line-number"></span>'+pre.innerHTML+'<span class="cl"></span>';
-        let num = pre.innerHTML.split(/\n/).length;
-        for(let j = 0;j<num;j++){
-            let line=pre.getElementsByClassName("line-number")[0];
-            line.innerHTML+='<span>' +(j+1)+'</span>';
-        }
-    }
-*/
-/*
-    syntaxHighlight(json){
-        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|([\[\]\(\){}])|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match){
-            var span_elem = `<span style="color:darkorange">${match}</span>`;
-            if(/^"/.test(match)){
-                if(/:$/.test(match)){
-                    span_elem = `<span class="line" style="color:red">${match}</span>`;
-                }else {
-                    span_elem = `<span style="color:green">${match}</span>`;
-                }
-            }else if(/true|false/.test(match)){
-                span_elem = `<span style="color:blue"> ${match}</span>`;
-            }else if(/null/.test(match)){
-                span_elem = `<span style="color:magenta">${match}</span>`;
-            }else {
-                span_elem = `<span>${match}</span>`;
-            }
-            return span_elem;
-        });
-    }
-*/
-/*
-    validateJson(){
-       // if($(".line-number")) $(".line-number").remove();
-        let json_ugly = $("#json_valid").text();
-        if(!json_ugly) return;
-        if(!this.isJson(json_ugly)){
-           // if($(".line-number")) $(".line-number").remove();
-           // this.lineNumbering();
-            try{
-                JSON.parse(json_ugly);
-            }catch(err){
-                this.panel.json_info = err;
-                $("#json-info").removeClass("json-success").addClass("json-err");
-            }
-        
-        } else {
-            this.panel.json_info=null;
-            let json_obj = JSON.parse(json_ugly);
-            let pretty = JSON.stringify(json_obj, undefined, 2);
-            this.panel.json_text = pretty;
-            $("#json-info").removeClass("json-err").addClass("json-success");
-            this.panel.json_info = "Valid JSON!";
-            document.getElementById("json_valid").innerHTML = this.syntaxHighlight(pretty);
-           // if($(".line-number")) $(".line-number").remove();
-           // this.lineNumbering();
-        }
-    }
-*/
 
     display() {
         this.panel.colors=this.scale.displayColor(this.panel.colorScheme);
