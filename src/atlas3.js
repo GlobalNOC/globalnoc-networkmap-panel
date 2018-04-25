@@ -456,10 +456,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     displayThresholds(){ 
-        let original_thresholds = [];
-        _.forEach(this.panel.threshold_colors, (el) => original_thresholds.push(el));
-        this.panel.t_colors = this.scale.getThresholdScale(this.panel.legend.thresholds, original_thresholds, this.panel.legend.invert);
-        return this.panel.t_colors;
+        return this.panel.threshold_colors;
     }
 
     getState(){

@@ -82,7 +82,7 @@
             label="Show legend"
             checked="ctrl.panel.legend.show" on-change="ctrl.render()">
         </gf-form-switch>
-        <gf-form-switch ng-if="ctrl.panel.legend.show" class="gf-form" label-class="width-8"
+        <gf-form-switch ng-if="ctrl.panel.legend.show && ctrl.panel.color.mode !== 'threshold'" class="gf-form" label-class="width-8"
             label="Invert legend"
             checked="ctrl.panel.legend.invert" on-change="ctrl.render()">
     </div>
