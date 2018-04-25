@@ -24,8 +24,8 @@
         <h5 class="section-heading">Layers</h5>
         <div ng-repeat="x in ctrl.panel.choices track by $index">
             <div class="gf-form">
-                <label class="gf-form-label width-6">Name</label>
-                <input type="text" class="gf-form-input width-10 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.name[$index]">
+                <label class="gf-form-label width-4">Name</label>
+                <input type="text" class="gf-form-input width-14 ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ctrl.panel.name[$index]">
 
                 <label class="gf-form-label width-8 gf-form-inline" ng-dblclick="ctrl.useValidator($index)">Map Source
                     <tip>Double Click on this label or the input field to open the JSON editor</tip>
@@ -33,10 +33,10 @@
                 <input  type="text" class="gf-form-input gf-form-inline width-16 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-dblclick="ctrl.useValidator($index)" ng-model="ctrl.panel.mapSrc[$index]">
                 
                 <label class="gf-form-label width-4">Max</label>
-                <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.max[$index]">
+                <input type="text" class="gf-form-input width-10 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.max[$index]">
     
                 <label class="gf-form-label width-4">Min</label>
-                <input type="text" class="gf-form-input width-8 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.min[$index]">
+                <input type="text" class="gf-form-input width-10 ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="ctrl.render()" ng-model="ctrl.panel.min[$index]">
 
                 <button class="btn btn-inverse gf-form-btn" ng-click="ctrl.removeChoice($index)">-</button>
             </div>

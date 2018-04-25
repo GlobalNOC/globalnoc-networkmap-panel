@@ -1,15 +1,24 @@
-<div>
-<div class="tabbed-view-header">
-    <h2 class="tabbed-view-title">
-        Json Editor
+<div class="modal-body">
+<div class="modal-header">
+    <h2 class="modal-header-title">
+        <i class="fa fa-code"></i> 
+        <span class="p-l-1">JSON Editor</span>
     </h2>
+    
+    <ul class="gf-tabs">
+        <li class="gf-tabs-item">
+            <h5 class="gf-tabs-link">  
+                Editing Layer {{ctrl.panel.name[ctrl.json_index]}}
+            </h5>
+        </li>
+    </ul>
 
-    <button class="tabbed-view-close-btn" ng-click="dismiss()">
+    <a class="modal-header-close" ng-click="dismiss()">
         <i class="fa fa-remove"></i>
-    </button>
+    </a>
 </div>
 
-<div class="tabbed-view-body">
+<div class="modal-content">
     <div class="gf-form">
         <code-editor content="ctrl.json_content" data-max-lines="35" data-mode="json" data-show-gutter data-snippets-enabled data-behaviours-enabled></code-editor>
     </div>
