@@ -154,7 +154,8 @@ var Topology = function(params, offsets){
 
     topology.init = _.once(function(){
         //process links
-
+        if(!data.links) data.links = [];    
+    
         for(var i=0; i < data.links.length; i++){
             _.forEach(offsets, function(off){
 		var link = data.links[i];
@@ -261,7 +262,8 @@ var Topology = function(params, offsets){
         }
 	
         data.links = links;
-	
+        
+        if(!data.endpoints) data.endpoints = [];    
         //add unique ids to all endpoints
 	    _.forEach(data.endpoints, function(endpoint){
             _.forEach(offsets, function(off){

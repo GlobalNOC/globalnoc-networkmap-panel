@@ -88,9 +88,17 @@
     </div>
 
     <div class="section gf-form-group">
-        <h5 class="section-heading">Line Color</h5>
+        <h5 class="section-heading">Link Color</h5>
         <div class="gf-form-select-wrapper width-8">
-            <select class="input-small gf-form-input" ng-model="ctrl.panel.line.selected" ng-options="s for s in ctrl.panel.line.criteria" ng-change="ctrl.render()" >
+            <select class="input-small gf-form-input" ng-model="ctrl.panel.layer.link.selected" ng-options="s for s in ctrl.panel.layer.criteria" ng-change="ctrl.render()" >
+            </select>
+        </div>   
+    </div>
+
+    <div class="section gf-form-group">
+        <h5 class="section-heading">Node Color</h5>
+        <div class="gf-form-select-wrapper width-8">
+            <select class="input-small gf-form-input" ng-model="ctrl.panel.layer.node.selected" ng-options="s for s in ctrl.panel.layer.criteria" ng-change="ctrl.render()" >
             </select>
         </div>   
     </div>

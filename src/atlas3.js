@@ -59,9 +59,10 @@ const panelDefaults = {
         content: ' ',
         node_content: ' '
     },
-    line: {
+    layer: {
         criteria: ['Minimum', 'Maximum', 'Average', 'Current'],
-        selected: 'Current'
+        link: { selected: 'Current' },
+        node: { selected: 'Current' }
     },
     to_si: 1000000000,
     legendTypes: ['opacity','spectrum','threshold'],
@@ -146,30 +147,32 @@ export class Atlas3 extends MetricsPanelCtrl {
                 
                 // Match endpoints to visualize the data
                 var target_endpoints = [];
-                _.forEach(endpoints, function(pop){
-                    if(data.target == pop.name){
-                        target_endpoints.push({endpoint: pop, name: pop.name, label: pop.label});
-                    }
-                });
+                if(endpoints) {
+                    _.forEach(endpoints, function(pop){
+                        if(data.target == pop.name){
+                            target_endpoints.push({endpoint: pop, name: pop.name, label: pop.label});
+                        }
+                    });
+                }
                 
 
                 // Match links to visualize the data
                 var target_links = [];
-                _.forEach(links, function(l){
-                    _.forEach(l.endpoints, function(ep){
-                        var str =  l.name + " " + ep.name;
-                        if(data.target == ep.name){
-                            if(ep.label){
-                                target_links.push({link: l, endpoint: ep.name, label: ep.label, full: str});
-                            }else{
-                                target_links.push({link: l, endpoint: ep.name, label: null, full: str});
+                if(links){
+                    _.forEach(links, function(l){
+                        _.forEach(l.endpoints, function(ep){
+                            var str =  l.name + " " + ep.name;
+                            if(data.target == ep.name){
+                                if(ep.label){
+                                    target_links.push({link: l, endpoint: ep.name, label: ep.label, full: str});
+                                }else{
+                                    target_links.push({link: l, endpoint: ep.name, label: null, full: str});
+                                }
                             }
-                        }
+                        });
                     });
-                });
-
+                }
                 var cur;
-                var color_criteria = self.panel.line.selected;
                 var min;
                 var max;
                 var sum = 0;
@@ -213,6 +216,9 @@ export class Atlas3 extends MetricsPanelCtrl {
                 // if target_endpoints is not empty, visualize the data
                 if(target_endpoints.length > 0){
                     _.forEach(target_endpoints, function(obj){
+                        let layer_max = layer.max();
+                        let layer_min = layer.min();
+                        let color_criteria = self.panel.layer.node.selected;
                         var e = obj.endpoint;
                         e.cur = cur;
                         e.min = min;
@@ -223,13 +229,13 @@ export class Atlas3 extends MetricsPanelCtrl {
                         e.avg = avg.toFixed(2);
                         let color_value; 
                         if(color_criteria === "Average"){
-                            color_value = avg;
+                            color_value = ((avg - layer_min) / (layer_max-layer_min)) * 100;
                         } else if(color_criteria === "Minimum") {
-                            color_value = min;
+                            color_value = ((min - layer_min) / (layer_max-layer_min)) * 100;
                         } else if(color_criteria === "Maximum") {
-                            color_value = max;
+                            color_value = ((max - layer_min) / (layer_max-layer_min)) * 100;
                         } else {
-                            color_value = cur;
+                            color_value = ((cur - layer_min) / (layer_max-layer_min)) * 100;
                         }
                         // use the color value to get color if mode === spectrum or threshold || get opacity if mode === opacity
                         // set color or opacity for the endpoint (e.opacity, e.color)
@@ -259,9 +265,9 @@ export class Atlas3 extends MetricsPanelCtrl {
                 // set line color for the lines based on these values
                         
                 _.forEach(target_links, function(obj){
-                    var layer_max = layer.max();
-                    var layer_min = layer.min();
-
+                    let layer_max = layer.max();
+                    let layer_min = layer.min();
+                    let color_criteria = self.panel.layer.link.selected;
                     var l = obj.link
                     l.count = count;
                     avg = sum/count;
