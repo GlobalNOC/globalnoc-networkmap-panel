@@ -88,19 +88,21 @@
     </div>
 
     <div class="section gf-form-group">
-        <h5 class="section-heading">Link Color</h5>
-        <div class="gf-form-select-wrapper width-8">
-            <select class="input-small gf-form-input" ng-model="ctrl.panel.layer.link.selected" ng-options="s for s in ctrl.panel.layer.criteria" ng-change="ctrl.render()" >
-            </select>
-        </div>   
-    </div>
-
-    <div class="section gf-form-group">
-        <h5 class="section-heading">Node Color</h5>
-        <div class="gf-form-select-wrapper width-8">
-            <select class="input-small gf-form-input" ng-model="ctrl.panel.layer.node.selected" ng-options="s for s in ctrl.panel.layer.criteria" ng-change="ctrl.render()" >
-            </select>
-        </div>   
+        <h5 class="section-heading">Layer Colors</h5>
+        <div class="gf-form">
+            <label class="gf-form-label width-8">Link Color</label>
+            <div class="gf-form-select-wrapper width-8">
+                <select class="input-small gf-form-input" ng-model="ctrl.panel.layer.link.selected" ng-options="s for s in ctrl.panel.layer.criteria" ng-change="ctrl.render()" >
+                </select>
+            </div>
+        </div>
+        <div class="gf-form">
+            <label class="gf-form-label width-8">Node Color</label>
+            <div class="gf-form-select-wrapper width-8">
+                <select class="input-small gf-form-input" ng-model="ctrl.panel.layer.node.selected" ng-options="s for s in ctrl.panel.layer.criteria" ng-change="ctrl.render()" >
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="section gf-form-group">
@@ -111,7 +113,7 @@
         </gf-form-switch>
          <div ng-if="ctrl.panel.tooltip.show && ctrl.panel.tooltip.showLinkHover" class="gf-form">
             <label class="gf-form-label width-8">To SI</label> 
-            <input type="number" min="1" class="gf-form-input width-8" ng-model="ctrl.panel.to_si" on-change="ctrl.render()"/>
+            <input type="number" min="1" class="gf-form-input width-8" ng-model="ctrl.panel.to_si" ng-blur="ctrl.render()"/>
         </div>  
         <div ng-if="ctrl.panel.tooltip.show">
             <gf-form-switch class="gf-form" label-class="width-12"
@@ -125,7 +127,6 @@
                 checked="ctrl.panel.tooltip.showNodeHover" on-change="ctrl.render()">
             </gf-form-switch>
         </div>
-
     </div>
     
   

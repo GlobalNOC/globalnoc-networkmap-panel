@@ -353,9 +353,6 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     toSI(num){
-        if(this.panel.tooltip.showDefault){
-            this.panel.to_si = panelDefaults.to_si;
-        }
         if(this.panel.to_si <= 0){ 
             num = num / panelDefaults.to_si;
         } else{
