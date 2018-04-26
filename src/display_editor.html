@@ -112,8 +112,8 @@
             checked="ctrl.panel.tooltip.show" on-change="ctrl.render()">
         </gf-form-switch>
          <div ng-if="ctrl.panel.tooltip.show && ctrl.panel.tooltip.showLinkHover" class="gf-form">
-            <label class="gf-form-label width-8">To SI</label> 
-            <input type="number" min="1" class="gf-form-input width-8" ng-model="ctrl.panel.to_si" ng-blur="ctrl.render()"/>
+            <label class="gf-form-label width-8">Scale Factor</label> 
+            <input type="number" class="gf-form-input width-8" ng-model="ctrl.panel.to_si" ng-blur="ctrl.render()"/>
         </div>  
         <div ng-if="ctrl.panel.tooltip.show">
             <gf-form-switch class="gf-form" label-class="width-12"

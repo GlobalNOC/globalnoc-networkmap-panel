@@ -352,7 +352,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     toSI(num){
-        if(this.panel.to_si <= 0){ 
+        if(this.panel.to_si === 0){ 
             num = num / panelDefaults.to_si;
         } else{
             num = num / this.panel.to_si;
