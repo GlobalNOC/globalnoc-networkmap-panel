@@ -19,6 +19,7 @@ import './css/atlas3_leafletmap.css!';
 import _ from 'lodash';
 import $ from 'jquery';
 import {MetricsPanelCtrl} from 'app/plugins/sdk';
+import {appEvents} from 'app/core/core';
 import LeafletMap from './js/atlas3_leafletmap.js';
 import {Scale} from './scale';
 import {CustomHover} from './CustomHover';
@@ -58,19 +59,16 @@ const panelDefaults = {
         content: ' ',
         node_content: ' '
     },
-    line: {
+    layer: {
         criteria: ['Minimum', 'Maximum', 'Average', 'Current'],
-        selected: 'Current'
+        link: { selected: 'Current' },
+        node: { selected: 'Current' }
     },
     to_si: 1000000000,
     legendTypes: ['opacity','spectrum','threshold'],
     opacityScales: ['linear', 'sqrt'],
     colorScheme : 'interpolateRdYlGn',
-    rgb_values:[],
-    hex_values:[],
-    threshold_colors: [],
-    opacity_values: [],
-    t_colors: []
+    threshold_colors: []
 };
 
 var tempArray=[];
@@ -87,7 +85,11 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.layer_ids = [];
         this.show_legend = true;
         this.opacity = [];
+        this.t_colors = [];
+        this.rgb_values = [];
+        this.hex_values = [];
         this.json_index = null;
+        this.json_content = '';
         this.custom_hover = new CustomHover();
         this.scale = new Scale($scope,this.panel.colorScheme);
         this.colorSchemes=this.scale.getColorSchemes(); 
@@ -98,7 +100,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
         console.log("Calling editPanelJson from panelCtrl:",this.editPanelJson);
     }
-    
+
     onDataReceived(dataList) {
         if(!this.map_drawn){
             this.recentData = dataList;
@@ -110,16 +112,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.process_data(dataList);
     }
 
-    jsonModal(){
-        var modalScope = this.$scope.$new(true);
-        modalScope.panel = this.panel; 
-
-        this.publishAppEvent('show-modal', {
-            src: 'public/plugins/networkmap/json_editor.html',
-            scope: modalScope,
-        });
-    }
-    
     process_data(dataList){
         var self = this;
 	    var data_targets = dataList.map(target => target.target);
@@ -154,30 +146,32 @@ export class Atlas3 extends MetricsPanelCtrl {
                 
                 // Match endpoints to visualize the data
                 var target_endpoints = [];
-                _.forEach(endpoints, function(pop){
-                    if(data.target == pop.name){
-                        target_endpoints.push({endpoint: pop, name: pop.name, label: pop.label});
-                    }
-                });
+                if(endpoints) {
+                    _.forEach(endpoints, function(pop){
+                        if(data.target == pop.name){
+                            target_endpoints.push({endpoint: pop, name: pop.name, label: pop.label});
+                        }
+                    });
+                }
                 
 
                 // Match links to visualize the data
                 var target_links = [];
-                _.forEach(links, function(l){
-                    _.forEach(l.endpoints, function(ep){
-                        var str =  l.name + " " + ep.name;
-                        if(data.target == ep.name){
-                            if(ep.label){
-                                target_links.push({link: l, endpoint: ep.name, label: ep.label, full: str});
-                            }else{
-                                target_links.push({link: l, endpoint: ep.name, label: null, full: str});
+                if(links){
+                    _.forEach(links, function(l){
+                        _.forEach(l.endpoints, function(ep){
+                            var str =  l.name + " " + ep.name;
+                            if(data.target == ep.name){
+                                if(ep.label){
+                                    target_links.push({link: l, endpoint: ep.name, label: ep.label, full: str});
+                                }else{
+                                    target_links.push({link: l, endpoint: ep.name, label: null, full: str});
+                                }
                             }
-                        }
+                        });
                     });
-                });
-
+                }
                 var cur;
-                var color_criteria = self.panel.line.selected;
                 var min;
                 var max;
                 var sum = 0;
@@ -221,6 +215,9 @@ export class Atlas3 extends MetricsPanelCtrl {
                 // if target_endpoints is not empty, visualize the data
                 if(target_endpoints.length > 0){
                     _.forEach(target_endpoints, function(obj){
+                        let layer_max = layer.max();
+                        let layer_min = layer.min();
+                        let color_criteria = self.panel.layer.node.selected;
                         var e = obj.endpoint;
                         e.cur = cur;
                         e.min = min;
@@ -231,13 +228,13 @@ export class Atlas3 extends MetricsPanelCtrl {
                         e.avg = avg.toFixed(2);
                         let color_value; 
                         if(color_criteria === "Average"){
-                            color_value = avg;
+                            color_value = ((avg - layer_min) / (layer_max-layer_min)) * 100;
                         } else if(color_criteria === "Minimum") {
-                            color_value = min;
+                            color_value = ((min - layer_min) / (layer_max-layer_min)) * 100;
                         } else if(color_criteria === "Maximum") {
-                            color_value = max;
+                            color_value = ((max - layer_min) / (layer_max-layer_min)) * 100;
                         } else {
-                            color_value = cur;
+                            color_value = ((cur - layer_min) / (layer_max-layer_min)) * 100;
                         }
                         // use the color value to get color if mode === spectrum or threshold || get opacity if mode === opacity
                         // set color or opacity for the endpoint (e.opacity, e.color)
@@ -251,11 +248,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                             e.endpointOpacity = 1;
                         }else if(mode === 'opacity'){
                             popColor = self.panel.color.cardColor;
-                            popOpacity = self.scale.getOpacity(color_value, self.panel.opacity_values);
+                            popOpacity = self.scale.getOpacity(color_value, self.opacity);
                             e.endpointColor = popColor;
                             e.endpointOpacity = popOpacity;
                         }else if(mode === 'threshold'){
-                            popColor = self.scale.getThresholdColor(color_value, self.panel.t_colors, self.panel.legend.thresholds);
+                            popColor = self.scale.getThresholdColor(color_value, self.t_colors, self.panel.legend.thresholds);
                             e.endpointColor = popColor;
                             e.endpointOpacity = 1;
                         }
@@ -267,9 +264,9 @@ export class Atlas3 extends MetricsPanelCtrl {
                 // set line color for the lines based on these values
                         
                 _.forEach(target_links, function(obj){
-                    var layer_max = layer.max();
-                    var layer_min = layer.min();
-
+                    let layer_max = layer.max();
+                    let layer_min = layer.min();
+                    let color_criteria = self.panel.layer.link.selected;
                     var l = obj.link
                     l.count = count;
                     avg = sum/count;
@@ -297,11 +294,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.lineOpacity = 1;
                     }else if(mode === 'opacity'){
                         lineColor = self.panel.color.cardColor;
-                        lineOpacity = self.scale.getOpacity(color_value, self.panel.opacity_values);
+                        lineOpacity = self.scale.getOpacity(color_value, self.opacity);
                         l.lineColor = lineColor;
                         l.lineOpacity = lineOpacity;
                     }else if(mode === 'threshold'){
-                        lineColor = self.scale.getThresholdColor(color_value, self.panel.t_colors, self.panel.legend.thresholds);
+                        lineColor = self.scale.getThresholdColor(color_value, self.t_colors, self.panel.legend.thresholds);
                         l.lineColor = lineColor;
                         l.lineOpacity = 1;
                     }
@@ -355,10 +352,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     toSI(num){
-        if(this.panel.tooltip.showDefault){
-            this.panel.to_si = panelDefaults.to_si;
-        }
-        if(this.panel.to_si <= 0){ 
+        if(this.panel.to_si === 0){ 
             num = num / panelDefaults.to_si;
         } else{
             num = num / this.panel.to_si;
@@ -380,8 +374,16 @@ export class Atlas3 extends MetricsPanelCtrl {
     onInitPanelActions(actions) {
          this.render();
     }
-    
-    
+     
+    jsonModal(){
+        var modalScope = this.$scope.$new(false);
+        modalScope.panel = this.panel; 
+        appEvents.emit('show-modal', {
+            src: 'public/plugins/networkmap/json_editor.html',
+            scope: modalScope,
+        });
+    }
+      
     addNewChoice() {
         var num = this.panel.choices.length + 1;
         this.panel.choices.push(num);
@@ -393,25 +395,22 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
     
     useValidator(index) {
+        this.jsonModal();
         let json = this.panel.mapSrc[index];
+        let json_obj;
+        try{
+            json_obj = JSON.parse(json);
+            this.json_content = JSON.stringify(json_obj, undefined, 2);
+        }catch(e){
+            this.json_content = json;
+        }
         if(!json) return;
-        $("#json_valid").text(json);
         this.json_index = index;
-        this.validateJson();
     }
     
     saveToMapSrc(index){
         if(index===null) return;
-        if($(".line-number")) $(".line-number").remove();
-        let json = $('#json_valid').text();
-        if(!this.isJson(json)){
-            this.panel.json_info = "Can't save invalid JSON!";
-            $("#json-info").removeClass("json-success").addClass("json-err");
-            return;
-        }
-        this.panel.mapSrc[index] = json;
-        this.json_index = null;
-        this.lineNumbering();
+        this.panel.mapSrc[index] = this.json_content;
         this.render();
     }
 
@@ -427,112 +426,20 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.min.splice(index,1);
     }
 
-    copyToClip(){
-        if($(".line-number")) $(".line-number").remove();
-        let text = $("#json_valid");
-        if(!text) return;
-        let content = text.text();
-        if(!this.isJson(content)){
-            this.panel.json_info = "Can't copy invalid JSON!";
-            $("#json-info").removeClass("json-success").addClass("json-err");
-            return;
-        }
-        this.selectText(text[0]);
-        document.execCommand("Copy");
-        this.lineNumbering();
-    }
-
-    selectText(element) {
-        if (/INPUT|TEXTAREA/i.test(element.tagName)) {
-            element.focus();
-            if (element.setSelectionRange) {
-                element.setSelectionRange(0, element.value.length);
-            } else {
-                element.select(); // if textarea
-            }
-            return;
-        }    
-        if (window.getSelection) {
-            window.getSelection().selectAllChildren(element);
-        } else if (document.body.createTextRange) {
-            var range = document.body.createTextRange();
-            range.moveToElementText(element);
-            range.select();
-        }
-    }
-
-    lineNumbering(){
-        let pre = document.getElementById('json_valid');
-        pre.innerHTML = '<span class="line-number"></span>'+pre.innerHTML+'<span class="cl"></span>';
-        let num = pre.innerHTML.split(/\n/).length;
-        for(let j = 0;j<num;j++){
-            let line=pre.getElementsByClassName("line-number")[0];
-            line.innerHTML+='<span>' +(j+1)+'</span>';
-        }
-    }
-
-    syntaxHighlight(json){
-        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|([\[\]\(\){}])|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match){
-            var span_elem = `<span style="color:darkorange">${match}</span>`;
-            if(/^"/.test(match)){
-                if(/:$/.test(match)){
-                    span_elem = `<span class="line" style="color:red">${match}</span>`;
-                }else {
-                    span_elem = `<span style="color:green">${match}</span>`;
-                }
-            }else if(/true|false/.test(match)){
-                span_elem = `<span style="color:blue"> ${match}</span>`;
-            }else if(/null/.test(match)){
-                span_elem = `<span style="color:magenta">${match}</span>`;
-            }else {
-                span_elem = `<span>${match}</span>`;
-            }
-            return span_elem;
-        });
-    }
-
-    validateJson(){
-        if($(".line-number")) $(".line-number").remove();
-        let json_ugly = $("#json_valid").text();
-        if(!json_ugly) return;
-        if(!this.isJson(json_ugly)){
-            if($(".line-number")) $(".line-number").remove();
-            this.lineNumbering();
-            try{
-                JSON.parse(json_ugly);
-            }catch(err){
-                this.panel.json_info = err;
-                $("#json-info").removeClass("json-success").addClass("json-err");
-            }
-        
-        } else {
-            this.panel.json_info=null;
-            let json_obj = JSON.parse(json_ugly);
-            let pretty = JSON.stringify(json_obj, undefined, 2);
-            this.panel.json_text = pretty;
-            $("#json-info").removeClass("json-err").addClass("json-success");
-            this.panel.json_info = "Valid JSON!";
-            document.getElementById("json_valid").innerHTML = this.syntaxHighlight(pretty);
-            if($(".line-number")) $(".line-number").remove();
-            this.lineNumbering();
-        }
-    }
- 
     display() {
-        this.panel.colors=this.scale.displayColor(this.panel.colorScheme);
-        this.panel.rgb_values = this.panel.colors.rgb_values;
-        this.panel.hex_values = this.panel.colors.hex_values;
+        this.colors=this.scale.displayColor(this.panel.colorScheme);
+        this.rgb_values = this.colors.rgb_values;
+        this.hex_values = this.colors.hex_values;
         if(this.panel.legend.invert){
-            _.reverse(this.panel.hex_values);
-            _.reverse(this.panel.rgb_values);
+            _.reverse(this.hex_values);
+            _.reverse(this.rgb_values);
         }
     }
 
     displayOpacity(options, legendWidth){
-        this.panel.opacity_values = this.scale.getOpacityScale(options, legendWidth);
+        this.opacity = this.scale.getOpacityScale(options, legendWidth);
         if(this.panel.legend.invert){
-            _.reverse(this.panel.opacity_values);
+            _.reverse(this.opacity);
         } 
     }
     
@@ -545,10 +452,8 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     displayThresholds(){ 
-        let original_thresholds = [];
-        _.forEach(this.panel.threshold_colors, (el) => original_thresholds.push(el));
-        this.panel.t_colors = this.scale.getThresholdScale(this.panel.legend.thresholds, original_thresholds, this.panel.legend.invert);
-        return this.panel.t_colors;
+        this.t_colors = this.scale.getThresholdScale(this.panel.legend.thresholds, this.panel.threshold_colors);
+        return this.t_colors;
     }
 
     getState(){
@@ -584,19 +489,19 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(ctrl.panel.color.mode === 'opacity'){
                     ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width()*0.4);
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                    ctrl.panel.legend.opacity = ctrl.panel.opacity_values;
+                    ctrl.panel.legend.opacity = ctrl.opacity;
                     ctrl.panel.legend.card_color = ctrl.panel.color.cardColor;
                 } else if (ctrl.panel.color.mode === 'spectrum'){
                     ctrl.display();
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                    ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+                    ctrl.panel.legend.legend_colors = ctrl.hex_values;
                 } else if(ctrl.panel.color.mode === 'threshold'){
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
                     if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
                         let colors = ctrl.displayThresholds();
                         ctrl.panel.legend.legend_colors = colors;
                     }else {
-                        ctrl.panel.t_colors = [];
+                        ctrl.t_colors = [];
                         ctrl.panel.legend.thresholds = [];
                         ctrl.panel.legend.legend_colors = [];
                     }
@@ -662,19 +567,19 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(ctrl.panel.color.mode === 'opacity'){
                 ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width() * 0.4);
                 ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                ctrl.panel.legend.opacity = ctrl.panel.opacity_values;
+                ctrl.panel.legend.opacity = ctrl.opacity;
                 ctrl.panel.legend.card_color = ctrl.panel.color.cardColor;
             } else if(ctrl.panel.color.mode === 'spectrum'){
                 ctrl.display();
                 ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+                ctrl.panel.legend.legend_colors = ctrl.hex_values;
             } else if(ctrl.panel.color.mode === 'threshold'){
                 ctrl.panel.legend.mode = ctrl.panel.color.mode;
                 if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
                     let colors = ctrl.displayThresholds();
                     ctrl.panel.legend.legend_colors = colors;
                 }else {
-                    ctrl.panel.t_colors = [];
+                    ctrl.t_colors = [];
                     ctrl.panel.legend.thresholds = []
                     ctrl.panel.legend.legend_colors = [];
                 }

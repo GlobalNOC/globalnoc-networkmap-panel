@@ -149,9 +149,13 @@ var Legend = function(params){
         }
 
         // create legend numbers
-        var numberLocations = params.numberLocations;
+        var numberLocations;
         if(mode === 'opacity'){
             numberLocations = [0,25,50,75,100];
+        } else if(mode === 'spectrum') {
+            numberLocations = [0,100];
+        } else if(mode === 'threshold') {
+            numberLocations = params.numberLocations;
         }
         if(!_.isArray(numberLocations)){ numberLocations = [0,100]; }
 

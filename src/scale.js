@@ -96,7 +96,7 @@ export class Scale {
     
 
 
-    getThresholdScale(thresholds, colors, invert){
+    getThresholdScale(thresholds, colors){
         let temp = [];
         _.forEach(thresholds, e => temp.push(parseInt(e)));
         if(_.min(temp) <= 0 || _.max(temp) >= 100) return;
@@ -104,9 +104,6 @@ export class Scale {
             colors.splice(thresholds.length+1);
         } else {
             colors = [];
-        }
-        if(invert){
-           return _.reverse(colors); 
         }
         return colors;
     }

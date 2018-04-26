@@ -1,0 +1,32 @@
+<div class="modal-body">
+<div class="modal-header">
+    <h2 class="modal-header-title">
+        <i class="fa fa-code"></i> 
+        <span class="p-l-1">JSON Editor</span>
+    </h2>
+    
+    <ul class="gf-tabs">
+        <li class="gf-tabs-item">
+            <h5 class="gf-tabs-link">  
+                Editing Layer {{ctrl.panel.name[ctrl.json_index]}}
+            </h5>
+        </li>
+    </ul>
+
+    <a class="modal-header-close" ng-click="dismiss()">
+        <i class="fa fa-remove"></i>
+    </a>
+</div>
+
+<div class="modal-content">
+    <div class="gf-form">
+        <code-editor content="ctrl.json_content" data-max-lines="35" data-mode="json" data-show-gutter data-snippets-enabled data-behaviours-enabled></code-editor>
+    </div>
+    
+    <div class="gf-form-button-row">
+        <button class="btn btn-secondary" ng-click="ctrl.saveToMapSrc(ctrl.json_index);">
+            <i class="fa fa-save"></i>&nbsp;Save
+        </button>
+    </div>
+</div>
+</div>
