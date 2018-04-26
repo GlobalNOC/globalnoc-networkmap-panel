@@ -68,11 +68,7 @@ const panelDefaults = {
     legendTypes: ['opacity','spectrum','threshold'],
     opacityScales: ['linear', 'sqrt'],
     colorScheme : 'interpolateRdYlGn',
-    rgb_values:[],
-    hex_values:[],
-    threshold_colors: [],
-    opacity_values: [],
-    t_colors: []
+    threshold_colors: []
 };
 
 var tempArray=[];
@@ -89,6 +85,9 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.layer_ids = [];
         this.show_legend = true;
         this.opacity = [];
+        this.t_colors = [];
+        this.rgb_values = [];
+        this.hex_values = [];
         this.json_index = null;
         this.json_content = '';
         this.custom_hover = new CustomHover();
@@ -101,7 +100,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
         console.log("Calling editPanelJson from panelCtrl:",this.editPanelJson);
     }
-    
+
     onDataReceived(dataList) {
         if(!this.map_drawn){
             this.recentData = dataList;
@@ -249,11 +248,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                             e.endpointOpacity = 1;
                         }else if(mode === 'opacity'){
                             popColor = self.panel.color.cardColor;
-                            popOpacity = self.scale.getOpacity(color_value, self.panel.opacity_values);
+                            popOpacity = self.scale.getOpacity(color_value, self.opacity);
                             e.endpointColor = popColor;
                             e.endpointOpacity = popOpacity;
                         }else if(mode === 'threshold'){
-                            popColor = self.scale.getThresholdColor(color_value, self.panel.t_colors, self.panel.legend.thresholds);
+                            popColor = self.scale.getThresholdColor(color_value, self.t_colors, self.panel.legend.thresholds);
                             e.endpointColor = popColor;
                             e.endpointOpacity = 1;
                         }
@@ -295,11 +294,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.lineOpacity = 1;
                     }else if(mode === 'opacity'){
                         lineColor = self.panel.color.cardColor;
-                        lineOpacity = self.scale.getOpacity(color_value, self.panel.opacity_values);
+                        lineOpacity = self.scale.getOpacity(color_value, self.opacity);
                         l.lineColor = lineColor;
                         l.lineOpacity = lineOpacity;
                     }else if(mode === 'threshold'){
-                        lineColor = self.scale.getThresholdColor(color_value, self.panel.t_colors, self.panel.legend.thresholds);
+                        lineColor = self.scale.getThresholdColor(color_value, self.t_colors, self.panel.legend.thresholds);
                         l.lineColor = lineColor;
                         l.lineOpacity = 1;
                     }
@@ -428,19 +427,19 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     display() {
-        this.panel.colors=this.scale.displayColor(this.panel.colorScheme);
-        this.panel.rgb_values = this.panel.colors.rgb_values;
-        this.panel.hex_values = this.panel.colors.hex_values;
+        this.colors=this.scale.displayColor(this.panel.colorScheme);
+        this.rgb_values = this.colors.rgb_values;
+        this.hex_values = this.colors.hex_values;
         if(this.panel.legend.invert){
-            _.reverse(this.panel.hex_values);
-            _.reverse(this.panel.rgb_values);
+            _.reverse(this.hex_values);
+            _.reverse(this.rgb_values);
         }
     }
 
     displayOpacity(options, legendWidth){
-        this.panel.opacity_values = this.scale.getOpacityScale(options, legendWidth);
+        this.opacity = this.scale.getOpacityScale(options, legendWidth);
         if(this.panel.legend.invert){
-            _.reverse(this.panel.opacity_values);
+            _.reverse(this.opacity);
         } 
     }
     
@@ -453,8 +452,8 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     displayThresholds(){ 
-        this.panel.t_colors = this.scale.getThresholdScale(this.panel.legend.thresholds, this.panel.threshold_colors);
-        return this.panel.t_colors;
+        this.t_colors = this.scale.getThresholdScale(this.panel.legend.thresholds, this.panel.threshold_colors);
+        return this.t_colors;
     }
 
     getState(){
@@ -490,19 +489,19 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(ctrl.panel.color.mode === 'opacity'){
                     ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width()*0.4);
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                    ctrl.panel.legend.opacity = ctrl.panel.opacity_values;
+                    ctrl.panel.legend.opacity = ctrl.opacity;
                     ctrl.panel.legend.card_color = ctrl.panel.color.cardColor;
                 } else if (ctrl.panel.color.mode === 'spectrum'){
                     ctrl.display();
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                    ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+                    ctrl.panel.legend.legend_colors = ctrl.hex_values;
                 } else if(ctrl.panel.color.mode === 'threshold'){
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
                     if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
                         let colors = ctrl.displayThresholds();
                         ctrl.panel.legend.legend_colors = colors;
                     }else {
-                        ctrl.panel.t_colors = [];
+                        ctrl.t_colors = [];
                         ctrl.panel.legend.thresholds = [];
                         ctrl.panel.legend.legend_colors = [];
                     }
@@ -568,19 +567,19 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(ctrl.panel.color.mode === 'opacity'){
                 ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width() * 0.4);
                 ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                ctrl.panel.legend.opacity = ctrl.panel.opacity_values;
+                ctrl.panel.legend.opacity = ctrl.opacity;
                 ctrl.panel.legend.card_color = ctrl.panel.color.cardColor;
             } else if(ctrl.panel.color.mode === 'spectrum'){
                 ctrl.display();
                 ctrl.panel.legend.mode = ctrl.panel.color.mode;
-                ctrl.panel.legend.legend_colors = ctrl.panel.hex_values;
+                ctrl.panel.legend.legend_colors = ctrl.hex_values;
             } else if(ctrl.panel.color.mode === 'threshold'){
                 ctrl.panel.legend.mode = ctrl.panel.color.mode;
                 if(ctrl.isSorted(ctrl.panel.legend.thresholds)){
                     let colors = ctrl.displayThresholds();
                     ctrl.panel.legend.legend_colors = colors;
                 }else {
-                    ctrl.panel.t_colors = [];
+                    ctrl.t_colors = [];
                     ctrl.panel.legend.thresholds = []
                     ctrl.panel.legend.legend_colors = [];
                 }
