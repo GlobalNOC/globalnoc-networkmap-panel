@@ -148,59 +148,7 @@ var buildAll = function(options){
         name: 'DataSource',
         dev: options.dev
     });
-
-/*    
-    //create the minimap
-    createJS({
-        name: 'MiniMap',
-        dev: options.dev
-    });
-    //create the minimap css
-    createCSS({
-        name: 'MiniMap',
-        files: [
-            './src/css/MiniMap.css', 
-            './src/css/NetworkLayer.css',
-            './src/css/TrafficLayer.css',
-            './src/css/Legend.css'
-        ],
-        dev: options.dev
-    });
-    //create the cesiummap
-    createJS({
-        name: 'CesiumMap',
-        dev: options.dev
-    });
-    //create the cesiummap css
-    createCSS({
-        name: 'CesiumMap',
-        files: [
-            './dist/vendors/cesium/Widgets/widgets.css',
-            './src/css/NetworkLayer.css',
-            './src/css/TrafficLayer.css',
-            './src/css/CesiumMap.css',
-            './src/css/Legend.css'
-        ],
-        dev: options.dev
-    });
-    //create the googlemap
-    createJS({
-        name: 'GoogleMap',
-        dev: options.dev
-    });
-    //create the googlemap css
-    createCSS({
-        name: 'GoogleMap',
-        files: [
-            './src/css/MiniMap.css',
-            './src/css/NetworkLayer.css',
-            './src/css/TrafficLayer.css',
-            './src/css/Legend.css'
-        ],
-        dev: options.dev
-    });
-*/
-
+    
     //create the LeafletMap
     createJS({
             name: 'LeafletMap',
@@ -217,28 +165,7 @@ var buildAll = function(options){
                 dev: options.dev
                 });
 
-    //create the editor
-/* 
-    createJS({
-        name: 'EditorMap',
-        dev: options.dev,
-    });
-    //create the editor css
-    createCSS({
-       name: 'EditorMap',
-        files: [
-            './src/css/MiniMap.css',
-            './src/css/NetworkLayer.css',
-            './src/css/TrafficLayer.css',
-            './src/node_modules/leaflet/dist/leaflet.css',
-            './src/css/TrafficLayer.css',
-            './src/css/EditorMap.css'
-        ],
-        dev: options.dev,
-    });
-*/
-
-    //create the editor css
+    //create the Dialog css
     createCSS({
         name: 'Dialog',
         files: [
@@ -264,97 +191,6 @@ var buildAll = function(options){
     });
 };
 
-//create api documentation with gulp-yuidoc
-//var _generateYuiAPIDocs = function(options){
-  //  options = options || {};
- 
-    //generate our api documentation with the yuidoc plugin
-  //  return gulp.src("./js/**/*.js")
-/*        .pipe(yuidoc.parser({
-            project: {
-                "name": "GlobalNOC Atlas",
-                "description": "The GlobalNOC Atlas API: A library for visualizing network topology/metrcs on various mapping platforms",
-                "version": "1.0.3",
-                "url": "http://globalnoc.iu.edu",
-                "themedir": "./node_modules/yuidoc-bootstrap-theme",
-                "helpers": ["./node_modules/yuidoc-bootstrap-theme/helpers/helpers.js"]
-            }
-        }))
-        .pipe(yuidoc.reporter())
-        .pipe(yuidoc.generator())
-        .pipe(gulp.dest('./dist/api_docs'));
-};
-*/
-/*
-//apply the bootstrap yui doc theme to the generated docs
-var _applyBootstrapAPIDocTheme = function(){
-    //copy over vendor assets from bootstrap theme
-    gulp.src("./node_modules/yuidoc-bootstrap-theme/assets/vendor/**", { base: './node_modules/yuidoc-bootstrap-theme/vendor/*' })
-        .pipe(gulp.dest('./dist/api_docs/assets/vendor/'));
-
-    //copy over js assets from bootstrap theme
-    gulp.src("./node_modules/yuidoc-bootstrap-theme/assets/js/**", { base: './node_modules/yuidoc-bootstrap-theme/js/*' })
-        .pipe(gulp.dest('./dist/api_docs/assets/vendor/'));
-
-    //copy over css assets from bootstrap theme
-    return gulp.src("./node_modules/yuidoc-bootstrap-theme/assets/css/*")
-        .pipe(flatten())
-        .pipe(gulp.dest('./dist/api_docs/assets/css/'));
-};
-
-//apply some custom tweaks to the api documentation
-var _applyCustomAPIDocTheme = function(){
-    //copy over custom logo
-    gulp.src("./images/atlas_logo_60o.png", { base: './images/' })
-        .pipe(gulp.dest('./dist/api_docs/assets/css/'));
-
-    //concatinate my custom css for the api docs onto the end of the custom
-    //bootstrap docs
-    return gulp.src([
-        './dist/api_docs/assets/css/custom.css',
-        './docs/css/api.css'
-    ],{base: 'css/'})
-        .pipe(concat('custom.css'))
-        .pipe(gulp.dest('./dist/api_docs/assets/css/'))
-};
-
-//generate our landing doc page from the markdown document 
-var buildDocs = function(options){
-    return gulp.src('./docs/index.md')
-        .pipe(marked({}))
-        .pipe(gulp.dest('./dist/'))
-
-};
-*/
-
-/*
-//hack to include cesium since there doesn't appear to be a clear way to require it via the usual Commonjs method
-var _copyCesium = function(){
-    gulp.src("./node_modules/cesium/Build/Cesium/**", { base: './node_modules/cesium/Build/Cesium/' })
-        .pipe(gulp.dest('./dist/vendors/cesium/'));
-};
-*/
-/*
-//hack to include cesium since there doesn't appear to be a clear way to require it via the usual Commonjs method
-var _copyCesiumImages = function(){
-    gulp.src("./node_modules/cesium/Build/Cesium/Widgets/Images/**", { base: './node_modules/cesium/Build/Cesium/Widgets/' })
-    .pipe(gulp.dest('./dist/css/'));
-}; */
-
-// build the documentation
-//gulp.task('_generate_yui_api_docs', _generateYuiAPIDocs);
-//gulp.task('_apply_bootstrap_api_doc_theme', ['_generate_yui_api_docs'], _applyBootstrapAPIDocTheme);
-//gulp.task('_apply_custom_api_doc_theme', ['_apply_bootstrap_api_doc_theme'], _applyCustomAPIDocTheme);
-//gulp.task('docs', ['_apply_custom_api_doc_theme'], function(){
-//    buildDocs();
-//});
-
-/*
-gulp.task('_copy_cesium', function(){
-    _copyCesium();
-    _copyCesiumImages();
-}); */
-
 // Starts our development workflow
 gulp.task('default', function () {
     buildAll({
@@ -363,7 +199,7 @@ gulp.task('default', function () {
 });
 
 // Builds our minified production rollups
-gulp.task('deploy', ['docs'], function () {
+gulp.task('deploy', function () {
     buildAll();
     buildAll({dev: true});
 });
