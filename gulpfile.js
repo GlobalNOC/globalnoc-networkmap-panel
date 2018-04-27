@@ -137,10 +137,10 @@ var buildAll = function(options){
     options.dev = options.dev || false;
 
     gulp.src('src/plugin.json').pipe(gulp.dest('./dist'));
-    gulp.src('src/module.html').pipe(gulp.dest('./dist'));
-    gulp.src('src/editor.html').pipe(gulp.dest('./dist'));
-    gulp.src('src/display_editor.html').pipe(gulp.dest('./dist'));
-    gulp.src('src/json_editor.html').pipe(gulp.dest('./dist'));
+    gulp.src('src/partials/module.html').pipe(gulp.dest('./dist'));
+    gulp.src('src/partials/editor.html').pipe(gulp.dest('./dist'));
+    gulp.src('src/partials/display_editor.html').pipe(gulp.dest('./dist'));
+    gulp.src('src/partials/json_editor.html').pipe(gulp.dest('./dist'));
     createPlugin({ files: [ './src/*.js',]});
 
     //create the datasource
@@ -148,6 +148,8 @@ var buildAll = function(options){
         name: 'DataSource',
         dev: options.dev
     });
+
+/*    
     //create the minimap
     createJS({
         name: 'MiniMap',
@@ -197,6 +199,8 @@ var buildAll = function(options){
         ],
         dev: options.dev
     });
+*/
+
     //create the LeafletMap
     createJS({
             name: 'LeafletMap',
@@ -208,13 +212,13 @@ var buildAll = function(options){
                         './src/css/NetworkLayer.css',
                         './node_modules/leaflet/dist/leaflet.css',
                         './src/css/TrafficLayer.css',
-                        './src/css/Legend.css',
-                        './src/css/JsonEditor.css' 
+                        './src/css/Legend.css' 
                         ],
                 dev: options.dev
                 });
 
     //create the editor
+/* 
     createJS({
         name: 'EditorMap',
         dev: options.dev,
@@ -232,7 +236,8 @@ var buildAll = function(options){
         ],
         dev: options.dev,
     });
-    
+*/
+
     //create the editor css
     createCSS({
         name: 'Dialog',
@@ -260,12 +265,12 @@ var buildAll = function(options){
 };
 
 //create api documentation with gulp-yuidoc
-var _generateYuiAPIDocs = function(options){
-    options = options || {};
+//var _generateYuiAPIDocs = function(options){
+  //  options = options || {};
  
     //generate our api documentation with the yuidoc plugin
-    return gulp.src("./js/**/*.js")
-        .pipe(yuidoc.parser({
+  //  return gulp.src("./js/**/*.js")
+/*        .pipe(yuidoc.parser({
             project: {
                 "name": "GlobalNOC Atlas",
                 "description": "The GlobalNOC Atlas API: A library for visualizing network topology/metrcs on various mapping platforms",
@@ -279,7 +284,8 @@ var _generateYuiAPIDocs = function(options){
         .pipe(yuidoc.generator())
         .pipe(gulp.dest('./dist/api_docs'));
 };
-
+*/
+/*
 //apply the bootstrap yui doc theme to the generated docs
 var _applyBootstrapAPIDocTheme = function(){
     //copy over vendor assets from bootstrap theme
@@ -319,42 +325,45 @@ var buildDocs = function(options){
         .pipe(gulp.dest('./dist/'))
 
 };
+*/
 
+/*
 //hack to include cesium since there doesn't appear to be a clear way to require it via the usual Commonjs method
 var _copyCesium = function(){
     gulp.src("./node_modules/cesium/Build/Cesium/**", { base: './node_modules/cesium/Build/Cesium/' })
         .pipe(gulp.dest('./dist/vendors/cesium/'));
 };
-
+*/
+/*
 //hack to include cesium since there doesn't appear to be a clear way to require it via the usual Commonjs method
 var _copyCesiumImages = function(){
     gulp.src("./node_modules/cesium/Build/Cesium/Widgets/Images/**", { base: './node_modules/cesium/Build/Cesium/Widgets/' })
     .pipe(gulp.dest('./dist/css/'));
-};
+}; */
 
 // build the documentation
-gulp.task('_generate_yui_api_docs', _generateYuiAPIDocs);
-gulp.task('_apply_bootstrap_api_doc_theme', ['_generate_yui_api_docs'], _applyBootstrapAPIDocTheme);
-gulp.task('_apply_custom_api_doc_theme', ['_apply_bootstrap_api_doc_theme'], _applyCustomAPIDocTheme);
-gulp.task('docs', ['_apply_custom_api_doc_theme'], function(){
-    buildDocs();
-});
+//gulp.task('_generate_yui_api_docs', _generateYuiAPIDocs);
+//gulp.task('_apply_bootstrap_api_doc_theme', ['_generate_yui_api_docs'], _applyBootstrapAPIDocTheme);
+//gulp.task('_apply_custom_api_doc_theme', ['_apply_bootstrap_api_doc_theme'], _applyCustomAPIDocTheme);
+//gulp.task('docs', ['_apply_custom_api_doc_theme'], function(){
+//    buildDocs();
+//});
 
+/*
 gulp.task('_copy_cesium', function(){
     _copyCesium();
     _copyCesiumImages();
-});
+}); */
+
 // Starts our development workflow
-gulp.task('default', ['_copy_cesium'], function () {
-    //_copyCesium();
+gulp.task('default', function () {
     buildAll({
         dev: true
     });
 });
 
 // Builds our minified production rollups
-gulp.task('deploy', ['_copy_cesium', 'docs'], function () {
-    //_copyCesium();
+gulp.task('deploy', ['docs'], function () {
     buildAll();
     buildAll({dev: true});
 });
