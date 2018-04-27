@@ -136,7 +136,7 @@ var buildAll = function(options){
     options = options || {};
     options.dev = options.dev || false;
 
-    gulp.src('plugin.json').pipe(gulp.dest('./dist'));
+    gulp.src('src/plugin.json').pipe(gulp.dest('./dist'));
     gulp.src('src/module.html').pipe(gulp.dest('./dist'));
     gulp.src('src/editor.html').pipe(gulp.dest('./dist'));
     gulp.src('src/display_editor.html').pipe(gulp.dest('./dist'));
