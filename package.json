@@ -1,10 +1,10 @@
 {
-  "name": "worldview",
-  "version": "0.0.1",
+  "name": "Network-Map",
+  "version": "1.0.3",
   "description": "GlobalNOC Worldview Realtime Traffic Maps",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+      "build": "gulp"
   },
   "keywords": [
     "worldview",
@@ -12,7 +12,7 @@
     "map"
   ],
   "author": "GlobalNOC Software Engineering",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "babel": "~6.5.1",
     "babel-eslint": "^6.0.0",
