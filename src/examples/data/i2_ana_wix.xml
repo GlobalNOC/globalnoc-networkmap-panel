@@ -1,7 +1,0 @@
-<opt timestamp="Tue Feb  9 19:00:37 UTC 2016">
-  <if-stat name="ethernet11/1" node_name="sw.net.wix.internet2.edu" stat="1">
-    <bps i="4960836889.28" o="11430033614.4"></bps>
-    <pps i="725060.6" o="1316375.66"></pps>
-    <err i="0" o="0"></err>
-  </if-stat>
-</opt>

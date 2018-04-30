@@ -1,7 +1,0 @@
-<opt timestamp="Tue Feb  9 18:56:32 UTC 2016">
-  <if-stat name="ethernet11/1" node_name="sdn-sw.losa.net.internet2.edu" stat="1">
-    <bps i="9599102.32" o="341796662.96"></bps>
-    <pps i="4513.54" o="28966.66"></pps>
-    <err i="0" o="0"></err>
-  </if-stat>
-</opt>
