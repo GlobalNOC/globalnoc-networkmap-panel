@@ -9,5 +9,5 @@ clean:
 dist:
 		rm -rf dist/$(NAME)-$(VERSION)/
 		mkdir -p dist/$(NAME)-$(VERSION)/
-		cp -r src plugin.json package.json gulpfile.js $(NAME).spec dist/$(NAME)-$(VERSION)/
+		cp -r src package.json gulpfile.js $(NAME).spec dist/$(NAME)-$(VERSION)/
 		cd dist; tar -czvf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)/ --exclude .svn
