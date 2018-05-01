@@ -80,7 +80,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.map_holder_id = 'map_' + this.panel.id;
         this.containerDivId = 'container_'+this.map_holder_id;
         this.recentData = [];
-        this.json_info=null;
         this.map_drawn = false; 
         this.layer_ids = [];
         this.show_legend = true;
@@ -365,10 +364,9 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
     
     onInitEditMode() {
-        this.addEditorTab('Options', 'public/plugins/networkmap/editor.html', 2);
-        this.addEditorTab('Display', 'public/plugins/networkmap/display_editor.html', 3);
+        this.addEditorTab('Options', 'public/plugins/globalnoc-networkmap-panel/editor.html', 2);
+        this.addEditorTab('Display', 'public/plugins/globalnoc-networkmap-panel/display_editor.html', 3);
         tempArray=this.scale.displayColor(this.panel.colorScheme);
-        this.panel.json_info = null;
     } 
    
     onInitPanelActions(actions) {
@@ -379,7 +377,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         var modalScope = this.$scope.$new(false);
         modalScope.panel = this.panel; 
         appEvents.emit('show-modal', {
-            src: 'public/plugins/networkmap/json_editor.html',
+            src: 'public/plugins/globalnoc-networkmap-panel/json_editor.html',
             scope: modalScope,
         });
     }
@@ -484,7 +482,6 @@ export class Atlas3 extends MetricsPanelCtrl {
             ctrl.panel.tooltip.content = html_content;
             let node_content = ctrl.getHtml(ctrl.panel.tooltip.node_content);
             ctrl.panel.tooltip.node_content = node_content;
-            if(!ctrl.panel.use_json) { ctrl.panel.json_info = null };
             if(ctrl.map_drawn == true){
                 if(ctrl.panel.color.mode === 'opacity'){
                     ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width()*0.4);

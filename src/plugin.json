@@ -1,7 +1,7 @@
 {
   "type": "panel",
   "name": "Network Map",
-  "id": "networkmap",
+  "id": "globalnoc-networkmap-panel",
 
   "info": {
     "description": "GlobalNOC Network Map Grafana Plugin",
@@ -10,8 +10,8 @@
       "url": "http://globalnoc.iu.edu"
     },
     "keywords": ["network-map", "map", "network"],
-    "version": "1.0.3",
-    "updated": "2018-04-10"
+    "version": "1.0.4",
+    "updated": "2018-04-30"
   },
 
   "dependencies": {
