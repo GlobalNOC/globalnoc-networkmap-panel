@@ -68,9 +68,6 @@ var SingleTubeLayer = function(params){
     svg.classed(params.map.containerId(), true);
     svg.classed('single-tube', true);
 
-    //get leaflet map
-    var lmap = params.lmap;
-
     //define how to toggle the layer
     layer.onToggle(function(active){
         svg.transition().style('opacity', (active) ? 1 : 0);
@@ -86,16 +83,6 @@ var SingleTubeLayer = function(params){
             return layer.latLngToXy([d.lat, d.lon])[1];
         });
     
-   /* var line1 = d3.svg.line()
-    .interpolate("bundle")
-    .x(function(d) {
-            return layer.latLngToXy([d.lat, d.lon])[0]+20;
-        })
-    .y(function(d) {
-            return layer.latLngToXy([d.lat, d.lon])[1]-20;
-        });
-    */
-
     //set default event handlers for links if none were passed in
     layer.onLinkEvent(params.onLinkEvent || {
         click: function(d){
@@ -191,7 +178,7 @@ var SingleTubeLayer = function(params){
 
     //this function sets the correct translation of the directional arrow at the center of
     //the circuitShadow path under the same parent group.
-   /* function arrowTranslate(d){
+    function arrowTranslate(d){
         if(d.arrow === undefined || d.arrow === ARROW.NONE ){
             return;
         }
@@ -227,7 +214,7 @@ var SingleTubeLayer = function(params){
         p.x -= 2 * arrow_scale;
 
         return "translate(" + p.x+','+p.y+ ") scale("+arrow_scale+") rotate("+angle+",2,1)"
-     }*/
+    }
 
     //define how to update the layers components
     layer.onUpdate(function(){
@@ -249,9 +236,10 @@ var SingleTubeLayer = function(params){
 
         //add a shadow path for new adjacencys 
         linksEnter.append("path")
-            .attr("d",function(d){
-                return line(d.path);
-            })
+        .attr("d",function(d){
+            return line(d.path);
+        })
+        //.classed('adjacencyShadow adjacencyHighlight', true)
             .attr("class","adjacencyShadow")
             .call(function(selection){
                 _.forEach(layer.onLinkEvent(), function(callback, evt){
@@ -259,24 +247,6 @@ var SingleTubeLayer = function(params){
                         callback({
                             event: d3.event,
                             data:  d
-                        });
-                    });
-                });
-            });
-
-        var adjShadow1 = linksEnter.append("svg:path")
-            .attr("class", "adjacencyShadow1")
-            .attr("transform",function(d){
-                let zoom = lmap.getZoom();
-                zoom = zoom * 1.5;
-                return "translate("+zoom+","+zoom+")";   
-            })
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:d
                         });
                     });
                 });
@@ -296,63 +266,12 @@ var SingleTubeLayer = function(params){
                     });
                 });
             });
-
-        var adjHigh1 = linksEnter.append("svg:path")
-            .attr("class", "adjacencyHighlight1")
-            .attr("transform",function(d){
-                let zoom = lmap.getZoom();
-                zoom = zoom * 1.5;
-                return "translate("+zoom+","+zoom+")";   
-            })
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:d
-                        });
-                    });
-                });
-            });
-
-        /*
-        //add a shadow path for new adjacencys 
-        linksEnter.append("path")
-            .attr("d",function(d){
-                return line1(d.path);
-            })
-            .attr("class","adjacencyShadow1")
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:  d
-                        });
-                    });
-                });
-            });
 	
-        //add a highlight path for new links
-        linksEnter.append("path")
-            .attr("d",function(d){return line1(d.path)})
-            .attr("class","adjacencyHighlight1")
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:  d
-                        });
-                    });
-                });
-            }); */
-
         //add directional indicator by appending yet another path to the g
-        /*linksEnter.append("path")
+        linksEnter.append("path")
             .attr("class","arrow")
             .attr("d","M.5,1 L0,2 L3,1 L0,0 Z")
-            .attr("transform", arrowTranslate);*/
+            .attr("transform", arrowTranslate);
 	
         //--- UPDATE -- update the paths of any existing links
 	
@@ -360,7 +279,7 @@ var SingleTubeLayer = function(params){
         links.select(".adjacencyShadow")
             .attr("d",function(d){return line(d.path)})
             .style('stroke-width', function(d){
-		        var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-1) : (layer.lineWidth());
+		var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-1) : (layer.lineWidth());
                 if (d.selected) {
                     return (strokeWidth * 2)+'px';
                 } else {
@@ -390,56 +309,10 @@ var SingleTubeLayer = function(params){
             .style('stroke', function(d){
                 return d.lineColor === undefined ? d3.rgb(layer.lineColor()) : d3.rgb(d.lineColor);
             });
-    
-    
-        //update shadow path
-        links.select(".adjacencyShadow1")
-            .attr("d",function(d){return line(d.path)})
-            .attr("transform",function(d){
-                let zoom = lmap.getZoom();
-                zoom = zoom * 1.5;
-                return "translate("+zoom+","+zoom+")";   
-            })
-            .style('stroke-width', function(d){
-		        var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-1) : (layer.lineWidth());
-                if (d.selected) {
-                    return (strokeWidth * 2)+'px';
-                } else {
-                    return strokeWidth+'px';
-                }
-            })
-            .style('opacity',function(d){
-                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
-            })
-            .style('stroke', function(d){
-                return d.lineColor === undefined ? d3.rgb(layer.lineColor()).darker() : d3.rgb(d.lineColor).darker();
-            });
-        //update highlight path
-        links.select(".adjacencyHighlight1")
-            .attr("d",function(d){return line(d.path)})
-            .attr("transform", function(d){
-                let zoom = lmap.getZoom();
-                zoom = zoom * 1.5;
-                return "translate("+zoom+","+zoom+")";
-            })
-            .style('stroke-width', function(d){
-                var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-2) : (layer.lineWidth()-1);
-                if (d.selected) {
-                    return (strokeWidth * 2)+'px';
-                } else {
-                    return strokeWidth+'px';
-                }
-            })
-            .style('opacity', function(d){
-                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
-            })
-            .style('stroke', function(d){
-                return d.lineColor === undefined ? d3.rgb(layer.lineColor()) : d3.rgb(d.lineColor);
-            });
-
+        
         //update arrow path
-        /*links.select('.arrow')
-            .attr("transform",arrowTranslate);*/
+        links.select('.arrow')
+            .attr("transform",arrowTranslate);
 	
         //--- EXIT -- remove any links we no longer need
         links.exit().remove();
@@ -499,14 +372,15 @@ var SingleTubeLayer = function(params){
             });
 
 
+
         //--- EXIT -- remove any endpoint we no longer need
         endpoints.exit().remove();
 	
-	    if(!this.isInitDone()){
-	        console.log("Init Complete!");
-	        this.isInitDone(true);
-	        this.initComplete();
-	    }
+	if(!this.isInitDone()){
+	    console.log("Init Complete!");
+	    this.isInitDone(true);
+	    this.initComplete();
+	}
 
         return true;
     });
