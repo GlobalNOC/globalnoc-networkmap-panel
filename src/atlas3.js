@@ -504,10 +504,14 @@ export class Atlas3 extends MetricsPanelCtrl {
                     }
                 }
                 ctrl.map.drawLegend(ctrl.panel.legend);
-                ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
-                ctrl.map.adjustZoom(ctrl.panel.zoom);
-                ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
-          
+                if(!ctrl.panel.use_image){
+                    ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
+                    ctrl.map.adjustZoom(ctrl.panel.zoom);
+                    ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
+                } else {
+                    ctrl.map.setImageUrl(ctrl.panel.image_url);
+                    ctrl.map.setBounds(ctrl.panel.im_width, ctrl.panel.im_height);
+                }
                 // Remove existing layers from DOM and the  map before adding new layers.
                 let all_layers = ctrl.layer_ids;
                 _.forEach(all_layers, function(layer){
@@ -550,16 +554,25 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(!document.getElementById('container_map_' + ctrl.panel.id)){
                 console.log("Container not found");
             }
-	     
-            let map = LeafletMap({ containerId: ctrl.containerDivId,
-                bing_api_key: ctrl.panel.bing_api_key,
-                map_tile_url: ctrl.panel.map_tile_url,
-                lat: ctrl.panel.lat,
-                lng: ctrl.panel.lng,
-                zoom: ctrl.panel.zoom,
-                tooltip: ctrl.panel.tooltip
-            });
-            ctrl.map = map; 
+	        if(!ctrl.panel.use_image){ 
+                let map = LeafletMap({ containerId: ctrl.containerDivId,
+                    bing_api_key: ctrl.panel.bing_api_key,
+                    map_tile_url: ctrl.panel.map_tile_url,
+                    lat: ctrl.panel.lat,
+                    lng: ctrl.panel.lng,
+                    zoom: ctrl.panel.zoom,
+                    tooltip: ctrl.panel.tooltip
+                });
+            ctrl.map = map;
+            } else {
+                let map = LeafletMap({ containerId: ctrl.containerDivId,
+                    image_url: ctrl.panel.image_url,
+                    width: ctrl.panel.im_width,
+                    height: ctrl.panel.im_height,
+                    tooltip: ctrl.panel.tooltip
+                });
+                ctrl.map = map;
+            } 
             ctrl.map_drawn = true;
             if(ctrl.panel.color.mode === 'opacity'){
                 ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width() * 0.4);

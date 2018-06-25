@@ -80,23 +80,69 @@ var LeafletMap = function(params) {
         legend = params.legend;
     }
 
-    //initialize the google maps object
-    var lmapOptions = {
-        center: {lat: lat, lng: lng},
-        preferCanvas: false,
-        mapTypeId: "hybrid",
-        minZoom: 1,
-        zoom: zoom,
-        zoomAnimation: true,
-        worldCopyJump: true,
-        scrollWheelZoom: false
-    };
-
-    var lmap = L.map(document.getElementById(params.containerId), lmapOptions);
+    //initialize the leaflet map object
+    var lmapOptions;
+    var lmap;
     var mapTileURL = params.map_tile_url;
-    var tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }).addTo(lmap);
+    var tiles;
+    var image;
+ 
+
+    if(mapTileURL){
+        lmapOptions = {
+            center: {lat: lat, lng: lng},
+            preferCanvas: false,
+            mapTypeId: "hybrid",
+            minZoom: 1,
+            zoom: zoom,
+            zoomAnimation: true,
+            worldCopyJump: true,
+            scrollWheelZoom: false
+        };
+
+        lmap = L.map(document.getElementById(params.containerId), lmapOptions);
+        tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }).addTo(lmap);
+        
+    }else {
+        lmapOptions = {
+            minZoom: 1,
+            maxZoom: 4,
+            zoom: 3,
+            scrollWheelZoom: false,
+            center: [0,0]
+        };
+
+        lmap = L.map(document.getElementById(params.containerId), lmapOptions);
+
+        let img_width = params.width;
+        let img_height = params.height;
+
+        let southWest = lmap.unproject([0,img_height], lmap.getMaxZoom()-1);
+        let northEast = lmap.unproject([img_width, 0], lmap.getMaxZoom()-1);
+        
+        let sw = L.latLng(-90, -180);
+        let ne = L.latLng(90,-180);
+
+        let imageBounds = new L.latLngBounds(southWest, northEast);
+        image = L.imageOverlay(params.image_url, imageBounds).addTo(lmap); 
+        lmap.setMaxBounds(imageBounds);
+     }
+
     map.setMapUrl = function(map_tile_url){
         tiles.setUrl(map_tile_url);
+    }
+    map.setImageUrl = function(image_url){
+        image.setUrl(image_url);
+    }
+    map.setBounds = function(img_width, img_height){
+        let southWest = lmap.unproject([0,img_height], lmap.getMaxZoom()-1);
+        let northEast = lmap.unproject([img_width, 0], lmap.getMaxZoom()-1);
+        
+        let sw = L.latLng(-90,-180);
+        let ne = L.latLng(90,-180);
+
+        let imageBounds = new L.latLngBounds(southWest, northEast);
+        image.setBounds(imageBounds);
     }
 
     //setup our svg layer to drawn on
