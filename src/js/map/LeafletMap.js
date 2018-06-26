@@ -81,68 +81,75 @@ var LeafletMap = function(params) {
     }
 
     //initialize the leaflet map object
-    var lmapOptions;
     var lmap;
     var mapTileURL = params.map_tile_url;
+    var imageOverlayURL = params.image_url;
     var tiles;
     var image;
  
+    var lmapOptions = {
+        center: {lat: lat, lng: lng},
+        preferCanvas: false,
+        mapTypeId: "hybrid",
+        minZoom: 1,
+        zoom: zoom,
+        zoomAnimation: true,
+        worldCopyJump: true,
+        scrollWheelZoom: false
+    };
+   
+    lmap = L.map(document.getElementById(params.containerId), lmapOptions);
+    
+    
 
-    if(mapTileURL){
-        lmapOptions = {
-            center: {lat: lat, lng: lng},
-            preferCanvas: false,
-            mapTypeId: "hybrid",
-            minZoom: 1,
-            zoom: zoom,
-            zoomAnimation: true,
-            worldCopyJump: true,
-            scrollWheelZoom: false
-        };
 
-        lmap = L.map(document.getElementById(params.containerId), lmapOptions);
-        tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }).addTo(lmap);
-        
+    if(!imageOverlayURL){
+        tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }) 
+        lmap.addLayer(tiles);
     }else {
-        lmapOptions = {
-            minZoom: 1,
-            maxZoom: 4,
-            zoom: 3,
-            scrollWheelZoom: false,
-            center: [0,0]
-        };
+        var bounds = lmap.getBounds();
+        lmap.setMaxBounds(bounds);
+        image = new L.ImageOverlay(imageOverlayURL, bounds, {
+            interactive: true,
+            opacity: 1,
+            zIndex: -999
+        });
+        image.bringToBack();
+        lmap.addLayer(image);
+    }
 
-        lmap = L.map(document.getElementById(params.containerId), lmapOptions);
+    map.validateSize = function(){
+        lmap.invalidateSize();
+    }
 
-        let img_width = params.width;
-        let img_height = params.height;
+    function _removeLayer(){
+        if(lmap.hasLayer(tiles)){
+            lmap.removeLayer(tiles);
+        }
+        if(lmap.hasLayer(image)){
+            lmap.removeLayer(image);
+        }
+    }
 
-        let southWest = lmap.unproject([0,img_height], lmap.getMaxZoom()-1);
-        let northEast = lmap.unproject([img_width, 0], lmap.getMaxZoom()-1);
-        
-        let sw = L.latLng(-90, -180);
-        let ne = L.latLng(90,-180);
-
-        let imageBounds = new L.latLngBounds(southWest, northEast);
-        image = L.imageOverlay(params.image_url, imageBounds).addTo(lmap); 
-        lmap.setMaxBounds(imageBounds);
-     }
 
     map.setMapUrl = function(map_tile_url){
-        tiles.setUrl(map_tile_url);
+        _removeLayer();
+        tiles = L.tileLayer(map_tile_url, { attribution: '&copy GlobalNOC' }) 
+        lmap.addLayer(tiles);
+        // tiles.setUrl(map_tile_url);
     }
     map.setImageUrl = function(image_url){
-        image.setUrl(image_url);
-    }
-    map.setBounds = function(img_width, img_height){
-        let southWest = lmap.unproject([0,img_height], lmap.getMaxZoom()-1);
-        let northEast = lmap.unproject([img_width, 0], lmap.getMaxZoom()-1);
-        
-        let sw = L.latLng(-90,-180);
-        let ne = L.latLng(90,-180);
-
-        let imageBounds = new L.latLngBounds(southWest, northEast);
-        image.setBounds(imageBounds);
+        _removeLayer();
+        var bounds = lmap.getBounds();
+        lmap.setMaxBounds(bounds);
+        image = new L.ImageOverlay(image_url, bounds, {
+            interactive: true,
+            opacity: 1,
+            zIndex: -999
+        });
+        image.bringToBack();
+        lmap.addLayer(image);
+        //image.setUrl(image_url);
     }
 
     //setup our svg layer to drawn on
