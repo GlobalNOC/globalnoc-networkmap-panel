@@ -101,14 +101,12 @@ var LeafletMap = function(params) {
     lmap = L.map(document.getElementById(params.containerId), lmapOptions);
     
     
-
-
     if(!imageOverlayURL){
         tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }) 
         lmap.addLayer(tiles);
     }else {
         var bounds = lmap.getBounds();
-        lmap.setMaxBounds(bounds);
+        lmap.fitBounds(bounds);
         image = new L.ImageOverlay(imageOverlayURL, bounds, {
             interactive: true,
             opacity: 1,
@@ -141,7 +139,7 @@ var LeafletMap = function(params) {
     map.setImageUrl = function(image_url){
         _removeLayer();
         var bounds = lmap.getBounds();
-        lmap.setMaxBounds(bounds);
+        lmap.fitBounds(bounds);
         image = new L.ImageOverlay(image_url, bounds, {
             interactive: true,
             opacity: 1,
