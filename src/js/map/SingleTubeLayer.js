@@ -229,6 +229,13 @@ var SingleTubeLayer = function(params){
         return "translate(" + p.x+','+p.y+ ") scale("+arrow_scale+") rotate("+angle+",2,1)"
      }*/
 
+
+    function _samplePath(params){
+
+    }
+    
+
+
     //define how to update the layers components
     layer.onUpdate(function(){
         if(!layer.topology()){
