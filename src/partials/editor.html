@@ -12,18 +12,18 @@
         <label ng-show="ctrl.panel.use_image" class="gf-form-label width-6">Image URL</label>
         <input ng-show="ctrl.panel.use_image" type="text" class="gf-form-input width-16" ng-model="ctrl.panel.image_url" ng-change="ctrl.render()">
 
-        <label class="gf-form-label width-8">Latitude
+        <label ng-hide="ctrl.panel.use_image" class="gf-form-label width-8">Latitude
             <tip>Set latitude for map center</tip>
         </label>
-        <input type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lat" ng-change="ctrl.render()">
+        <input ng-hide="ctrl.panel.use_image" type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lat" ng-change="ctrl.render()">
         
-        <label class="gf-form-label width-8">Longitude
+        <label ng-hide="ctrl.panel.use_image" class="gf-form-label width-8">Longitude
             <tip>Set longitude for map center</tip>
         </label>
-        <input type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
+        <input ng-hide="ctrl.panel.use_image" type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
          
-        <label class="gf-form-label width-5">Zoom</label>
-        <input type="number" min="0" class="gf-form-input width-4" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
+        <label ng-hide="ctrl.panel.use_image" class="gf-form-label width-5">Zoom</label>
+        <input ng-hide="ctrl.panel.use_image" type="number" min="0" class="gf-form-input width-4" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
         
         <gf-form-switch class="gf-form" label-class="width-14" 
             label="Hide Layers with no values"

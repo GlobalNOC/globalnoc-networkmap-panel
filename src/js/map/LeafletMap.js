@@ -75,6 +75,13 @@ var LeafletMap = function(params) {
     if(params.tooltip){
         tooltip = params.tooltip;
     }
+    if(params.image){
+        lat = 45;
+        lng = -90;
+        zoom = 3;
+    }
+        
+
     var legend;
     if(params.legend){
         legend = params.legend;
@@ -105,8 +112,9 @@ var LeafletMap = function(params) {
         tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }) 
         lmap.addLayer(tiles);
     }else {
+        lmap.options.minZoom = 3;
         var bounds = lmap.getBounds();
-        lmap.fitBounds(bounds);
+        lmap.setMaxBounds(bounds);
         image = new L.ImageOverlay(imageOverlayURL, bounds, {
             interactive: true,
             opacity: 1,
@@ -134,12 +142,13 @@ var LeafletMap = function(params) {
         _removeLayer();
         tiles = L.tileLayer(map_tile_url, { attribution: '&copy GlobalNOC' }) 
         lmap.addLayer(tiles);
+        lmap.options.minZoom = 1;
         // tiles.setUrl(map_tile_url);
     }
     map.setImageUrl = function(image_url){
         _removeLayer();
         var bounds = lmap.getBounds();
-        lmap.fitBounds(bounds);
+        lmap.setMaxBounds(bounds);
         image = new L.ImageOverlay(image_url, bounds, {
             interactive: true,
             opacity: 1,
@@ -147,6 +156,7 @@ var LeafletMap = function(params) {
         });
         image.bringToBack();
         lmap.addLayer(image);
+        lmap.options.minZoom = 3;
         //image.setUrl(image_url);
     }
 
