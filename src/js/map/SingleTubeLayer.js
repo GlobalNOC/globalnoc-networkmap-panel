@@ -86,16 +86,15 @@ var SingleTubeLayer = function(params){
             return layer.latLngToXy([d.lat, d.lon])[1];
         });
     
-   /* var line1 = d3.svg.line()
+    var lineXY = d3.svg.line()
     .interpolate("bundle")
     .x(function(d) {
-            return layer.latLngToXy([d.lat, d.lon])[0]+20;
+            return d.x;
         })
     .y(function(d) {
-            return layer.latLngToXy([d.lat, d.lon])[1]-20;
+            return d.y;
         });
-    */
-
+    
     //set default event handlers for links if none were passed in
     layer.onLinkEvent(params.onLinkEvent || {
         click: function(d){
