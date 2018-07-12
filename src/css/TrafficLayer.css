@@ -20,14 +20,14 @@ limitations under the License.
   stroke-linecap: butt;
 }
 
-.adjacencyShadow, .adjacencyShadow1{
+.adjacencyShadow, .adjacencyShadow1, .adjacencyShadow2{
   fill: none;
   stroke-width: 5px;
   stroke: #ccc;
   stroke-linecap: round;
 }
 
-.adjacencyHighlight, .adjacencyHighlight1{
+.adjacencyHighlight, .adjacencyHighlight1, .adjacencyHighlight2{
   fill: none;
   stroke-width: 4px;
   stroke: #ddd;
