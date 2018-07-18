@@ -9,13 +9,17 @@
         
         <label class="gf-form-label width-8">Longitude</label>
         <input type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
-        
+ 
         <label class="gf-form-label width-5">Zoom</label>
         <input type="number" min="0" class="gf-form-input width-4" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
+        <gf-form-switch class="gf-form" label-class="width-8" 
+            label="Twin Tubes"
+            checked="ctrl.panel.twin_tubes" on-change="ctrl.render()">
+        </gf-form-switch>
         <gf-form-switch class="gf-form" label-class="width-14" 
             label="Hide Layers with no values"
             checked="ctrl.panel.hide_layers" on-change="ctrl.render()">
-        </gf-form-switch> 
+        </gf-form-switch>
     </div>
 </div>
 

@@ -34,10 +34,10 @@ limitations under the License.
   stroke-linecap: round;
 }
 
-.arrow{
-  fill: #666;
-  stroke: white;
-  stroke-width: .25px;
+.arrow, .arrow1, .arrow2{
+  fill: #212349;
+  stroke: #e5e5e8;
+  stroke-width: .3px;
 }
 
 .pop{

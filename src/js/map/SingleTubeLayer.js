@@ -68,9 +68,6 @@ var SingleTubeLayer = function(params){
     svg.classed(params.map.containerId(), true);
     svg.classed('single-tube', true);
 
-    //get leaflet map
-    var lmap = params.lmap;
-
     //define how to toggle the layer
     layer.onToggle(function(active){
         svg.transition().style('opacity', (active) ? 1 : 0);
@@ -84,15 +81,6 @@ var SingleTubeLayer = function(params){
         })
     .y(function(d) {
             return layer.latLngToXy([d.lat, d.lon])[1];
-        });
-    
-    var lineXY = d3.svg.line()
-    .interpolate("bundle")
-    .x(function(d) {
-            return d.x;
-        })
-    .y(function(d) {
-            return d.y;
         });
     
     //set default event handlers for links if none were passed in
@@ -190,14 +178,14 @@ var SingleTubeLayer = function(params){
 
     //this function sets the correct translation of the directional arrow at the center of
     //the circuitShadow path under the same parent group.
-   /* function arrowTranslate(d){
+    function arrowTranslate(d){
         if(d.arrow === undefined || d.arrow === ARROW.NONE ){
             return;
         }
     
         //make the scale of the arrow a function of the line width
         var arrow_scale;
-        if(layer.lineWidth() <=3){
+        if(layer.lineWidth() <=2){
             arrow_scale = 0;
         }else if(layer.lineWidth() <= 4){
             arrow_scale = 2;
@@ -226,30 +214,6 @@ var SingleTubeLayer = function(params){
         p.x -= 2 * arrow_scale;
 
         return "translate(" + p.x+','+p.y+ ") scale("+arrow_scale+") rotate("+angle+",2,1)"
-     }*/
-
-    // Helper function to convert lat/lngs to x,y coordinates
-    function _geoToXY(path){
-
-        let newPath = [];
-        for(let i = 0; i<path.length; i++){
-            let point = lmap.latLngToLayerPoint(L.latLng(path[i]["lat"], path[i]["lon"]));
-            newPath.push(point); 
-        }
-        return newPath;
-    }
-    
-    // Helper function to shift path #1
-    function _pathShifter(newPath, theta, pathWidth){
-        let shiftedPath = [];
-        let wsin = pathWidth * Math.sin(theta);
-        let wcos = pathWidth * Math.cos(theta);
-        for(let i = 0; i< newPath.length; i++){
-            let newX = newPath[i].x - wsin;
-            let newY = newPath[i].y - wcos;
-            shiftedPath.push({"x": newX, "y": newY});
-        }
-        return shiftedPath;
     }
 
     //define how to update the layers components
@@ -258,9 +222,6 @@ var SingleTubeLayer = function(params){
             console.warn('No topology set, skipping update for '+layer.name());
             return;
         }
-
-        var pathWidth = layer.lineWidth();
-
         //--- Render Links
         var links = layer.links()
             .data(layer.topology().data().links, function(d){
@@ -274,10 +235,11 @@ var SingleTubeLayer = function(params){
             .attr("class","adjacency");
 
         //add a shadow path for new adjacencys 
-        var adjacencyShadow = linksEnter.append("path")
-            .attr("d",function(d){ 
-                return line(d.path);
-            })
+        linksEnter.append("path")
+        .attr("d",function(d){
+            return line(d.path);
+        })
+        //.classed('adjacencyShadow adjacencyHighlight', true)
             .attr("class","adjacencyShadow")
             .call(function(selection){
                 _.forEach(layer.onLinkEvent(), function(callback, evt){
@@ -289,10 +251,9 @@ var SingleTubeLayer = function(params){
                     });
                 });
             });
-
 	
         //add a highlight path for new links
-        var adjacencyHighlight = linksEnter.append("path")
+        linksEnter.append("path")
             .attr("d",function(d){return line(d.path)})
             .attr("class","adjacencyHighlight")
             .call(function(selection){
@@ -305,114 +266,12 @@ var SingleTubeLayer = function(params){
                     });
                 });
             });
-
-        //add a shadow path #1 for new adjacencys 
-        var adjacencyShadow1 = linksEnter.append("path")
-            .attr("d",function(d){ 
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(y1-yn, xn-x1);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth);         
-                return lineXY(shiftedPath);
-            })
-            .attr("class","adjacencyShadow1")
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:  d
-                        });
-                    });
-                });
-            });
 	
-        //add a highlight path #1 for new links
-        var adjacencyHighlight1 = linksEnter.append("path")
-            .attr("d",function(d){
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(y1-yn, xn-x1);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth); 
-                return lineXY(shiftedPath)
-            })
-            .attr("class","adjacencyHighlight1")
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:  d
-                        });
-                    });
-                });
-            });
-
-        //add a shadow path #2 for new adjacencys 
-        var adjacencyShadow2 = linksEnter.append("path")
-            .attr("d",function(d){ 
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(yn-y1, x1-xn);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth);
-                _.reverse(shiftedPath);    
-                return lineXY(shiftedPath);
-            })
-            .attr("class","adjacencyShadow2")
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:  d
-                        });
-                    });
-                });
-            });
-	
-        //add a highlight path #2 for new links
-        var adjacencyHighlight2 = linksEnter.append("path")
-            .attr("d",function(d){
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(yn-y1, x1-xn);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth); 
-                _.reverse(shiftedPath);
-                return lineXY(shiftedPath)
-            })
-            .attr("class","adjacencyHighlight2")
-            .call(function(selection){
-                _.forEach(layer.onLinkEvent(), function(callback, evt){
-                    selection.on(evt, function(d){
-                        callback({
-                            event: d3.event,
-                            data:  d
-                        });
-                    });
-                });
-            });
-
         //add directional indicator by appending yet another path to the g
-        /*linksEnter.append("path")
+        linksEnter.append("path")
             .attr("class","arrow")
             .attr("d","M.5,1 L0,2 L3,1 L0,0 Z")
-            .attr("transform", arrowTranslate);*/
+            .attr("transform", arrowTranslate);
 	
         //--- UPDATE -- update the paths of any existing links
 	
@@ -420,17 +279,15 @@ var SingleTubeLayer = function(params){
         links.select(".adjacencyShadow")
             .attr("d",function(d){return line(d.path)})
             .style('stroke-width', function(d){
-		        var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-1) : (layer.lineWidth());
+		var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-1) : (layer.lineWidth());
                 if (d.selected) {
-                    pathWidth = strokeWidth * 2;
                     return (strokeWidth * 2)+'px';
                 } else {
-                    pathWidth = strokeWidth;
                     return strokeWidth+'px';
                 }
             })
             .style('opacity',function(d){
-                return 0;
+                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
             })
             .style('stroke', function(d){
                 return d.lineColor === undefined ? d3.rgb(layer.lineColor()).darker() : d3.rgb(d.lineColor).darker();
@@ -441,150 +298,21 @@ var SingleTubeLayer = function(params){
             .style('stroke-width', function(d){
                 var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-2) : (layer.lineWidth()-1);
                 if (d.selected) {
-                    pathWidth = strokeWidth * 2;
                     return (strokeWidth * 2)+'px';
                 } else {
-                    pathWidth = strokeWidth;
                     return strokeWidth+'px';
                 }
             })
             .style('opacity', function(d){
-                return 0;
+                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
             })
             .style('stroke', function(d){
                 return d.lineColor === undefined ? d3.rgb(layer.lineColor()) : d3.rgb(d.lineColor);
             });
         
-
-        //update shadow path #1
-        links.select(".adjacencyShadow1")
-            .attr("d",function(d){
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(y1-yn, xn-x1);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth); 
-                return lineXY(shiftedPath)
-            })
-            .style('stroke-width', function(d){
-		        var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-1) : (layer.lineWidth());
-                if (d.selected) {
-                    pathWidth = strokeWidth * 2;
-                    return (strokeWidth * 2)+'px';
-                } else {
-                    pathWidth = strokeWidth;
-                    return strokeWidth+'px';
-                }
-            })
-            .style('opacity',function(d){
-                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
-            })
-            .style('stroke', function(d){
-                return d.lineColor === undefined ? d3.rgb(layer.lineColor()).darker() : d3.rgb(d.lineColor).darker();
-            });
-        //update highlight path #1
-        links.select(".adjacencyHighlight1")
-            .attr("d",function(d){
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(y1-yn, xn-x1);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth); 
-                return lineXY(shiftedPath)
-            })
-            .style('stroke-width', function(d){
-                var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-2) : (layer.lineWidth()-1);
-                if (d.selected) {
-                    pathWidth = strokeWidth * 2;
-                    return (strokeWidth * 2)+'px';
-                } else {
-                    pathWidth = strokeWidth;
-                    return strokeWidth+'px';
-                }
-            })
-            .style('opacity', function(d){
-                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
-            })
-            .style('stroke', function(d){
-                return d.lineColor === undefined ? d3.rgb(layer.lineColor()) : d3.rgb(d.lineColor);
-            });
-
-
-        //update shadow path #2
-        links.select(".adjacencyShadow2")
-            .attr("d",function(d){
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(yn-y1, x1-xn);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth);
-                _.reverse(shiftedPath); 
-                return lineXY(shiftedPath)
-            })
-            .style('stroke-width', function(d){
-		        var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-1) : (layer.lineWidth());
-                if (d.selected) {
-                    pathWidth = strokeWidth * 2;
-                    return (strokeWidth * 2)+'px';
-                } else {
-                    pathWidth = strokeWidth;
-                    return strokeWidth+'px';
-                }
-            })
-            .style('opacity',function(d){
-                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
-            })
-            .style('stroke', function(d){
-                return d.lineColor === undefined ? d3.rgb(layer.lineColor()).darker() : d3.rgb(d.lineColor).darker();
-            });
-        //update highlight path #2
-        links.select(".adjacencyHighlight2")
-            .attr("d",function(d){
-                let newPath = _geoToXY(d.path);
-                let end_idx = newPath.length-1;
-                let x1 = newPath[0].x;
-                let y1 = newPath[0].y;
-                let xn = newPath[end_idx].x;
-                let yn = newPath[end_idx].y;
-                let theta = Math.atan2(yn-y1, x1-xn);
-                let shiftedPath = _pathShifter(newPath, theta, pathWidth);
-                _.reverse(shiftedPath);
-                return lineXY(shiftedPath)
-            })
-            .style('stroke-width', function(d){
-                var strokeWidth = d.lineColor === undefined ? (layer.lineWidth()-2) : (layer.lineWidth()-1);
-                if (d.selected) {
-                    pathWidth = strokeWidth * 2;
-                    return (strokeWidth * 2)+'px';
-                } else {
-                    pathWidth = strokeWidth;
-                    return strokeWidth+'px';
-                }
-            })
-            .style('opacity', function(d){
-                return d.lineOpacity === undefined ? layer.lineOpacity() : d.lineOpacity;
-            })
-            .style('stroke', function(d){
-                return d.lineColor === undefined ? d3.rgb(layer.lineColor()) : d3.rgb(d.lineColor);
-            });
-
-        // get the width of the links 
-        // calculate shifted points
-        // construct pathData with shifter points
-        console.log(pathWidth);
-
         //update arrow path
-        /*links.select('.arrow')
-            .attr("transform",arrowTranslate);*/
+        links.select('.arrow')
+            .attr("transform",arrowTranslate);
 	
         //--- EXIT -- remove any links we no longer need
         links.exit().remove();
@@ -644,14 +372,15 @@ var SingleTubeLayer = function(params){
             });
 
 
+
         //--- EXIT -- remove any endpoint we no longer need
         endpoints.exit().remove();
 	
-	    if(!this.isInitDone()){
-	        console.log("Init Complete!");
-	        this.isInitDone(true);
-	        this.initComplete();
-	    }
+	if(!this.isInitDone()){
+	    console.log("Init Complete!");
+	    this.isInitDone(true);
+	    this.initComplete();
+	}
 
         return true;
     });
