@@ -504,11 +504,19 @@ export class Atlas3 extends MetricsPanelCtrl {
                         ctrl.panel.legend.legend_colors = [];
                     }
                 }
+
                 ctrl.map.drawLegend(ctrl.panel.legend);
-                ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
+                ctrl.map.validateSize();
                 ctrl.map.adjustZoom(ctrl.panel.zoom);
+                
+                if(!ctrl.panel.use_image){
+                    ctrl.map.setMapUrl(ctrl.panel.map_tile_url);    
+                } else {
+                    ctrl.map.setImageUrl(ctrl.panel.image_url);
+                }
+
                 ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
-          
+
                 // Remove existing layers from DOM and the  map before adding new layers.
                 let all_layers = ctrl.layer_ids;
                 _.forEach(all_layers, function(layer){
@@ -552,17 +560,32 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(!document.getElementById('container_map_' + ctrl.panel.id)){
                 console.log("Container not found");
             }
-	     
-            let map = LeafletMap({ containerId: ctrl.containerDivId,
-                bing_api_key: ctrl.panel.bing_api_key,
-                map_tile_url: ctrl.panel.map_tile_url,
-                lat: ctrl.panel.lat,
-                lng: ctrl.panel.lng,
-                zoom: ctrl.panel.zoom,
-                twin_tubes: ctrl.panel.twin_tubes,
-                tooltip: ctrl.panel.tooltip
-            });
-            ctrl.map = map; 
+          
+	          if(!ctrl.panel.use_image){ 
+                let map = LeafletMap({ containerId: ctrl.containerDivId,
+                    bing_api_key: ctrl.panel.bing_api_key,
+                    map_tile_url: ctrl.panel.map_tile_url,
+                    image: ctrl.panel.use_image,
+                    lat: ctrl.panel.lat,
+                    lng: ctrl.panel.lng,
+                    zoom: ctrl.panel.zoom,
+                    twin_tubes: ctrl.panel.twin_tubes,
+                    tooltip: ctrl.panel.tooltip
+                });
+                ctrl.map = map;
+            } else {
+                let map = LeafletMap({ containerId: ctrl.containerDivId,
+                    map_tile_url: ctrl.panel.map_tile_url,
+                    image: ctrl.panel.use_image,
+                    image_url: ctrl.panel.image_url,
+                    lat: ctrl.panel.lat,
+                    lng: ctrl.panel.lng,
+                    zoom: ctrl.panel.zoom,
+                    twin_tubes: ctrl.panel.twin_tubes,
+                    tooltip: ctrl.panel.tooltip
+                });
+                ctrl.map = map;
+            } 
             ctrl.map_drawn = true;
             if(ctrl.panel.color.mode === 'opacity'){
                 ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width() * 0.4);
@@ -584,6 +607,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.panel.legend.legend_colors = [];
                 }
             }
+
             if(ctrl.panel.legend.show){
                 ctrl.map.drawLegend(ctrl.panel.legend);
             }
