@@ -25,6 +25,7 @@ var bing             = require('leaflet-bing-layer');
 var plugins          = require('leaflet-plugins/layer/vector/KML');
 var TrafficLayer     = require('../map/TrafficLayer');
 var SingleTubeLayer  = require('../map/SingleTubeLayer');
+var TwinTubeLayer    = require('../map/TwinTubeLayer');
 var LAYER_TYPES = require('../util/Enums.js').LAYER_TYPES;
 /**
 * An extension of the BaseMap that renders onto the Google Maps platform
@@ -365,6 +366,7 @@ var LeafletMap = function(params) {
         var layer_options = {
             map: map,
             svg: bg,
+            lmap: lmap,
             lineColor: layer.lineColor,
             lineOpacity: layer.lineOpacity,
             endpointColor: layer.endpointColor,
@@ -383,11 +385,16 @@ var LeafletMap = function(params) {
         var network_layer;
         //if we don't have a way to get topology data just show the single tube layers
         if(layer.map2dataSource === undefined){ 
-	    layer_options.svg = bg.append("g");
-            network_layer = SingleTubeLayer(layer_options)
-                .lineWidth(map.lineWidth())
-                .loadMap(layer.mapSource);
-
+	        layer_options.svg = bg.append("g");
+            if(!layer.twin_tubes){
+                network_layer = SingleTubeLayer(layer_options)
+                    .lineWidth(map.lineWidth())
+                    .loadMap(layer.mapSource);
+            }else {
+                network_layer = TwinTubeLayer(layer_options)
+                    .lineWidth(map.lineWidth())
+                    .loadMap(layer.mapSource);
+            }
         }
         //otherwise load the traffic layer with live updates
         else {

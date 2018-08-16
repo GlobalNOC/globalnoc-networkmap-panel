@@ -37,6 +37,7 @@ const panelDefaults = {
     min: [],
     layers: [],
     hide_layers: false,
+    twin_tubes: false,
     color: {
         mode: 'spectrum',
         colorScale: 'linear',
@@ -97,7 +98,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
         this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
         this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
-        console.log("Calling editPanelJson from panelCtrl:",this.editPanelJson);
     }
 
     onDataReceived(dataList) {
@@ -288,7 +288,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     var lineColor;
                     var lineOpacity;
                     if(mode === 'spectrum'){
-                        lineColor =self.scale.getColor(color_value);//,this.panel.values);
+                        lineColor =self.scale.getColor(color_value);
                         l.lineColor = lineColor;
                         l.lineOpacity = 1;
                     }else if(mode === 'opacity'){
@@ -326,16 +326,17 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.za.avg = self.toSI(sum / count);
                         l.arrow = 2;
                     }
-		    
-                    if(l.az.cur != null && l.za.cur != null){
-                        if(l.az.cur > l.za.cur){
-                            l.lineColor = l.azLineColor;
-                            l.lineOpacity = l.azLineOpacity;
-                            l.arrow = 1;
-                        } else{
-                            l.lineColor = l.zaLineColor;
-                            l.lineOpacity = l.azLineOpacity;
-                            l.arrow = 2;
+		            if(!self.panel.twin_tubes){ 
+                        if(l.az.cur != null && l.za.cur != null){
+                            if(l.az.cur > l.za.cur){
+                                l.lineColor = l.azLineColor;
+                                l.lineOpacity = l.azLineOpacity;
+                                l.arrow = 1;
+                            } else{
+                                l.lineColor = l.zaLineColor;
+                                l.lineOpacity = l.zaLineOpacity;
+                                l.arrow = 2;
+                            }
                         }
                     }
                 });	
@@ -536,6 +537,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         name: ctrl.panel.name[j],
                         max: ctrl.panel.max[j],
                         min: ctrl.panel.min[j],
+                        twin_tubes: ctrl.panel.twin_tubes,
                         linewidth: 3.7,
                         mapSource: ctrl.panel.mapSrc[j]
                     });
@@ -558,7 +560,8 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(!document.getElementById('container_map_' + ctrl.panel.id)){
                 console.log("Container not found");
             }
-	        if(!ctrl.panel.use_image){ 
+          
+	          if(!ctrl.panel.use_image){ 
                 let map = LeafletMap({ containerId: ctrl.containerDivId,
                     bing_api_key: ctrl.panel.bing_api_key,
                     map_tile_url: ctrl.panel.map_tile_url,
@@ -566,6 +569,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     lat: ctrl.panel.lat,
                     lng: ctrl.panel.lng,
                     zoom: ctrl.panel.zoom,
+                    twin_tubes: ctrl.panel.twin_tubes,
                     tooltip: ctrl.panel.tooltip
                 });
                 ctrl.map = map;
@@ -577,6 +581,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     lat: ctrl.panel.lat,
                     lng: ctrl.panel.lng,
                     zoom: ctrl.panel.zoom,
+                    twin_tubes: ctrl.panel.twin_tubes,
                     tooltip: ctrl.panel.tooltip
                 });
                 ctrl.map = map;
@@ -619,6 +624,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     name: ctrl.panel.name[i],
                     max: ctrl.panel.max[i],
                     min: ctrl.panel.min[i],
+                    twin_tubes: ctrl.panel.twin_tubes,
                     lineWidth: 3.7,
                     mapSource: ctrl.panel.mapSrc[i]
                 });
