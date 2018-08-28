@@ -94,9 +94,10 @@ var LeafletMap = function(params) {
     var imageOverlayURL = params.image_url;
     var tiles;
     var image;
- 
+    var center = {lat: lat, lng: lng}; 
+
     var lmapOptions = {
-        center: {lat: lat, lng: lng},
+        center: center,
         preferCanvas: false,
         mapTypeId: "hybrid",
         minZoom: 1,
@@ -107,11 +108,10 @@ var LeafletMap = function(params) {
     };
    
     lmap = L.map(document.getElementById(params.containerId), lmapOptions);
-    
-    
+     
     if(!imageOverlayURL){
         tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }) 
-        lmap.addLayer(tiles);
+        lmap.addLayer(tiles); 
     }else {
         lmap.options.minZoom = 3;
         var bounds = lmap.getBounds();
@@ -138,13 +138,12 @@ var LeafletMap = function(params) {
         }
     }
 
-
     map.setMapUrl = function(map_tile_url){
         _removeLayer();
-        tiles = L.tileLayer(map_tile_url, { attribution: '&copy GlobalNOC' }) 
+        if(lmap.options.maxBounds) delete lmap.options.maxBounds;
+        tiles = L.tileLayer(map_tile_url, { attribution: '&copy GlobalNOC' }); 
         lmap.addLayer(tiles);
         lmap.options.minZoom = 1;
-        // tiles.setUrl(map_tile_url);
     }
     map.setImageUrl = function(image_url){
         _removeLayer();
@@ -158,7 +157,6 @@ var LeafletMap = function(params) {
         image.bringToBack();
         lmap.addLayer(image);
         lmap.options.minZoom = 3;
-        //image.setUrl(image_url);
     }
 
     //setup our svg layer to drawn on
