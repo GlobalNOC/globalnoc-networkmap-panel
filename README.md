@@ -122,6 +122,10 @@ Display tab provides different options for the user to customize the monitoring 
 
 ![Line Color](/src/images/line-color.png)
 
+* Node Color: Ability to choose the behavior of the node colors based on metric. 
+
+![Node Color](/src/images/node-color.png)
+
 * Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to have a customized link hover box and customized node hover box.
 
 ![Tooltip Options](/src/images/tooltip-options-1.png) 
