@@ -1,5 +1,5 @@
 {
-  "name": "Network-Map",
+  "name": "Network-Map" ,
   "version": "1.0.5",
   "description": "GlobalNOC Worldview Realtime Traffic Maps",
   "main": "index.js",
