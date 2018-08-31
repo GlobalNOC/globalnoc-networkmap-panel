@@ -25,6 +25,7 @@ var bing             = require('leaflet-bing-layer');
 var plugins          = require('leaflet-plugins/layer/vector/KML');
 var TrafficLayer     = require('../map/TrafficLayer');
 var SingleTubeLayer  = require('../map/SingleTubeLayer');
+var TwinTubeLayer    = require('../map/TwinTubeLayer');
 var LAYER_TYPES = require('../util/Enums.js').LAYER_TYPES;
 /**
 * An extension of the BaseMap that renders onto the Google Maps platform
@@ -75,14 +76,28 @@ var LeafletMap = function(params) {
     if(params.tooltip){
         tooltip = params.tooltip;
     }
+    if(params.image){
+        lat = 45;
+        lng = -90;
+        zoom = 3;
+    }
+        
+
     var legend;
     if(params.legend){
         legend = params.legend;
     }
 
-    //initialize the google maps object
+    //initialize the leaflet map object
+    var lmap;
+    var mapTileURL = params.map_tile_url;
+    var imageOverlayURL = params.image_url;
+    var tiles;
+    var image;
+    var center = {lat: lat, lng: lng}; 
+
     var lmapOptions = {
-        center: {lat: lat, lng: lng},
+        center: center,
         preferCanvas: false,
         mapTypeId: "hybrid",
         minZoom: 1,
@@ -91,12 +106,57 @@ var LeafletMap = function(params) {
         worldCopyJump: true,
         scrollWheelZoom: false
     };
+   
+    lmap = L.map(document.getElementById(params.containerId), lmapOptions);
+     
+    if(!imageOverlayURL){
+        tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }) 
+        lmap.addLayer(tiles); 
+    }else {
+        lmap.options.minZoom = 3;
+        var bounds = lmap.getBounds();
+        lmap.setMaxBounds(bounds);
+        image = new L.ImageOverlay(imageOverlayURL, bounds, {
+            interactive: true,
+            opacity: 1,
+            zIndex: -999
+        });
+        image.bringToBack();
+        lmap.addLayer(image);
+    }
 
-    var lmap = L.map(document.getElementById(params.containerId), lmapOptions);
-    var mapTileURL = params.map_tile_url;
-    var tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }).addTo(lmap);
+    map.validateSize = function(){
+        lmap.invalidateSize();
+    }
+
+    function _removeLayer(){
+        if(lmap.hasLayer(tiles)){
+            lmap.removeLayer(tiles);
+        }
+        if(lmap.hasLayer(image)){
+            lmap.removeLayer(image);
+        }
+    }
+
     map.setMapUrl = function(map_tile_url){
-        tiles.setUrl(map_tile_url);
+        _removeLayer();
+        if(lmap.options.maxBounds) delete lmap.options.maxBounds;
+        tiles = L.tileLayer(map_tile_url, { attribution: '&copy GlobalNOC' }); 
+        lmap.addLayer(tiles);
+        lmap.options.minZoom = 1;
+    }
+    map.setImageUrl = function(image_url){
+        _removeLayer();
+        var bounds = lmap.getBounds();
+        lmap.setMaxBounds(bounds);
+        image = new L.ImageOverlay(image_url, bounds, {
+            interactive: true,
+            opacity: 1,
+            zIndex: -999
+        });
+        image.bringToBack();
+        lmap.addLayer(image);
+        lmap.options.minZoom = 3;
     }
 
     //setup our svg layer to drawn on
@@ -304,6 +364,7 @@ var LeafletMap = function(params) {
         var layer_options = {
             map: map,
             svg: bg,
+            lmap: lmap,
             lineColor: layer.lineColor,
             lineOpacity: layer.lineOpacity,
             endpointColor: layer.endpointColor,
@@ -324,10 +385,15 @@ var LeafletMap = function(params) {
         //if we don't have a way to get topology data just show the single tube layers
         if(layer.map2dataSource === undefined){ 
 	    layer_options.svg = bg.append("g");
-            network_layer = SingleTubeLayer(layer_options)
-                .lineWidth(layer_options.lineThickness * map.lineWidth())
-                .loadMap(layer.mapSource);
-
+            if(!layer.twin_tubes){
+       		network_layer = SingleTubeLayer(layer_options)
+               	 	.lineWidth(layer_options.lineThickness * map.lineWidth())
+               		.loadMap(layer.mapSource);     
+	     }else {
+                network_layer = TwinTubeLayer(layer_options)
+                    .lineWidth(layer_options.lineThickness * map.lineWidth())
+                    .loadMap(layer.mapSource);
+             }
         }
         //otherwise load the traffic layer with live updates
         else {

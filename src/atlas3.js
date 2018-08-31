@@ -38,6 +38,7 @@ const panelDefaults = {
     size: [],
     layers: [],
     hide_layers: false,
+    twin_tubes: false,
     color: {
         mode: 'spectrum',
         colorScale: 'linear',
@@ -98,7 +99,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
         this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
         this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
-        console.log("Calling editPanelJson from panelCtrl:",this.editPanelJson);
     }
 
     onDataReceived(dataList) {
@@ -289,7 +289,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     var lineColor;
                     var lineOpacity;
                     if(mode === 'spectrum'){
-                        lineColor =self.scale.getColor(color_value);//,this.panel.values);
+                        lineColor =self.scale.getColor(color_value);
                         l.lineColor = lineColor;
                         l.lineOpacity = 1;
                     }else if(mode === 'opacity'){
@@ -327,16 +327,17 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.za.avg = self.toSI(sum / count);
                         l.arrow = 2;
                     }
-		    
-                    if(l.az.cur != null && l.za.cur != null){
-                        if(l.az.cur > l.za.cur){
-                            l.lineColor = l.azLineColor;
-                            l.lineOpacity = l.azLineOpacity;
-                            l.arrow = 1;
-                        } else{
-                            l.lineColor = l.zaLineColor;
-                            l.lineOpacity = l.azLineOpacity;
-                            l.arrow = 2;
+		            if(!self.panel.twin_tubes){ 
+                        if(l.az.cur != null && l.za.cur != null){
+                            if(l.az.cur > l.za.cur){
+                                l.lineColor = l.azLineColor;
+                                l.lineOpacity = l.azLineOpacity;
+                                l.arrow = 1;
+                            } else{
+                                l.lineColor = l.zaLineColor;
+                                l.lineOpacity = l.zaLineOpacity;
+                                l.arrow = 2;
+                            }
                         }
                     }
                 });	
@@ -508,11 +509,19 @@ export class Atlas3 extends MetricsPanelCtrl {
                         ctrl.panel.legend.legend_colors = [];
                     }
                 }
+
                 ctrl.map.drawLegend(ctrl.panel.legend);
-                ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
+                ctrl.map.validateSize();
                 ctrl.map.adjustZoom(ctrl.panel.zoom);
+                
+                if(!ctrl.panel.use_image){
+                    ctrl.map.setMapUrl(ctrl.panel.map_tile_url);    
+                } else {
+                    ctrl.map.setImageUrl(ctrl.panel.image_url);
+                }
+
                 ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
-          
+
                 // Remove existing layers from DOM and the  map before adding new layers.
                 let all_layers = ctrl.layer_ids;
                 _.forEach(all_layers, function(layer){
@@ -534,6 +543,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         max: ctrl.panel.max[j],
                         min: ctrl.panel.min[j],
                         lineWidth: ctrl.panel.size[j],
+                        twin_tubes: ctrl.panel.twin_tubes,
                         mapSource: ctrl.panel.mapSrc[j]
                     });
                     if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
@@ -555,16 +565,32 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(!document.getElementById('container_map_' + ctrl.panel.id)){
                 console.log("Container not found");
             }
-	     
-            let map = LeafletMap({ containerId: ctrl.containerDivId,
-                bing_api_key: ctrl.panel.bing_api_key,
-                map_tile_url: ctrl.panel.map_tile_url,
-                lat: ctrl.panel.lat,
-                lng: ctrl.panel.lng,
-                zoom: ctrl.panel.zoom,
-                tooltip: ctrl.panel.tooltip
-            });
-            ctrl.map = map; 
+          
+	          if(!ctrl.panel.use_image){ 
+                let map = LeafletMap({ containerId: ctrl.containerDivId,
+                    bing_api_key: ctrl.panel.bing_api_key,
+                    map_tile_url: ctrl.panel.map_tile_url,
+                    image: ctrl.panel.use_image,
+                    lat: ctrl.panel.lat,
+                    lng: ctrl.panel.lng,
+                    zoom: ctrl.panel.zoom,
+                    twin_tubes: ctrl.panel.twin_tubes,
+                    tooltip: ctrl.panel.tooltip
+                });
+                ctrl.map = map;
+            } else {
+                let map = LeafletMap({ containerId: ctrl.containerDivId,
+                    map_tile_url: ctrl.panel.map_tile_url,
+                    image: ctrl.panel.use_image,
+                    image_url: ctrl.panel.image_url,
+                    lat: ctrl.panel.lat,
+                    lng: ctrl.panel.lng,
+                    zoom: ctrl.panel.zoom,
+                    twin_tubes: ctrl.panel.twin_tubes,
+                    tooltip: ctrl.panel.tooltip
+                });
+                ctrl.map = map;
+            } 
             ctrl.map_drawn = true;
             if(ctrl.panel.color.mode === 'opacity'){
                 ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width() * 0.4);
@@ -586,6 +612,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.panel.legend.legend_colors = [];
                 }
             }
+
             if(ctrl.panel.legend.show){
                 ctrl.map.drawLegend(ctrl.panel.legend);
             }
@@ -603,6 +630,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     max: ctrl.panel.max[i],
                     min: ctrl.panel.min[i],
                     lineWidth: 8,
+                    twin_tubes: ctrl.panel.twin_tubes,
+                    lineWidth: 3.7,
                     mapSource: ctrl.panel.mapSrc[i]
                 });
                 ctrl.layer_ids.push(networkLayer.layerId());
