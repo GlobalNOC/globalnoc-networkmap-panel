@@ -9,16 +9,25 @@ The Network Map Panel also provides the ability to configure different map optio
 ## Options Tab
 ### Biggest Features
 * Map Options
-![Map Options](/src/images/map-options-1.png)
+![Map Options](/src/images/map-options.png)
   - Map URL: A valid map url should be provided so that the map loads with all the tiles. In the screenshot below, mapbox api is used to specify the map tiles. A valid access token is necessary for the mapbox API.
   - Hide Layers with no values: This option allows the user to hide any layers/circuits when there's no data returned for them.
-  - JSON Validator: This option provides the user with a JSON validator to validate and edit the JSON map source object. 
-  	1. Ability to automatically load the JSON map source when double clicked on Map Source field.
-	2. Ability to validate the JSON and display validation messages.
-	3. Ability to save the valid JSON back to its Map Source.
+  - JSON Editor: Double clicking the 'Map Source' label or its input field opens a JSON Editor modal. This editor makes use of grafana's code-editor directive to provide the user with code editor capabilities such as syntax highlighting, error detection, collapsible fields etc.
   
-	![JSON Validator](/src/images/json-validator-1.png)
+	![JSON Editor](/src/images/json-editor.png)
 
+  - Twin Tubes: Checking this option switches the adjacency links on the map to twin tubes mode. Each line has a directional arrow associated with it.
+  
+  	![Twin Tubes](/src/images/twin-tubes.png)
+
+  - Logical Map: Checking the Use Image option allows the user to make use of logical maps. The image below shows the options available to create a logical map.
+  
+  	![Logical Map Options](/src/images/map-options-logical.png)
+	
+    * Image URL: A valid url to an image should be provided to create a logical map with that image.   
+	
+	![Logical Map](/src/images/logical-map.png)
+	
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
 
 ![Layer Options](/src/images/layer-options-1.png)
@@ -112,6 +121,10 @@ Display tab provides different options for the user to customize the monitoring 
 * Line Color: Ability to choose the behavior of the line colors based on metric. 
 
 ![Line Color](/src/images/line-color.png)
+
+* Node Color: Ability to choose the behavior of the node colors based on metric. 
+
+![Node Color](/src/images/node-color.png)
 
 * Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to have a customized link hover box and customized node hover box.
 
@@ -383,6 +396,5 @@ In the example above, the first six results in the `dataList` object match with 
 # Technology
 The Network Map Panel makes use of the following libraries:
 * Leaflet
-* Atlas3
 * D3
 * Lodash
