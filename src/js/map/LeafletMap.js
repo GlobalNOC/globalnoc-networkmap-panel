@@ -270,14 +270,14 @@ var LeafletMap = function(params) {
     });
 
     // make the line width a fucntion of the zoom level
-    map.onLineWidth(function(options){
+    map.onLineWidth(function(){
         var zoom = lmap.getZoom();
         var width = 1;
         if(zoom < 3){
             width = 1;
         }
         else if(zoom < 4){
-            width = 1;
+            width = 2;
         }
         else if(zoom < 6){
             width = 2;

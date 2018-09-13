@@ -629,9 +629,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     name: ctrl.panel.name[i],
                     max: ctrl.panel.max[i],
                     min: ctrl.panel.min[i],
-                    lineWidth: 8,
                     twin_tubes: ctrl.panel.twin_tubes,
-                    lineWidth: 3.7,
+                    lineWidth: ctrl.panel.size[i],
                     mapSource: ctrl.panel.mapSrc[i]
                 });
                 ctrl.layer_ids.push(networkLayer.layerId());
