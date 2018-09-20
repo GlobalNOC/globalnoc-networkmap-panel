@@ -277,19 +277,19 @@ var LeafletMap = function(params) {
             width = 1;
         }
         else if(zoom < 4){
-            width = 3;
+            width = 2;
         }
         else if(zoom < 6){
-            width = 5;
+            width = 2;
         }
         else if(zoom < 8){
-            width = 8;
+            width = 2;
         }
         else if(zoom < 12){
-            width = 12;
+            width = 3;
         }
         else {
-            width = 18;
+            width = 3;
         }
 
         console.log('zoom = '+zoom+', line = '+width);
@@ -377,27 +377,28 @@ var LeafletMap = function(params) {
             tooltip: tooltip,
             max: layer.max,
             min: layer.min,
-            offsets: [-360,0,360]
+            offsets: [-360,0,360],
+	    lineThickness: layer.lineWidth
         };
 
         var network_layer;
         //if we don't have a way to get topology data just show the single tube layers
         if(layer.map2dataSource === undefined){ 
-	        layer_options.svg = bg.append("g");
+	    layer_options.svg = bg.append("g");
             if(!layer.twin_tubes){
-                network_layer = SingleTubeLayer(layer_options)
-                    .lineWidth(map.lineWidth())
-                    .loadMap(layer.mapSource);
-            }else {
+       		network_layer = SingleTubeLayer(layer_options)
+               	 	.lineWidth(layer_options.lineThickness * map.lineWidth())
+               		.loadMap(layer.mapSource);     
+	     }else {
                 network_layer = TwinTubeLayer(layer_options)
-                    .lineWidth(map.lineWidth())
+                    .lineWidth(layer_options.lineThickness * map.lineWidth())
                     .loadMap(layer.mapSource);
-            }
+             }
         }
         //otherwise load the traffic layer with live updates
         else {
             layer_options.maxBps = layer.maxBps;
-            network_layer = TrafficLayer(layer_options).lineWidth(map.lineWidth())
+            network_layer = TrafficLayer(layer_options).lineWidth(layer_options.lineThickness * map.lineWidth())
                 .map2dataSource(layer.map2dataSource)
                 .loadMap(layer.mapSource);
         }
@@ -586,7 +587,7 @@ var LeafletMap = function(params) {
     map.onUpdate(function(){
             var layers = map.layers({layerTypes: [LAYER_TYPES.NETWORK]});
             _.forEach(layers, function(l){
-		    l.lineWidth(map.lineWidth());
+		    l.lineWidth(l.lineWidth());
 		    l.update();
                 });
         });
