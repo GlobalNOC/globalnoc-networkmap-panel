@@ -284,7 +284,7 @@ var NetworkLayer = function(params){
 
     function _parseHtml(htmlContent, element){
         var customContent = htmlContent;
-        const possible_vars = ['$input.min','$input.max','$input.avg','$input.sum','$output.min','$output.max','$output.avg','$output.sum','$name','$input.name','$output.name','$count', '$node.min', '$node.max', '$node.avg', '$node.sum', '$node.label','$node.current'];
+        const possible_vars = ['$input.min','$input.max','$input.avg','$input.sum','$input.now','$output.min','$output.max','$output.avg','$output.sum','$output.now','$name','$input.name','$output.name','$count', '$node.min', '$node.max', '$node.avg', '$node.sum', '$node.label','$node.current'];
         _.forEach(possible_vars, function(variable){
             switch(variable){ 
                 case '$name':
@@ -317,6 +317,11 @@ var NetworkLayer = function(params){
                         customContent = customContent.replace(/\$input.sum/g, element.az.sum);
                     }
                     break;
+                case '$input.now':
+                    if(customContent.search(/\$input.now/g) > 0) {
+                        customContent = customContent.replace(/\$input.now/g, element.az.now);
+                    }
+                    break;
                 case '$input.name':
                     if(customContent.search(/\$input.name/g) > 0) {
                         if(element.az.label) element.az.name = element.az.label;
@@ -341,6 +346,11 @@ var NetworkLayer = function(params){
                 case '$output.sum':
                     if(customContent.search(/\$output.sum/g) > 0) {
                         customContent = customContent.replace(/\$output.sum/g, element.za.sum);
+                    }
+                    break;
+                case '$output.now':
+                    if(customContent.search(/\$output.now/g) > 0) {
+                        customContent = customContent.replace(/\$output.now/g, element.za.now);
                     }
                     break;
                 case '$output.name':
@@ -437,6 +447,7 @@ var NetworkLayer = function(params){
             linkStr += '<div style="float: left"><div><center> To <b>' + link.az.name + '</b></center></div>';  
         }
         linkStr += '<div><table>';
+        linkStr += '<tr><td style="font-weight:bold">Now:</td><td>' + link.az.now + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Min:</td><td>' + link.az.min + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Max:</td><td>' + link.az.max + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Avg:</td><td>' + link.az.avg + '</td><td>Gbps</td></tr>'; 
@@ -449,6 +460,7 @@ var NetworkLayer = function(params){
             linkStr += '<div style="float: left"><div><center> To <b>' + link.za.name + '</b></center></div>';
         } 
         linkStr += '<div><table>';
+        linkStr += '<tr><td style="font-weight:bold">Now:</td><td>' + link.za.now + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Min:</td><td>' + link.za.min + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Max:</td><td>' + link.za.max + '</td><td>Gbps</td></tr>';
         linkStr += '<tr><td style="font-weight:bold">Avg:</td><td>' + link.za.avg + '</td><td>Gbps</td></tr>'; 

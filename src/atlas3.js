@@ -313,6 +313,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.az.min = self.toSI(min);
                         l.az.sum = self.toSI(sum);
                         l.az.avg = self.toSI(avg);
+                        l.az.now = self.toSI(cur);
                         l.arrow = 1;
                     } else{
                         l.za.name = l.endpoints[1].name;
@@ -324,6 +325,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.za.min = self.toSI(min);
                         l.za.sum = self.toSI(sum);
                         l.za.avg = self.toSI(sum / count);
+                        l.za.now = self.toSI(cur);
                         l.arrow = 2;
                     }
 		            if(!self.panel.twin_tubes){ 
