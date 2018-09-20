@@ -35,6 +35,7 @@ const panelDefaults = {
     mapSrc: [],
     max: [],
     min: [],
+    size: [],
     layers: [],
     hide_layers: false,
     twin_tubes: false,
@@ -391,6 +392,8 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.mapSrc.push('');
         this.panel.max.push('');
         this.panel.min.push('');
+        //not sure
+        this.panel.size.push('')
     }
     
     useValidator(index) {
@@ -423,6 +426,8 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.panel.mapSrc.splice(index,1);
         this.panel.max.splice(index,1);
         this.panel.min.splice(index,1);
+	//Not sure
+	this.panel.size.splice(index,1)
     }
 
     display() {
@@ -537,8 +542,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         name: ctrl.panel.name[j],
                         max: ctrl.panel.max[j],
                         min: ctrl.panel.min[j],
+                        lineWidth: ctrl.panel.size[j],
                         twin_tubes: ctrl.panel.twin_tubes,
-                        linewidth: 3.7,
                         mapSource: ctrl.panel.mapSrc[j]
                     });
                     if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
@@ -625,7 +630,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     max: ctrl.panel.max[i],
                     min: ctrl.panel.min[i],
                     twin_tubes: ctrl.panel.twin_tubes,
-                    lineWidth: 3.7,
+                    lineWidth: ctrl.panel.size[i],
                     mapSource: ctrl.panel.mapSrc[i]
                 });
                 ctrl.layer_ids.push(networkLayer.layerId());
