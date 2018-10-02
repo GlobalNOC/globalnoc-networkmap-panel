@@ -22,8 +22,13 @@
         </label>
         <input ng-hide="ctrl.panel.use_image" type="number" class="gf-form-input width-4" ng-model="ctrl.panel.lng" ng-change="ctrl.render()">
          
-        <label ng-hide="ctrl.panel.use_image" class="gf-form-label width-5">Zoom</label>
-        <input ng-hide="ctrl.panel.use_image" type="number" min="0" class="gf-form-input width-4" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
+        <label ng-hide="!ctrl.panel.use_image" class="gf-form-label width-6">Zoom
+            <tip>Minimum possible zoom is 2 and Maximum possible zoom is 4</tip>
+        </label>
+        <label ng-hide="ctrl.panel.use_image" class="gf-form-label width-6">Zoom
+            <tip>Minimum possible zoom is 2 and Maximum possible zoom is 18</tip>
+        </label> 
+        <input type="number" min="0" class="gf-form-input width-4" ng-model="ctrl.panel.zoom" ng-change="ctrl.render()">
         
         <gf-form-switch class="gf-form" label-class="width-8" 
             label="Twin Tubes"

@@ -26,7 +26,7 @@ var plugins          = require('leaflet-plugins/layer/vector/KML');
 var TrafficLayer     = require('../map/TrafficLayer');
 var SingleTubeLayer  = require('../map/SingleTubeLayer');
 var TwinTubeLayer    = require('../map/TwinTubeLayer');
-var LAYER_TYPES = require('../util/Enums.js').LAYER_TYPES;
+var LAYER_TYPES      = require('../util/Enums.js').LAYER_TYPES;
 /**
 * An extension of the BaseMap that renders onto the Google Maps platform
 * ```
@@ -54,7 +54,7 @@ var map = LeafletMap({
 * @param {Object} config - The configuration object for the GoogleMap
 * @param {String:Required} config.containerId - The map's container id
 * @param {Integer:Required} config.zoom - The zoom level the map should be intialized at
-* @param {Integer:Required} config.lat - The latitude coordinate the map should be initialized at  
+* @param {Integer:Required} config.lat - The latitude coordinate the map should be initialized at
 * @param {Integer:Required} config.lng - The longitude coordinate the map should be initialized at
 * @param {String:Required} config.bing_api_key
 * @param {String:Required} config.map_tile_url
@@ -76,12 +76,12 @@ var LeafletMap = function(params) {
     if(params.tooltip){
         tooltip = params.tooltip;
     }
-    if(params.image){
-        lat = 45;
-        lng = -90;
-        zoom = 3;
+    if(!lat){
+       lat = 45;
     }
-        
+    if(!lng){
+        lng = -90;
+    }
 
     var legend;
     if(params.legend){
@@ -94,35 +94,44 @@ var LeafletMap = function(params) {
     var imageOverlayURL = params.image_url;
     var tiles;
     var image;
-    var center = {lat: lat, lng: lng}; 
+    var center = {lat: lat, lng: lng};
 
     var lmapOptions = {
         center: center,
         preferCanvas: false,
         mapTypeId: "hybrid",
-        minZoom: 1,
+        minZoom: 2,
         zoom: zoom,
         zoomAnimation: true,
         worldCopyJump: true,
-        scrollWheelZoom: false
+        scrollWheelZoom: false,
+        nowrap: true
     };
-   
+
     lmap = L.map(document.getElementById(params.containerId), lmapOptions);
-     
+
     if(!imageOverlayURL){
-        tiles = L.tileLayer(mapTileURL, { attribution: '&copy GlobalNOC' }) 
-        lmap.addLayer(tiles); 
+        lmap.options.maxZoom = 18;
+        tiles = L.tileLayer(mapTileURL, { opacity: 1, attribution: '&copy GlobalNOC' })
+        lmap.addLayer(tiles);
     }else {
-        lmap.options.minZoom = 3;
-        var bounds = lmap.getBounds();
-        lmap.setMaxBounds(bounds);
+        var bounds = L.latLngBounds(L.latLng(-90,-180), L.latLng(90,180));
         image = new L.ImageOverlay(imageOverlayURL, bounds, {
             interactive: true,
             opacity: 1,
+            attribution: '&copy GlobalNOC',
             zIndex: -999
         });
         image.bringToBack();
         lmap.addLayer(image);
+
+        lmap.fitBounds(bounds).once('zoomend', function(){
+            if(lmap.getZoom() != zoom){
+                lmap.setZoom(zoom);
+            }
+        });
+
+        lmap.options.maxZoom = 4;
     }
 
     map.validateSize = function(){
@@ -140,38 +149,45 @@ var LeafletMap = function(params) {
 
     map.setMapUrl = function(map_tile_url){
         _removeLayer();
-        if(lmap.options.maxBounds) delete lmap.options.maxBounds;
-        tiles = L.tileLayer(map_tile_url, { attribution: '&copy GlobalNOC' }); 
+        tiles = L.tileLayer(map_tile_url, { attribution: '&copy GlobalNOC' });
         lmap.addLayer(tiles);
-        lmap.options.minZoom = 1;
+        lmap.options.maxZoom = 18;
     }
-    map.setImageUrl = function(image_url){
+    map.setImageUrl = function(image_url, zoom){
         _removeLayer();
-        var bounds = lmap.getBounds();
-        lmap.setMaxBounds(bounds);
+        var bounds = L.latLngBounds(L.latLng(-90,-180), L.latLng(90,180));
         image = new L.ImageOverlay(image_url, bounds, {
             interactive: true,
             opacity: 1,
+            attribution: '&copy GlobalNOC',
             zIndex: -999
-        });
+            });
         image.bringToBack();
         lmap.addLayer(image);
-        lmap.options.minZoom = 3;
+        let once = true;
+        lmap.fitBounds(bounds).once('moveend', function(){
+            if(once){
+                once = false;
+                lmap.setView({lat: 0, lng: 0}, zoom);
+            }
+        });
+        lmap.options.maxZoom = 4;
+
     }
 
     //setup our svg layer to drawn on
     var svgLayer = L.svg();
     svgLayer.addTo(lmap);
 
-    //helper function to convert an altitude in meters to a google maps zoom level 
+    //helper function to convert an altitude in meters to a google maps zoom level
     function _convertAltitudeToZoom(altitude) {
-        //estimates retrieved by doing a trial and error 
+        //estimates retrieved by doing a trial and error
         //side by side with cesium
         if(altitude >= 50000000){
             return 1;
         }
         if(altitude >= 25000000){
-            return 2; 
+            return 2;
         }
         else if(altitude >= 12500000){
             return 3;
@@ -296,8 +312,8 @@ var LeafletMap = function(params) {
         return width;
     });
 
-    
-   
+
+
     map.onAddGeoJsonLayer(function(layer){
 	    var geo_json_layer = BaseLayer({
 		    layerType: map.LAYER_TYPES.GEOJSON,
@@ -327,7 +343,7 @@ var LeafletMap = function(params) {
 			    });
 		    }
 		});
-	    
+
 	    //define how to remove the kml layer
 	    geo_json_layer.onRemove(function(l){
                     geoJSON_layer.remove();
@@ -354,12 +370,12 @@ var LeafletMap = function(params) {
 	    };
 	    xhr.open('GET',layer.url, true);
 	    xhr.send();
-	    
+
 
 	    return geo_json_layer;
 	});
 
-    //define how to add a network layer to the map 
+    //define how to add a network layer to the map
     map.onAddNetworkLayer(function(layer){
         var layer_options = {
             map: map,
@@ -378,17 +394,17 @@ var LeafletMap = function(params) {
             max: layer.max,
             min: layer.min,
             offsets: [-360,0,360],
-	    lineThickness: layer.lineWidth
+	        lineThickness: layer.lineWidth
         };
 
         var network_layer;
         //if we don't have a way to get topology data just show the single tube layers
-        if(layer.map2dataSource === undefined){ 
+        if(layer.map2dataSource === undefined){
 	    layer_options.svg = bg.append("g");
             if(!layer.twin_tubes){
        		network_layer = SingleTubeLayer(layer_options)
                	 	.lineWidth(layer_options.lineThickness * map.lineWidth())
-               		.loadMap(layer.mapSource);     
+               		.loadMap(layer.mapSource);
 	     }else {
                 network_layer = TwinTubeLayer(layer_options)
                     .lineWidth(layer_options.lineThickness * map.lineWidth())
@@ -425,7 +441,7 @@ var LeafletMap = function(params) {
             active: layer.active,
             name: layer.name
         });
-        
+
         var lkml_layer = new L.KML(layer.url, { async: true });
 
         //define how to remove the kml layer
@@ -467,7 +483,7 @@ var LeafletMap = function(params) {
             interactive: false,
             opacity: 0
 		});
-	    
+
 	    //remove the SVG layer cause suck!
 	    svgLayer.remove();
 	    leaflet_tile_layer.addTo(lmap);
@@ -488,7 +504,7 @@ var LeafletMap = function(params) {
 		});
 
 	    return tile_layer;
-	    
+
 	});
 
     //define how to add a tile layer to the map
@@ -550,19 +566,19 @@ var LeafletMap = function(params) {
 		tiles.setOpacity(1);
 	    }
     });
-  
+
     map.removeMap = function() {
         lmap.remove();
     };
 
     map.adjustZoom = function(zoom){
         lmap.setZoom(zoom);
-    } 
-    
+    }
+
     map.setCenter = function(lat,lng){
         lmap.panTo(L.latLng(lat,lng));
     }
-   
+
     // svg element to hold layers
     var bg;
     map.onInit(function(){
@@ -581,15 +597,18 @@ var LeafletMap = function(params) {
         });
 
     lmap.on("moveend", function(e){
-            map.update();
-        });
+        if(e.hard){
+            lmap.setZoom(zoom);
+        }
+        map.update();
+    });
 
     map.onUpdate(function(){
             var layers = map.layers({layerTypes: [LAYER_TYPES.NETWORK]});
             _.forEach(layers, function(l){
-		    l.lineWidth(l.lineWidth());
-		    l.update();
-                });
+		        l.lineWidth(l.lineWidth());
+		        l.update();
+            });
         });
 
     //define how to resize the map
