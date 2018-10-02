@@ -317,27 +317,36 @@ var SingleTubeLayer = function(params){
         //--- EXIT -- remove any links we no longer need
         links.exit().remove();
         
-        //--- Render Endpointss
+        //--- Render Endpoints
         var endpoints = layer.endpoints()
             .data(layer.topology().data().endpoints, function(d){
                     return d.endpointId;
             });
 
         //--- ENTER -- add any new endpoints
-        var endpointsEnter = endpoints.enter()
-            .append("g")
+        var endpointsEnter = endpoints.enter().append("g")
             .attr("id", function(d) { return d.endpointId; })
-            .attr("class","pop");        
-        
-        endpointsEnter.append("circle")
-            .attr("cx", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[0]; 
+            .attr("class","pop");
+
+        // Enter SVG Shape Elements
+        endpointsEnter.append(function(d) {
+                var svgTag = "circle";
+                if (d.shape) {
+                    if (d.shape === "square" || d.shape === "diamond") {
+                        svgTag = "rect";
+                    } else if (d.shape === "triangle") {
+                        svgTag = "polygon";
+                    }
+                }
+                return document.createElementNS("http://www.w3.org/2000/svg", svgTag);
             })
-            .attr("cy", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[1];
+            .attr("class", function(d) {
+                if (d.shape) {
+                   return "popHighlight " + d.shape;
+                } else {
+                   return "popHighlight circle";
+                }
             })
-            .attr("r", "5px")
-            .attr("class", "popHighlight")
             .call(function(selection){
                 _.forEach(layer.onEndpointEvent(), function(callback, evt){
                     selection.on(evt, function(d){
@@ -347,30 +356,199 @@ var SingleTubeLayer = function(params){
                         });
                     });
                 });
-            }); 
+            });
 
-        //--- UPDATE -- update any existing endpointss 
-        endpoints.select('.popHighlight')
+        // Enter Node Labels
+        var labelLift = 14; // Distance that labels will appear above their node
+        // Label Text
+        endpointsEnter.filter(function (d) {
+                return (typeof d.label === "string"); // Add to nodes with labels
+            })
+            .append("rect")
+            .attr("class", "nodeLabelBack")
+            .attr("x", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0];
+            })
+            .attr("y", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1] - labelLift;
+            })
+            .attr("width", function (d) {
+                return this.parentNode.getBBox().width;
+            })
+            .attr("height", "18") // Set as a default right now
+            .attr("rx", "5")
+            .attr("ry", "10")
+            .style("fill", "#000")
+            .style("fill-opacity", "0.5")
+            .style("stroke", "#fff");
+        // Label Background
+        endpointsEnter.filter(function (d) {
+                return (typeof d.label === "string"); // Add to nodes with labels
+            })
+            .append("text")
+            .attr("x", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0];
+            })
+            .attr("y", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1] - labelLift;
+            })
+            .attr("class", "nodeLabel")
+            .style("fill", "#fff") // Default set to white for now
+            .style("font-weight", "300")
+            .style("font-size","15px") // Default readable text size for now
+            .text(function (d) { return d.label; });
+
+        // Modify Circular Markers
+        endpoints.select(".popHighlight.circle")
             .attr("cx", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[0]; 
+                return layer.latLngToXy([d.lat, d.lon])[0];
             })
             .attr("cy", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[1];
             })
+            .attr("r","5px");
+
+        // Modify Square and Diamond Markers
+        endpoints.select(".popHighlight.square, .popHighlight.diamond")
+            .attr("x", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0];
+            })
+            .attr("y", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1];
+            })
+            .attr("width","10px")
+            .attr("height","10px")
+            .attr("transform", function(d) {
+                var trans = "translate(-5 -5)";
+                var xy = layer.latLngToXy([d.lat, d.lon]);
+                if (d.shape === "diamond") {
+                    return trans + "rotate(45 "+(xy[0]+5)+" "+(xy[1]+5)+")"; // Add rotation for diamonds
+                } else {
+                    return trans;
+                }
+            });
+
+        // Modify Triangular Markers
+        endpoints.select(".popHighlight.triangle")
+            .attr("points", function(d) {
+                var xy = layer.latLngToXy([d.lat, d.lon]);
+                return xy[0]+","+(xy[1]-5) +" "+ (xy[0]-5)+","+(xy[1]+5) +" "+ (xy[0]+5)+","+(xy[1]+5);
+            });
+
+        //--- UPDATE -- Update any existing endpoints
+        endpoints.select('.popHighlight')
             .style("fill", function(d){
                 return d.endpointColor = undefined ? layer.endpointColor() : d.endpointColor;
             })
             .attr("fill-opacity", function(d){
                 return d.endpointOpacity = undefined ? layer.endpointOpacity() : d.endpointOpacity;
-            })
-            .attr("r",function(){ 
-                var r = 0;
-                if(layer.lineWidth() > 3){
-                    r = layer.lineWidth()+2;
-                }
-                return r+"px";
             });
 
+        // Update Circles
+        endpoints.select(".popHighlight.circle")
+            .attr("cx", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0];
+            })
+            .attr("cy", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1];
+            })
+            .attr("r",function(d) {
+                var r = 1;
+                if (layer.lineWidth() > 3) {
+                    r = layer.lineWidth()+2;
+                }
+                if (d.scale && !isNaN(d.scale)) {
+                    r *= Math.abs(d.scale);
+                }
+                return r + "px";
+            });
+            
+        // Update Squares and Diamonds
+        endpoints.select(".popHighlight.square, .popHighlight.diamond")
+            .attr("x", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0];
+            })
+            .attr("y", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1];
+            })
+            .attr("width",function(d) {
+                var w = 1;
+                if(layer.lineWidth() > 3) {
+                    w = layer.lineWidth()*2;
+                }
+                if (d.scale && !isNaN(d.scale)) {
+                    w *= Math.abs(d.scale);
+                }
+                return w;
+            })
+            .attr("height", function(d) {
+                var h = 1;
+                if(layer.lineWidth() > 3) {
+                    h = layer.lineWidth()*2;
+                }
+                if (d.scale && !isNaN(d.scale)) {
+                    h *= Math.abs(d.scale);
+                }
+                return h;
+            })
+            .attr("transform", function(d) {
+                var trans;
+                var t = 1;
+                var xy = layer.latLngToXy([d.lat, d.lon]);
+                if (layer.lineWidth() > 3) {
+                    t = layer.lineWidth()+2;
+                }
+                if (d.scale && !isNaN(d.scale)) {
+                    t *= Math.abs(d.scale);
+                }
+                trans = "translate(-" + t/2 + " -" + t/2 + ")"
+                if (d.shape === "diamond") {
+                    trans += "rotate(45 "+(xy[0]+(t/2))+" "+(xy[1]+(t/2))+")";
+                }
+                return trans;
+            });
+
+        // Update Triangles
+        endpoints.select(".popHighlight.triangle")
+            .attr("points", function(d) {
+                var t = 1;
+                var xy = layer.latLngToXy([d.lat, d.lon]);
+                if (layer.lineWidth() > 3) {
+                    t = layer.lineWidth()+2;
+                }
+                if (d.scale && !isNaN(d.scale)) {
+                    t *= Math.abs(d.scale); // Does not need absolute because it is drawn
+                }
+                return xy[0]+","+(xy[1]-t) +" "+ (xy[0]-t)+","+(xy[1]+t) +" "+ (xy[0]+t)+","+(xy[1]+t);
+            });
+
+        // Update Node Labels
+        endpoints.select(".pop .nodeLabel").filter(function (d) {
+                return (typeof d.label === "string"); // Add to nodes with labels
+            })
+            .attr("x", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0] - (this.getBBox().width / 2);
+            })
+            .attr("y", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1] - labelLift;
+            });
+
+        var pad = 8; // Padding for label text
+        endpoints.select(".pop .nodeLabelBack").filter(function (d) {
+                return (typeof d.label === "string"); // Add to nodes with labels
+            })
+            .attr("x", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0] - ((this.parentNode.lastChild.getBBox().width + pad)  / 2);
+            })
+            .attr("y", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1] - labelLift - 16; // -16 centers bckgrd with text
+            })
+            .attr("width", function (d) {
+                return this.parentNode.lastChild.getBBox().width + pad;
+            })
+            .attr("height", function (d) {
+                return this.parentNode.lastChild.getBBox().height + (pad /2);
+            });
 
 
         //--- EXIT -- remove any endpoint we no longer need
