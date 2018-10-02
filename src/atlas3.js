@@ -485,7 +485,7 @@ export class Atlas3 extends MetricsPanelCtrl {
             ctrl.panel.legend.adjLoadLegend = {
                 horizontal: true,
             }
-            
+            let zoom = ctrl.panel.zoom; 
             let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
             ctrl.panel.tooltip.content = html_content;
             let node_content = ctrl.getHtml(ctrl.panel.tooltip.node_content);
@@ -514,15 +514,26 @@ export class Atlas3 extends MetricsPanelCtrl {
 
                 ctrl.map.drawLegend(ctrl.panel.legend);
                 ctrl.map.validateSize();
-                ctrl.map.adjustZoom(ctrl.panel.zoom);
-                
-                if(!ctrl.panel.use_image){
-                    ctrl.map.setMapUrl(ctrl.panel.map_tile_url);    
+                if(!ctrl.panel.use_image) {
+                    zoom = ctrl.panel.zoom;
+                    if(zoom > 18){
+                        zoom = 18;
+                    }else if(zoom < 1){
+                        zoom = 1;
+                    }
+                    ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
+                    ctrl.map.adjustZoom(zoom);
+                    ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
                 } else {
-                    ctrl.map.setImageUrl(ctrl.panel.image_url);
+                    zoom = ctrl.panel.zoom;
+                    if(zoom > 4){
+                        zoom = 4;
+                    }else if(zoom < 2){
+                        zoom = 2;
+                    }
+                    ctrl.map.setImageUrl(ctrl.panel.image_url, zoom);
+                    ctrl.map.adjustZoom(zoom);
                 }
-
-                ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
 
                 // Remove existing layers from DOM and the  map before adding new layers.
                 let all_layers = ctrl.layer_ids;
@@ -539,7 +550,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined) {
                         return;
                     }
-               
+
                     let networkLayer = ctrl.map.addNetworkLayer({
                         name: ctrl.panel.name[j],
                         max: ctrl.panel.max[j],
@@ -549,10 +560,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                         mapSource: ctrl.panel.mapSrc[j]
                     });
                     if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
-                        ctrl.layer_ids.push(''); 
-                        continue; 
+                        ctrl.layer_ids.push('');
+                        continue;
                     }
-                    ctrl.layer_ids.push(networkLayer.layerId()); 
+                    ctrl.layer_ids.push(networkLayer.layerId());
                     ctrl.panel.layers.push(networkLayer);
                     networkLayer.onInitComplete(function() {
                         ctrl.process_data(self.recentData);
@@ -567,32 +578,44 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(!document.getElementById('container_map_' + ctrl.panel.id)){
                 console.log("Container not found");
             }
-          
-	          if(!ctrl.panel.use_image){ 
+
+            if(!ctrl.panel.use_image){
+                zoom = ctrl.panel.zoom;
+                if(zoom > 18){
+                    zoom = 18;
+                }else if(zoom <= 2){
+                    zoom = 2;
+                }
                 let map = LeafletMap({ containerId: ctrl.containerDivId,
                     bing_api_key: ctrl.panel.bing_api_key,
                     map_tile_url: ctrl.panel.map_tile_url,
                     image: ctrl.panel.use_image,
                     lat: ctrl.panel.lat,
                     lng: ctrl.panel.lng,
-                    zoom: ctrl.panel.zoom,
+                    zoom: zoom,
                     twin_tubes: ctrl.panel.twin_tubes,
                     tooltip: ctrl.panel.tooltip
                 });
                 ctrl.map = map;
             } else {
+                zoom = ctrl.panel.zoom;
+                if(zoom > 4){
+                    zoom = 4;
+                }else if(zoom <= 2){
+                    zoom = 2;
+                }
                 let map = LeafletMap({ containerId: ctrl.containerDivId,
                     map_tile_url: ctrl.panel.map_tile_url,
                     image: ctrl.panel.use_image,
                     image_url: ctrl.panel.image_url,
-                    lat: ctrl.panel.lat,
-                    lng: ctrl.panel.lng,
-                    zoom: ctrl.panel.zoom,
+                    lat: 45,
+                    lng: -90,
+                    zoom: zoom,
                     twin_tubes: ctrl.panel.twin_tubes,
                     tooltip: ctrl.panel.tooltip
                 });
                 ctrl.map = map;
-            } 
+            }
             ctrl.map_drawn = true;
             if(ctrl.panel.color.mode === 'opacity'){
                 ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width() * 0.4);
@@ -618,7 +641,7 @@ export class Atlas3 extends MetricsPanelCtrl {
             if(ctrl.panel.legend.show){
                 ctrl.map.drawLegend(ctrl.panel.legend);
             }
-    
+
             if(ctrl.map === undefined){
                 return;
             }
@@ -636,7 +659,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     mapSource: ctrl.panel.mapSrc[i]
                 });
                 ctrl.layer_ids.push(networkLayer.layerId());
-                ctrl.panel.layers.push(networkLayer);		
+                ctrl.panel.layers.push(networkLayer);
                 networkLayer.onInitComplete(function(){
                     ctrl.process_data(self.recentData);
                 });
@@ -645,7 +668,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                 }
             }
         });
-    
+
     }
 }
 
