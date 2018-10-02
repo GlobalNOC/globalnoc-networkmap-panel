@@ -102,7 +102,9 @@ var LeafletMap = function(params) {
         mapTypeId: "hybrid",
         minZoom: 2,
         zoom: zoom,
-        zoomAnimation: true,
+        zoomDelta: 0.25,
+        zoomSnap: 0.25,
+        //zoomAnimation: true,
         worldCopyJump: true,
         scrollWheelZoom: false,
         nowrap: true
@@ -168,7 +170,11 @@ var LeafletMap = function(params) {
         lmap.fitBounds(bounds).once('moveend', function(){
             if(once){
                 once = false;
-                lmap.setView({lat: 0, lng: 0}, zoom);
+                lmap.setView({lat: 0, lng: 0}, zoom).once('zoomend', function(){
+                    if(lmap.getZoom() != zoom){
+                        lmap.setZoom(zoom);
+                    }
+                });
             }
         });
         lmap.options.maxZoom = 4;
