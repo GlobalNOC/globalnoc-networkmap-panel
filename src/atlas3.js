@@ -521,9 +521,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                     }else if(zoom < 1){
                         zoom = 1;
                     }
+                    let latlng = [ctrl.panel.lat, ctrl.panel.lng];
                     ctrl.map.setMapUrl(ctrl.panel.map_tile_url);
-                    ctrl.map.adjustZoom(zoom);
-                    ctrl.map.setCenter(ctrl.panel.lat, ctrl.panel.lng);
+                    ctrl.map.zoom({zoom});
+                    ctrl.map.panTo({latlng});
                 } else {
                     zoom = ctrl.panel.zoom;
                     if(zoom > 4){
@@ -531,8 +532,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                     }else if(zoom < 2){
                         zoom = 2;
                     }
+                    let latlng = [0, 0];
                     ctrl.map.setImageUrl(ctrl.panel.image_url, zoom);
-                    ctrl.map.adjustZoom(zoom);
+                    ctrl.map.zoom({zoom});
+                    ctrl.map.panTo({latlng});
                 }
 
                 // Remove existing layers from DOM and the  map before adding new layers.
