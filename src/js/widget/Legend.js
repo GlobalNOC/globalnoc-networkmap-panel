@@ -162,14 +162,13 @@ var Legend = function(params){
         var numberDiv = d3.select(legend.legendDiv().node())
             .append('div')
             .classed('numbers', true)
-            .style('color', 'white')
-            .style('mix-blend-mode','exclusion');
-
+            .style('color', '#777')
+            .style('font-weight', 'bold');
 
         var numberItems = numberDiv.selectAll('.scale-num')
             .data(numberLocations).enter();
         numberItems.append('div')
-            .classed('scale-num', true)      
+            .classed('scale-num', true)
             .classed('zero', function(d) { return d <= 0; })
             .classed('hundred', function(d) { return d >= 100; })
             .style('left', function(d){ return (d <= 0 || d >= 100) ? '0%' : (d-50) + '%'; })

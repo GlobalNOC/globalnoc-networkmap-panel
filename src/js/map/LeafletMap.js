@@ -101,10 +101,10 @@ var LeafletMap = function(params) {
         preferCanvas: false,
         mapTypeId: "hybrid",
         minZoom: 2,
-        zoom: zoom,
         zoomDelta: 0.25,
         zoomSnap: 0.25,
-        //zoomAnimation: true,
+        zoom: zoom,
+        zoomAnimation: true,
         worldCopyJump: true,
         scrollWheelZoom: false,
         nowrap: true
@@ -124,15 +124,12 @@ var LeafletMap = function(params) {
             attribution: '&copy GlobalNOC',
             zIndex: -999
         });
-        image.bringToBack();
         lmap.addLayer(image);
-
         lmap.fitBounds(bounds).once('zoomend', function(){
             if(lmap.getZoom() != zoom){
                 lmap.setZoom(zoom);
             }
         });
-
         lmap.options.maxZoom = 4;
     }
 
@@ -164,21 +161,8 @@ var LeafletMap = function(params) {
             attribution: '&copy GlobalNOC',
             zIndex: -999
             });
-        image.bringToBack();
         lmap.addLayer(image);
-        let once = true;
-        lmap.fitBounds(bounds).once('moveend', function(){
-            if(once){
-                once = false;
-                lmap.setView({lat: 0, lng: 0}, zoom).once('zoomend', function(){
-                    if(lmap.getZoom() != zoom){
-                        lmap.setZoom(zoom);
-                    }
-                });
-            }
-        });
         lmap.options.maxZoom = 4;
-
     }
 
     //setup our svg layer to drawn on
@@ -576,14 +560,6 @@ var LeafletMap = function(params) {
     map.removeMap = function() {
         lmap.remove();
     };
-
-    map.adjustZoom = function(zoom){
-        lmap.setZoom(zoom);
-    }
-
-    map.setCenter = function(lat,lng){
-        lmap.panTo(L.latLng(lat,lng));
-    }
 
     // svg element to hold layers
     var bg;

@@ -85,7 +85,7 @@ var InfoDiv = function(params){
     }
 
     _infoDiv.attr('class', 'atlas-info-div')
-        .style('opacity', 0);
+        .style('display', 'none');
 
     /**
     * Applies a class to the info div 
@@ -144,7 +144,7 @@ var InfoDiv = function(params){
         _infoDiv 
           .transition()
           .duration(500)
-          .style('opacity', 1);
+            .style('display', 'block');
         return infoDiv;
     };
 
@@ -198,7 +198,7 @@ var InfoDiv = function(params){
         _infoDiv 
           .transition()
           .duration(500)
-          .style('opacity', 0);
+          .style('display', 'none');
     };
 
     /**
