@@ -408,7 +408,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         }catch(e){
             this.json_content = json;
         }
-        if(!json) return;
         this.json_index = index;
     }
     
