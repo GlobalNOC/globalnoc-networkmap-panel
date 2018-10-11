@@ -589,11 +589,11 @@ var TwinTubeLayer = function(params){
                 return document.createElementNS("http://www.w3.org/2000/svg", svgTag);
             })
             .attr("class", function(d) {
+                var shape = "circle";
                 if (d.shape && ["triangle","square","diamond"].indexOf(String(d.shape).toLowerCase().trim()) !== -1) {
-                   return "popHighlight " + d.shape;
-                } else {
-                   return "popHighlight circle";
+                    shape = String(d.shape).toLowerCase().trim();
                 }
+                return "popHighlight " + shape;
             })
             .call(function(selection){
                 _.forEach(layer.onEndpointEvent(), function(callback, evt){
