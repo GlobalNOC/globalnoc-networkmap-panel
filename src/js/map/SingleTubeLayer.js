@@ -316,7 +316,8 @@ var SingleTubeLayer = function(params){
 	
         //--- EXIT -- remove any links we no longer need
         links.exit().remove();
-        
+
+       
         //--- Render Endpoints
         var endpoints = layer.endpoints()
             .data(layer.topology().data().endpoints, function(d){
@@ -331,12 +332,8 @@ var SingleTubeLayer = function(params){
         // Enter SVG Shape Elements
         endpointsEnter.append(function(d) {
                 var svgTag = "circle";
-                if (d.shape) {
-                    if (d.shape === "square" || d.shape === "diamond") {
-                        svgTag = "rect";
-                    } else if (d.shape === "triangle") {
-                        svgTag = "polygon";
-                    }
+                if (d.shape && ["triangle","square","diamond"].indexOf(d.shape.toLowerCase().trim()) !== -1) {
+                    svgTag = "polygon";
                 }
                 return document.createElementNS("http://www.w3.org/2000/svg", svgTag);
             })
@@ -356,6 +353,37 @@ var SingleTubeLayer = function(params){
                         });
                     });
                 });
+            });
+
+        // Default Drawing Radius for Markers
+        var ddr = 5;
+
+        // Draw Circular Markers
+        endpoints.select(".popHighlight.circle")
+            .attr("cx", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[0];
+            })
+            .attr("cy", function (d) {
+                return layer.latLngToXy([d.lat, d.lon])[1];
+            })
+            .attr("r", ddr+"px");
+
+        // Draw Pointed Shapes
+        endpoints.select(".popHighlight.triangle, .popHighlight.square, .popHighlight.diamond")
+            .attr("points", function(d) {
+                var xy = layer.latLngToXy([d.lat, d.lon]);
+                if (d.shape.toLowerCase().trim() === "triangle") {
+                    return xy[0]+","+(xy[1]-ddr)+" "+(xy[0]-ddr)+","+(xy[1]+ddr)+" "+(xy[0]+ddr)+","+(xy[1]+ddr);
+                } else {
+                    return (xy[0]-ddr)+","+(xy[1]-ddr)+" "+(xy[0]+ddr)+","+(xy[1]-ddr)+" "+(xy[0]+ddr)+","+(xy[1]+ddr)+" "+(xy[0]-ddr)+","+(xy[1]+ddr);
+                }
+            });
+
+        // Rotate Diamonds
+        endpoints.select(".popHighlight.diamond")
+            .attr("transform", function(d) {
+                var xy = layer.latLngToXy([d.lat, d.lon]);
+                return "rotate(45 "+xy[0]+" "+xy[1]+")";
             });
 
         // Enter Node Labels
@@ -398,43 +426,6 @@ var SingleTubeLayer = function(params){
             .style("font-size","15px") // Default readable text size for now
             .text(function (d) { return d.label; });
 
-        // Modify Circular Markers
-        endpoints.select(".popHighlight.circle")
-            .attr("cx", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[0];
-            })
-            .attr("cy", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[1];
-            })
-            .attr("r","5px");
-
-        // Modify Square and Diamond Markers
-        endpoints.select(".popHighlight.square, .popHighlight.diamond")
-            .attr("x", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[0];
-            })
-            .attr("y", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[1];
-            })
-            .attr("width","10px")
-            .attr("height","10px")
-            .attr("transform", function(d) {
-                var trans = "translate(-5 -5)";
-                var xy = layer.latLngToXy([d.lat, d.lon]);
-                if (d.shape === "diamond") {
-                    return trans + "rotate(45 "+(xy[0]+5)+" "+(xy[1]+5)+")"; // Add rotation for diamonds
-                } else {
-                    return trans;
-                }
-            });
-
-        // Modify Triangular Markers
-        endpoints.select(".popHighlight.triangle")
-            .attr("points", function(d) {
-                var xy = layer.latLngToXy([d.lat, d.lon]);
-                return xy[0]+","+(xy[1]-5) +" "+ (xy[0]-5)+","+(xy[1]+5) +" "+ (xy[0]+5)+","+(xy[1]+5);
-            });
-
         //--- UPDATE -- Update any existing endpoints
         endpoints.select('.popHighlight')
             .style("fill", function(d){
@@ -453,8 +444,8 @@ var SingleTubeLayer = function(params){
                 return layer.latLngToXy([d.lat, d.lon])[1];
             })
             .attr("r",function(d) {
-                var r = 1;
-                if (layer.lineWidth() > 3) {
+                var r = 3;
+                if (layer.lineWidth()) {
                     r = layer.lineWidth()+2;
                 }
                 if (d.scale && !isNaN(d.scale)) {
@@ -462,64 +453,30 @@ var SingleTubeLayer = function(params){
                 }
                 return r + "px";
             });
-            
-        // Update Squares and Diamonds
-        endpoints.select(".popHighlight.square, .popHighlight.diamond")
-            .attr("x", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[0];
-            })
-            .attr("y", function (d) {
-                return layer.latLngToXy([d.lat, d.lon])[1];
-            })
-            .attr("width",function(d) {
-                var w = 1;
-                if(layer.lineWidth() > 3) {
-                    w = layer.lineWidth()*2;
-                }
-                if (d.scale && !isNaN(d.scale)) {
-                    w *= Math.abs(d.scale);
-                }
-                return w;
-            })
-            .attr("height", function(d) {
-                var h = 1;
-                if(layer.lineWidth() > 3) {
-                    h = layer.lineWidth()*2;
-                }
-                if (d.scale && !isNaN(d.scale)) {
-                    h *= Math.abs(d.scale);
-                }
-                return h;
-            })
-            .attr("transform", function(d) {
-                var trans;
-                var t = 1;
+
+        // Update Pointed Shapes
+        endpoints.select(".popHighlight.triangle, .popHighlight.square, .popHighlight.diamond")
+            .attr("points", function(d) {
+                var sdr = 3; // Scaled Drawing Radius
                 var xy = layer.latLngToXy([d.lat, d.lon]);
-                if (layer.lineWidth() > 3) {
-                    t = layer.lineWidth()+2;
+                if (layer.lineWidth() > 1) {
+                    sdr = layer.lineWidth()+2;
                 }
                 if (d.scale && !isNaN(d.scale)) {
-                    t *= Math.abs(d.scale);
+                    sdr *= Math.abs(d.scale); // Does not need absolute because it is drawn
                 }
-                trans = "translate(-" + t/2 + " -" + t/2 + ")"
-                if (d.shape === "diamond") {
-                    trans += "rotate(45 "+(xy[0]+(t/2))+" "+(xy[1]+(t/2))+")";
+                if (d.shape.toLowerCase().trim() === "triangle") {
+                    return xy[0]+","+(xy[1]-sdr)+" "+(xy[0]-sdr)+","+(xy[1]+sdr)+" "+(xy[0]+sdr)+","+(xy[1]+sdr);
+                } else {
+                    return (xy[0]-sdr)+","+(xy[1]-sdr)+" "+(xy[0]+sdr)+","+(xy[1]-sdr)+" "+(xy[0]+sdr)+","+(xy[1]+sdr)+" "+(xy[0]-sdr)+","+(xy[1]+sdr);
                 }
-                return trans;
             });
 
-        // Update Triangles
-        endpoints.select(".popHighlight.triangle")
-            .attr("points", function(d) {
-                var t = 1;
+        // Rotate Diamonds
+        endpoints.select(".popHighlight.diamond")
+            .attr("transform", function(d) {
                 var xy = layer.latLngToXy([d.lat, d.lon]);
-                if (layer.lineWidth() > 3) {
-                    t = layer.lineWidth()+2;
-                }
-                if (d.scale && !isNaN(d.scale)) {
-                    t *= Math.abs(d.scale); // Does not need absolute because it is drawn
-                }
-                return xy[0]+","+(xy[1]-t) +" "+ (xy[0]-t)+","+(xy[1]+t) +" "+ (xy[0]+t)+","+(xy[1]+t);
+                return "rotate(45 "+xy[0]+" "+xy[1]+")";
             });
 
         // Update Node Labels
@@ -550,8 +507,7 @@ var SingleTubeLayer = function(params){
                 return this.parentNode.lastChild.getBBox().height + (pad /2);
             });
 
-
-        //--- EXIT -- remove any endpoint we no longer need
+        //--- EXIT-- remove any endpoint we no longer need
         endpoints.exit().remove();
 	
 	if(!this.isInitDone()){
