@@ -332,13 +332,13 @@ var SingleTubeLayer = function(params){
         // Enter SVG Shape Elements
         endpointsEnter.append(function(d) {
                 var svgTag = "circle";
-                if (d.shape && ["triangle","square","diamond"].indexOf(d.shape.toLowerCase().trim()) !== -1) {
+                if (d.shape && ["triangle","square","diamond"].indexOf(String(d.shape).toLowerCase().trim()) !== -1) {
                     svgTag = "polygon";
                 }
                 return document.createElementNS("http://www.w3.org/2000/svg", svgTag);
             })
             .attr("class", function(d) {
-                if (d.shape) {
+                if (d.shape && ["triangle","square","diamond"].indexOf(String(d.shape).toLowerCase().trim()) !== -1) {
                    return "popHighlight " + d.shape;
                 } else {
                    return "popHighlight circle";
