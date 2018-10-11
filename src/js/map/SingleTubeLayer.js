@@ -390,7 +390,7 @@ var SingleTubeLayer = function(params){
         var labelLift = 14; // Distance that labels will appear above their node
         // Label Text
         endpointsEnter.filter(function (d) {
-                return (typeof d.label === "string"); // Add to nodes with labels
+                return (d.label && typeof d.label === "string"); // Add to nodes with labels
             })
             .append("rect")
             .attr("class", "nodeLabelBack")
@@ -411,7 +411,7 @@ var SingleTubeLayer = function(params){
             .style("stroke", "#fff");
         // Label Background
         endpointsEnter.filter(function (d) {
-                return (typeof d.label === "string"); // Add to nodes with labels
+                return (d.label && typeof d.label === "string"); // Add to nodes with labels
             })
             .append("text")
             .attr("x", function (d) {
@@ -481,7 +481,7 @@ var SingleTubeLayer = function(params){
 
         // Update Node Labels
         endpoints.select(".pop .nodeLabel").filter(function (d) {
-                return (typeof d.label === "string"); // Add to nodes with labels
+                return (d.label && typeof d.label === "string"); // Add to nodes with labels
             })
             .attr("x", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[0] - (this.getBBox().width / 2);
@@ -492,7 +492,7 @@ var SingleTubeLayer = function(params){
 
         var pad = 8; // Padding for label text
         endpoints.select(".pop .nodeLabelBack").filter(function (d) {
-                return (typeof d.label === "string"); // Add to nodes with labels
+                return (d.label && typeof d.label === "string"); // Add to nodes with labels
             })
             .attr("x", function (d) {
                 return layer.latLngToXy([d.lat, d.lon])[0] - ((this.parentNode.lastChild.getBBox().width + pad)  / 2);
