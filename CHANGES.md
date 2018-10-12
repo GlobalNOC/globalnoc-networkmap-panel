@@ -1,3 +1,20 @@
+## GlobalNOC Networkmap Panel v1.0.6 — Fri Oct 12 2018
+
+### Features
+
+* Added a Save & Exit option in the JSON Editor.
+* Added the ability to zoom in smaller steps of 0.25.
+* Added the ability to specify size for each layer in the editor
+* Added the ability to scale the size of individual node markers by a multiplier when specified in the map source.
+* Added the ability to use a different "shape" for node markers when specified in the map source (square, diamond, triangle, circle).
+* Added the ability to add a "label" above node markers when specified in the map source.
+* Adjusted legend text to be more readable.
+* Fixed zooming and panning issues for both logical and geographic maps.
+* Fixed issue where map bounds were being set incorrectly when switching logical map on/off.
+* Fixed issue causing the tooltip to render when not hovering over a node or link.
+* Fixed issue where tooltip was missing variables for current link usage ($input.now & $output.now).
+* Fixed issue where adding initial JSON data for a layer in the JSON Editor would fail to save.
+
 ## GlobalNOC Networkmap Panel v1.0.5 — Tue Aug 28 2018
 
 ### Features
