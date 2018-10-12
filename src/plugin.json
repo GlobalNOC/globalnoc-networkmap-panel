@@ -10,8 +10,8 @@
       "url": "http://globalnoc.iu.edu"
     },
     "keywords": ["network-map", "map", "network"],
-    "version": "1.0.5",
-    "updated": "2018-08-28"
+    "version": "1.0.6",
+    "updated": "2018-10-12"
   },
 
   "dependencies": {
