@@ -17,7 +17,7 @@ limitations under the License.
 .atlas-info-div {
     background-color: #fcfcfa;
     color: black;
-    display: inline-block;
+    display: block;
     min-width: 100px;
     min-height: 10px;
     border-width: 1px;
@@ -30,7 +30,7 @@ limitations under the License.
 }
 .atlas-info-div,
 .atlas-info-div  table {
-    display: inline-block;
+    display: block;
     font-family: -apple-system, Helvetica;
     font-size: 11px;
 }
