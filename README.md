@@ -1,7 +1,7 @@
 # Network Map Panel for Grafana
 The Network Map Panel is a world map that provides the ability to monitor and visualize realtime traffic statistics. It uses timeseries data to represent traffic between nodes as circuits. It provides this information when hovered over the circuits and nodes.
 
-![Network Map](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/networkmap-main-1.png)
+![Network Map](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/networkmap-main-1.png)
 
 # Features
 The Network Map Panel also provides the ability to configure different map options and display options. 
@@ -9,28 +9,28 @@ The Network Map Panel also provides the ability to configure different map optio
 ## Options Tab
 ### Biggest Features
 * Map Options
-![Map Options](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/map-options.png)
+![Map Options](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/map-options.png)
   - Map URL: A valid map url should be provided so that the map loads with all the tiles. In the screenshot below, mapbox api is used to specify the map tiles. A valid access token is necessary for the mapbox API.
   - Hide Layers with no values: This option allows the user to hide any layers/circuits when there's no data returned for them.
   - JSON Editor: Double clicking the 'Map Source' label or its input field opens a JSON Editor modal. This editor makes use of grafana's code-editor directive to provide the user with code editor capabilities such as syntax highlighting, error detection, collapsible fields etc.
   
-	![JSON Editor](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/json-editor.png)
+	![JSON Editor](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/json-editor.png)
 
   - Twin Tubes: Checking this option switches the adjacency links on the map to twin tubes mode. Each line has a directional arrow associated with it.
   
-  	![Twin Tubes](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/twin-tubes.png)
+  	![Twin Tubes](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/twin-tubes.png)
 
   - Logical Map: Checking the Use Image option allows the user to make use of logical maps. The image below shows the options available to create a logical map.
   
-  	![Logical Map Options](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/map-options-logical.png)
+  	![Logical Map Options](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/map-options-logical.png)
 	
     * Image URL: A valid url to an image should be provided to create a logical map with that image.   
 	
-	![Logical Map](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/logical-map.png)
+	![Logical Map](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/logical-map.png)
 	
 * Layers: Different layers/circuits can be added to the map using this option. A valid *Map Source* is required to add each layer on to the map.
 
-![Layer Options](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/layer-options-1.png)
+![Layer Options](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/layer-options-1.png)
   
 Example map source json object.
   
@@ -98,41 +98,41 @@ Display tab provides different options for the user to customize the monitoring 
 
   - Mode: Spectrum. This mode currently has 19 different color schemes to choose from.
   
-![colors-1](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/colors-3-2.png)	![colors-2](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/colors-2.png)	![colors-3](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/colors-1.png)
+![colors-1](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/colors-3-2.png)	![colors-2](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/colors-2.png)	![colors-3](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/colors-1.png)
 
-![New Color Scheme](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/network-map.png)
+![New Color Scheme](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/network-map.png)
 
   - Mode: Opacity. This mode provides the ability to choose from two different scales, i.e., linear, sqrt. It also provides the option to choose a custom color from the color picker. 
     
-![opacity-1](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/opacity-1.png) ![opacity-2](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/opacity-2.png) ![opacity-3](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/opacity-colors.png)
+![opacity-1](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/opacity-1.png) ![opacity-2](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/opacity-2.png) ![opacity-3](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/opacity-colors.png)
 
-![Opacity Scheme](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/opacity-scheme.png)
+![Opacity Scheme](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/opacity-scheme.png)
 
   - Mode: Threshold. This mode provides the ability to specify thresholds as comma separated values between 0 and 100 i.e. 0 < thresholds < 100. It provides the ability to choose a distinct color for each threshold.
 
-![threshold-1](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/threshold-1.png)  ![threshold-2](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/threshold-2.png)
+![threshold-1](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/threshold-1.png)  ![threshold-2](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/threshold-2.png)
 
-![threshold Scheme](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/threshold-scheme.png)
+![threshold Scheme](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/threshold-scheme.png)
 
 * Legend: Invert legend. This option inverts the current legend on the map and also affects the map to use the inverted scheme.
 
-![Invert Legend](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/invert-legend.png) ![Inverted Scheme](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/invert-scheme.png)
+![Invert Legend](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/invert-legend.png) ![Inverted Scheme](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/invert-scheme.png)
 
 * Line Color: Ability to choose the behavior of the line colors based on metric. 
 
-![Line Color](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/line-color.png)
+![Line Color](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/line-color.png)
 
 * Node Color: Ability to choose the behavior of the node colors based on metric. 
 
-![Node Color](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/node-color.png)
+![Node Color](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/node-color.png)
 
 * Tooltip: Ability to customize the tooltip for the map. It also provides an option for the user to enter html to have a customized link hover box and customized node hover box.
 
-![Tooltip Options](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/tooltip-options-1.png) 
+![Tooltip Options](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/tooltip-options-1.png) 
 
-![Tooltip](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/custom-hover-box-2.png)
+![Tooltip](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/custom-hover-box-2.png)
 
-![Tooltip](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/custom-node-box.png)
+![Tooltip](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/custom-node-box.png)
 
 ### Other Features
 * Show or Hide Legend
@@ -145,7 +145,7 @@ The Network Map Panel takes the timeseries data to represent the traffic between
 
 The query can also be built using the visual query builder from the metrics tab in the map editor. It is shown in the picture below.
 
-![TSDS Query](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/tsds-query.png)
+![TSDS Query](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/tsds-query.png)
 
 Example of the response `dataList` that is used by the Network Map Panel to process and render the circuits is shown in the block below.
 
@@ -391,7 +391,7 @@ The map renders circuits if the `endpoints.name` of these `links` match with the
 
 In the example above, the first six results in the `dataList` object match with the `endpoints.name` from each of the three `links`. Therefore, the network map renders three circuits for the provided `map source json object`.
 
-![example circuit](https://github.com/GlobalNOC/globalnoc-networkmap-panel/blob/master/src/images/example.png)
+![example circuit](https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/src/images/example.png)
 
 # Technology
 The Network Map Panel makes use of the following libraries:
