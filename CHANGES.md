@@ -1,3 +1,10 @@
+## GlobalNOC Networkmap Panel v1.0.7 - Mon Oct 22 2018
+
+### Bug Fixes
+
+* Fixed issue where readme is empty when the panel is installed on grafana
+* Fixed issue where hover on far right side and far bottom side of the page was being cut off
+
 ## GlobalNOC Networkmap Panel v1.0.6 — Fri Oct 12 2018
 
 ### Features
