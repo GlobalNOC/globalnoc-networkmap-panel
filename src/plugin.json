@@ -6,10 +6,14 @@
   "info": {
     "description": "GlobalNOC Network Map Grafana Plugin",
     "author": {
-      "name": "GlobalNOC Software Engineering",
+      "name": "GlobalNOC",
       "url": "http://globalnoc.iu.edu"
     },
     "keywords": ["network-map", "map", "network"],
+    "links": [
+        {"name": "Github", "url": "https://github.com/GlobalNOC/globalnoc-networkmap-panel"},
+        {"name": "Apache License", "url": "https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/LICENSE"}
+    ],
     "version": "1.0.6",
     "updated": "2018-10-12"
   },
