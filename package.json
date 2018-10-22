@@ -1,7 +1,7 @@
 {
   "name": "Network-Map" ,
-  "version": "1.0.6",
-  "description": "GlobalNOC Worldview Realtime Traffic Maps",
+  "version": "1.0.7",
+  "description": "GlobalNOC Networkmap Panel for Grafana",
   "main": "index.js",
   "scripts": {
       "build": "gulp"
