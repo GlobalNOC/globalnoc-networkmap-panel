@@ -135,7 +135,9 @@ var createPlugin = function(options){
 var buildAll = function(options){
     options = options || {};
     options.dev = options.dev || false;
-
+    gulp.src('./BUILD.md').pipe(gulp.dest('./dist'));
+    gulp.src('./LICENSE').pipe(gulp.dest('./dist'));
+    gulp.src('./README.md').pipe(gulp.dest('./dist'));
     gulp.src('src/plugin.json').pipe(gulp.dest('./dist'));
     gulp.src('src/partials/module.html').pipe(gulp.dest('./dist'));
     gulp.src('src/partials/editor.html').pipe(gulp.dest('./dist'));

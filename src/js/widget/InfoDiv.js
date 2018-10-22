@@ -132,12 +132,7 @@ var InfoDiv = function(params){
             infoDiv.setContent({ content: options.content });
         }
 
-
         if(options.align && !options.align.relative){
-            var xy = Geometry.align(_.merge(options.align, {
-                height: _infoDiv.node().getBoundingClientRect().height,            
-                width:  _infoDiv.node().getBoundingClientRect().width
-            })); 
             infoDiv.moveTo(options.pos);
         }
 
@@ -151,13 +146,29 @@ var InfoDiv = function(params){
     /**
     * Getter/Setter of the pin flag for the dialog
     * @method pin
-    * @param {String} className - The name of the class to apply to the info di 
+    * @param {String} className - The name of the class to apply to the info div
     * @return {Bool} pin - The flag representing whether or not the info div is pinned
     */
     infoDiv.pin = function(isPinned){
         if(arguments.length){ pin = isPinned; }
         return pin;
     };
+
+    /**
+    * Helper function to find the clientWidth and clientHeight of the element
+    */
+    function _getClientDimensions(element){
+        let clientDimensions = {clientWidth: 0, clientHeight: 0};
+        element.style('opacity', '0');
+        element.style('display', 'block');
+        clientDimensions.clientWidth = element.node().clientWidth;
+        clientDimensions.clientHeight = element.node().clientHeight;
+        element.node().style.removeProperty("opacity");
+        element.style('display', 'none');
+        return clientDimensions;
+    }
+
+
 
     /**
     * Moves the info div to the provided xy coordinates 
@@ -168,16 +179,17 @@ var InfoDiv = function(params){
     infoDiv.moveTo = function(position){
         const padding_x = 20;
         const padding_y = 10;
-        const infoDivWidth = _infoDiv.clientWidth;
-        const infoDivHeight = _infoDiv.clientHeight;
+        const clientDimensions = _getClientDimensions(_infoDiv);
+        const infoDivWidth = clientDimensions.clientWidth;
+        const infoDivHeight = clientDimensions.clientHeight;
         if(!position.page_x || !position.page_y) return;
         let left = position.page_x + padding_x;
         let top = position.page_y + padding_y;
-        if(position.page_x + infoDivWidth > window.innerWidth){
+        if(position.page_x + infoDivWidth > (0.975 * window.innerWidth)){
             left = position.page_x - infoDivWidth - padding_x;
         }
 
-        if(position.page_y - window.pageYOffset + infoDivHeight > window.innerHeight){
+        if(position.page_y - window.pageYOffset + infoDivHeight > (0.975 * window.innerHeight)){
             top = position.page_y - infoDivHeight - padding_y;
         }
         _infoDiv.style('left', left+'px'); 
