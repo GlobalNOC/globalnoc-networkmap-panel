@@ -113,10 +113,12 @@ limitations under the License.
 
 .atlas-legend.atlas-info-div.horizontal .numbers .scale-num.zero {
     text-align: left;
+    color: snow; 
 }
 
 .atlas-legend.atlas-info-div.horizontal .numbers .scale-num.hundred {
     text-align: right;
+    color: snow; 
 }
 
 /* infodiv style */

@@ -46,7 +46,7 @@ limitations under the License.
 
 .popHighlight{
     stroke-width: 2px;
-    stroke: #ddd;
+    stroke: black;
 }
 
 .popHighlight:hover{

@@ -59,7 +59,7 @@ var InfoDiv = function(params){
             case 'bl': 
                 _infoDiv.style('position', 'relative')
                     .style('bottom', '0px')
-                    .style('left', '0px');
+                    .style('left', '20px');
                 break;
             case 'tr': 
                 _infoDiv.style('position', 'relative')
