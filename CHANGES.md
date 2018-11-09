@@ -1,3 +1,12 @@
+## GlobalNOC Networkmap Panel v1.0.8 - Mon Nov 09 2018
+
+### Bug Fixes
+
+* Added support for changing default coloring on nodes.
+* Added new Orange to Blue legend color scale.
+* Minor stylistic changes to legend.
+
+
 ## GlobalNOC Networkmap Panel v1.0.7 - Mon Oct 22 2018
 
 ### Bug Fixes
