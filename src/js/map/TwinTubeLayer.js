@@ -679,9 +679,10 @@ var TwinTubeLayer = function(params){
 
         //--- UPDATE -- Update any existing endpoints
         endpoints.select('.popHighlight')
-            .style("fill", function(d){
-                return d.endpointColor = undefined ? layer.endpointColor() : d.endpointColor;
-            })
+            //.style("fill", function(d){
+             //   return d.endpointColor = undefined ? layer.endpointColor() : d.endpointColor;
+           // })
+            .style('fill',layer.endpointColor()||d.endpointColor)
             .attr("fill-opacity", function(d){
                 return d.endpointOpacity = undefined ? layer.endpointOpacity() : d.endpointOpacity;
             });

@@ -18,6 +18,7 @@ import _ from "lodash";
 import  * as d3 from 'd3';
 
 let colorSchemes = [
+      {name: 'OrBu',    value: 'interpolateOrBu',       invert: 'dark'},
       {name: 'RdYlGn',    value: 'interpolateRdYlGn',   invert: 'always'},
       {name: 'Blues',     value: 'interpolateBlues',    invert: 'dark'},
       {name: 'Greens',    value: 'interpolateGreens',   invert: 'dark'},
@@ -133,6 +134,10 @@ export class Scale {
         var b=0;
 
         switch(color) {
+            case 'interpolateOrBu':
+                this.calculate(251,174,96,-3,0,3);
+                break;
+
             case 'interpolateRdYlGn':
                 this.calculate(255,g,b,-3,5,0);
                 break;

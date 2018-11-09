@@ -559,7 +559,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         min: ctrl.panel.min[j],
                         lineWidth: ctrl.panel.size[j],
                         twin_tubes: ctrl.panel.twin_tubes,
-                        mapSource: ctrl.panel.mapSrc[j]
+                        mapSource: ctrl.panel.mapSrc[j],
+                        endpointColor : ctrl.panel.nodeFillColor
                     });
                     if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
                         ctrl.layer_ids.push('');
@@ -658,7 +659,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     min: ctrl.panel.min[i],
                     twin_tubes: ctrl.panel.twin_tubes,
                     lineWidth: ctrl.panel.size[i],
-                    mapSource: ctrl.panel.mapSrc[i]
+                    mapSource: ctrl.panel.mapSrc[i],
+                    endpointColor : ctrl.panel.nodeFillColor,
                 });
                 ctrl.layer_ids.push(networkLayer.layerId());
                 ctrl.panel.layers.push(networkLayer);
