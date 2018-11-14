@@ -268,7 +268,6 @@ var Topology = function(params, offsets){
 	    _.forEach(data.endpoints, function(endpoint){
             _.forEach(offsets, function(off){
                 endpoint.endpointId = _.uniqueId('endpoint_');
-                endpoint.endpointColor = "#dddddd";
                 endpoint.min = -1;
                 endpoint.max = -1;
                 endpoint.cur = -1;
