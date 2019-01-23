@@ -97,8 +97,7 @@ var Topology = function(params, offsets){
         _.forEach(topology.data().pops, function(pop){
             var name = pop.name;
             pop_hash[name] = {};
-            //changed.
-            pop_hash[name].updated = true;
+            pop_hash[name].updated = false;
         });
         
         // if an adjacency was moved, make the adjacency that has been moved first in the list so its 
@@ -263,27 +262,29 @@ var Topology = function(params, offsets){
         }
 	
         data.links = links;
+        
         //Fix for the endpoints bug. 
         //make endpoints appear on all link endings. 
 
         if(!data.endpoints) data.endpoints = [];  
         var tempEndPointsArray = data.endpoints.slice();   
-        
-        data.endpoints = []; 
-        _.forEach(data.links, function(link){
-            _.forEach(link.path, function(waypoint){
-                if(waypoint.endpoint == true){
+       data.endpoints = []; 
+       _.forEach(data.links, function(link){
+           _.forEach(link.path, function(waypoint){
+               if(waypoint.endpoint == true){
+                var tempObj = tempEndPointsArray.find(obj => {
+                    return obj.lat === waypoint.lat; 
+                  }); 
+                   if(tempObj){
                     var endpointObj = {}; 
                     endpointObj.lon = waypoint.lon; 
                     endpointObj.lat = waypoint.lat; 
-                    endpointObj.name = tempEndPointsArray.find(obj => {
-                        return obj.lat === waypoint.lat; 
-                      }).name;
-                      
+                    endpointObj.name = tempObj.name; 
                     data.endpoints.push(endpointObj);
-                }
-            })
-        })
+                   }
+               }
+           })
+       })
         
         //add unique ids to all endpoints
 	    _.forEach(data.endpoints, function(endpoint){
