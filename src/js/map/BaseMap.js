@@ -1046,7 +1046,7 @@ var BaseMap = function(config){
                 let col_len = legend.legend_colors.length;
                 let width_factor = [];
                 _.forEach(legend.thresholds,function(el){
-                    width_factor.push(parseInt(el));   
+                    width_factor.push(parseFloat(el));   
                 });
                 width_factor.unshift(0);
                 width_factor.push(100);
