@@ -59,7 +59,7 @@ export class Scale {
     getThresholdColor(percentage, colors, thresholds) {
         if(!colors) return;
         let threshold_arr = [];
-        _.forEach(thresholds, el => threshold_arr.push(parseInt(el)));
+        _.forEach(thresholds, el => threshold_arr.push(parseFloat(el)));
         threshold_arr.unshift(0);
         threshold_arr.push(100);
         if(percentage<0) return colors[0];
@@ -99,7 +99,7 @@ export class Scale {
 
     getThresholdScale(thresholds, colors){
         let temp = [];
-        _.forEach(thresholds, e => temp.push(parseInt(e)));
+        _.forEach(thresholds, e => temp.push(parseFloat(e)));
         if(_.min(temp) <= 0 || _.max(temp) >= 100) return;
         if(thresholds[0]){
             colors.splice(thresholds.length+1);
