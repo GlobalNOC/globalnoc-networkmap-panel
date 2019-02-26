@@ -263,7 +263,44 @@ var Topology = function(params, offsets){
 	
         data.links = links;
         
-        if(!data.endpoints) data.endpoints = [];    
+     //Fix for the endpoints bug. 
+        //make endpoints appear on all link endings. 
+        //This code will cover the case where mapsource has only links as well as endpoints and links. 
+
+        if(!data.endpoints) data.endpoints = [];  
+        var tempEndPointsArray = data.endpoints.slice();   
+       data.endpoints = []; 
+       _.forEach(data.links, function(link){
+           _.forEach(link.path, function(waypoint){
+               if(waypoint.endpoint == true){
+                var tempObj = tempEndPointsArray.find(obj => {
+                    return obj.lat === waypoint.lat; 
+                  }); 
+                   if(tempObj){
+                    var endpointObj = {}; 
+                    endpointObj.lon = waypoint.lon; 
+                    endpointObj.lat = waypoint.lat; 
+                    endpointObj.name = tempObj.name; 
+                    data.endpoints.push(endpointObj);
+                   }
+               }
+           })
+       })
+
+       /* Now need to check if any endpoints are missing and if yes we need to add them to the endpoints array. This will also cover for the case where
+       there is a mapsource with just the endpoints. 
+       */
+      _.forEach(tempEndPointsArray, function(ep){
+          var searchresult = data.endpoints.find(obj => {
+            return obj.lat === ep.lat;
+          })
+          if(!searchresult){
+              data.endpoints.push(ep);
+          }
+      })
+
+
+        
         //add unique ids to all endpoints
 	    _.forEach(data.endpoints, function(endpoint){
             _.forEach(offsets, function(off){
