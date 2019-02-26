@@ -1,3 +1,14 @@
+## GlobalNOC Networkmap Panel v1.0.9 - Mon Feb 26 2019
+
+### Features and Bug Fixes
+
+* Added ability to use floating point thresholds.
+* Added ability to select color for links that are down.
+* Fixed the link hover to show up only when hovered over the links.
+* Fixed the issue where all the endpoints would not render on both sides of the prime meridian.
+* Fixed the issue where endpoints color would still show default color even when there's data.
+
+
 ## GlobalNOC Networkmap Panel v1.0.8 - Mon Nov 09 2018
 
 ### Bug Fixes
