@@ -111,6 +111,9 @@ var LeafletMap = function(params) {
     };
 
     lmap = L.map(document.getElementById(params.containerId), lmapOptions);
+    lmap.on('click', function(event){
+        console.log(event.latlng);
+    });
 
     if(!imageOverlayURL){
         lmap.options.maxZoom = 18;
@@ -125,11 +128,14 @@ var LeafletMap = function(params) {
             zIndex: -999
         });
         lmap.addLayer(image);
+
         lmap.fitBounds(bounds).once('zoomend', function(){
             if(lmap.getZoom() != zoom){
                 lmap.setZoom(zoom);
             }
         });
+        lmap.setZoom(zoom);
+        lmap.setMaxBounds(bounds);
         lmap.options.maxZoom = 4;
     }
 
