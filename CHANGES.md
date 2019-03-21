@@ -1,3 +1,9 @@
+## GlobalNOC Networkmap Panel v1.1.0 - Thu Mar 21 2019
+
+### Bug Fixes
+
+* Added max bounds to logical map.
+
 ## GlobalNOC Networkmap Panel v1.0.9 - Mon Feb 26 2019
 
 ### Features and Bug Fixes
