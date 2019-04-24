@@ -1,5 +1,5 @@
 Name: grnoc-grafana-worldview
-Version: 1.1.0
+Version: 1.1.1
 Release: 1%{?dist}
 Summary: GRNOC Worldview Grafana Plugin
 Group: GRNOC

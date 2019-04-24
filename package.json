@@ -1,6 +1,6 @@
 {
   "name": "Network-Map" ,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "GlobalNOC Networkmap Panel for Grafana",
   "main": "index.js",
   "scripts": {

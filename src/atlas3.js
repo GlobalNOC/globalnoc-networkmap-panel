@@ -39,6 +39,8 @@ const panelDefaults = {
     layers: [],
     hide_layers: false,
     twin_tubes: false,
+    nodeFillColor: "rgb(200,200,200)",
+    downLinkColor: "rgb(200,200,200)",
     color: {
         mode: 'spectrum',
         colorScale: 'linear',
@@ -52,7 +54,7 @@ const panelDefaults = {
         mode: 'spectrum',
         legend_colors: [],
         opacity: [],
-        thresholds: []
+        thresholds: ["50"]
     },
     tooltip:{
         show: true,
@@ -77,12 +79,12 @@ var tempArray=[];
 
 export class Atlas3 extends MetricsPanelCtrl {
     constructor($scope, $injector) {
-        super($scope, $injector);	
+        super($scope, $injector);
         _.defaults(this.panel, panelDefaults);
         this.map_holder_id = 'map_' + this.panel.id;
         this.containerDivId = 'container_'+this.map_holder_id;
         this.recentData = [];
-        this.map_drawn = false; 
+        this.map_drawn = false;
         this.layer_ids = [];
         this.show_legend = true;
         this.opacity = [];
@@ -93,12 +95,17 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.json_content = '';
         this.custom_hover = new CustomHover();
         this.scale = new Scale($scope,this.panel.colorScheme);
-        this.colorSchemes=this.scale.getColorSchemes(); 
+        this.colorSchemes=this.scale.getColorSchemes();
         this.events.on('data-received', this.onDataReceived.bind(this));
         this.events.on('data-error', this.onDataError.bind(this));
         this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
         this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
         this.events.on('init-panel-actions', this.onInitPanelActions.bind(this));
+
+        // Color picker event handlers
+        this.onDefaultNodeColor = this.onDefaultNodeColor.bind(this);
+        this.onDownLinkChange = this.onDownLinkChange.bind(this);
+        this.onOpacityLegendColor = this.onOpacityLegendColor.bind(this);
     }
 
     onDataReceived(dataList) {
@@ -123,11 +130,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(typeof layer.active !== "function"){
                     return;
                 }
-		
+
                 if(layer.topology() === undefined){
                     return;
                 }
-		
+
                 var links = layer.topology().links();
                 var endpoints = layer.topology().endpoints();
 
@@ -135,15 +142,15 @@ export class Atlas3 extends MetricsPanelCtrl {
                 if(self.panel.hide_layers){
                     _.forEach(links, function(l){
                         _.forEach(l.endpoints, function(ep){
-                            if(!data_targets.includes(ep.name)){       
+                            if(!data_targets.includes(ep.name)){
                                 layer.toggle(false);
                             }
-                        }); 
-                    }); 
+                        });
+                    });
                 }
                 var target;
                 var dir;
-                
+
                 // Match endpoints to visualize the data
                 var target_endpoints = [];
                 if(endpoints) {
@@ -153,7 +160,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         }
                     });
                 }
-                
+
 
                 // Match links to visualize the data
                 var target_links = [];
@@ -199,7 +206,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         if(value > max){
                             max = value;
                         }
-			
+
                         if(cur === undefined){
                             cur = value;
                         }
@@ -211,7 +218,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     var end = data.datapoints[1][1];
                     interval = start - end;
                 }
-	           
+
                 // if target_endpoints is not empty, visualize the data
                 if(target_endpoints.length > 0){
                     _.forEach(target_endpoints, function(obj){
@@ -226,7 +233,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         e.count = count;
                         avg = sum/count;
                         e.avg = avg.toFixed(2);
-                        let color_value; 
+                        let color_value;
                         if(color_criteria === "Average"){
                             color_value = ((avg - layer_min) / (layer_max-layer_min)) * 100;
                         } else if(color_criteria === "Minimum") {
@@ -258,11 +265,11 @@ export class Atlas3 extends MetricsPanelCtrl {
                         }
                     });
                 }
-                
+
 
                 // updating link information with the calculated values
                 // set line color for the lines based on these values
-                        
+
                 _.forEach(target_links, function(obj){
                     let layer_max = layer.max();
                     let layer_min = layer.min();
@@ -329,7 +336,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.za.now = self.toSI(cur);
                         l.arrow = 2;
                     }
-		            if(!self.panel.twin_tubes){ 
+		            if(!self.panel.twin_tubes){
                         if(l.az.cur != null && l.za.cur != null){
                             if(l.az.cur > l.za.cur){
                                 l.lineColor = l.azLineColor;
@@ -342,10 +349,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                             }
                         }
                     }
-                });	
+                });
             });
         });
-	
+
         _.forEach(this.panel.layers, function(layer){
             if(typeof layer.active !== "function"){
                 return;
@@ -355,37 +362,60 @@ export class Atlas3 extends MetricsPanelCtrl {
     }
 
     toSI(num){
-        if(this.panel.to_si === 0){ 
+        if(this.panel.to_si === 0){
             num = num / panelDefaults.to_si;
         } else{
             num = num / this.panel.to_si;
         }
         return num.toFixed(2);
     }
-    
+
     onDataError(err) {
         this.dataRaw = [];
     }
-    
+
     onInitEditMode() {
         this.addEditorTab('Options', 'public/plugins/globalnoc-networkmap-panel/editor.html', 2);
         this.addEditorTab('Display', 'public/plugins/globalnoc-networkmap-panel/display_editor.html', 3);
         tempArray=this.scale.displayColor(this.panel.colorScheme);
-    } 
-   
+    }
+
     onInitPanelActions(actions) {
          this.render();
     }
-     
+
+    onOpacityLegendColor(color){
+        this.panel.color.cardColor = color;
+        this.render();
+    }
+
+    onThresholdColorChange(index) {
+        return color => {
+            this.panel.threshold_colors[index] = color;
+            this.render();
+        }
+    }
+
+    onDownLinkChange(color) {
+        this.panel.downLinkColor = color;
+        this.scale.setDownLinkColor(color);
+        this.render();
+    }
+
+    onDefaultNodeColor(color) {
+        this.panel.nodeFillColor = color;
+        this.render();
+    }
+
     jsonModal(){
         var modalScope = this.$scope.$new(false);
-        modalScope.panel = this.panel; 
+        modalScope.panel = this.panel;
         appEvents.emit('show-modal', {
             src: 'public/plugins/globalnoc-networkmap-panel/json_editor.html',
             scope: modalScope,
         });
     }
-      
+
     addNewChoice() {
         var num = this.panel.choices.length + 1;
         this.panel.choices.push(num);
@@ -397,7 +427,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         //not sure
         this.panel.size.push('')
     }
-    
+
     useValidator(index) {
         this.jsonModal();
         let json = this.panel.mapSrc[index];
@@ -410,7 +440,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         }
         this.json_index = index;
     }
-    
+
     saveToMapSrc(index){
         if(index===null) return;
         this.panel.mapSrc[index] = this.json_content;
@@ -445,9 +475,9 @@ export class Atlas3 extends MetricsPanelCtrl {
         this.opacity = this.scale.getOpacityScale(options, legendWidth);
         if(this.panel.legend.invert){
             _.reverse(this.opacity);
-        } 
+        }
     }
-    
+
     isSorted(arr){
         let original = arr.toString();
         arr.sort(function(a,b){
@@ -456,7 +486,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         return arr.toString() === original;
     }
 
-    displayThresholds(){ 
+    displayThresholds(){
         this.t_colors = this.scale.getThresholdScale(this.panel.legend.thresholds, this.panel.threshold_colors);
         return this.t_colors;
     }
@@ -464,7 +494,7 @@ export class Atlas3 extends MetricsPanelCtrl {
     getState(){
         this.show_legend = this.panel.legend.show;
     }
-   
+
     getHtml(htmlContent){
         return this.custom_hover.parseHtml(htmlContent);
     }
@@ -484,7 +514,7 @@ export class Atlas3 extends MetricsPanelCtrl {
             ctrl.panel.legend.adjLoadLegend = {
                 horizontal: true,
             }
-            let zoom = ctrl.panel.zoom; 
+            let zoom = ctrl.panel.zoom;
             let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
             ctrl.panel.tooltip.content = html_content;
             let node_content = ctrl.getHtml(ctrl.panel.tooltip.node_content);
@@ -671,8 +701,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.process_data(self.recentData);
                 }
             }
+            setTimeout(function() {
+                ctrl.map.validateSize();
+            }, 0);
         });
-
     }
 }
 

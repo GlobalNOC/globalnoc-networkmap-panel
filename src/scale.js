@@ -48,13 +48,14 @@ export class Scale {
         this.rgbArray = [];
         this.opacity_values = [];
         this.downLinkColor = $scope.ctrl.panel.downLinkColor;
+
     }
 
     setColorScheme(colorScheme)  {
         this.colorScheme = colorScheme;
     }
 
-    getColorSchemes()  {	
+    getColorSchemes() {
         return colorSchemes;
     }
 
@@ -71,6 +72,10 @@ export class Scale {
                 return colors[i-1];
             }
         }
+    }
+
+    setDownLinkColor(color) {
+        this.downLinkColor = color;
     }
 
     getColor(percentage) {
