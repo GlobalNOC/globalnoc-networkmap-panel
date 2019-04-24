@@ -1,3 +1,8 @@
+## GlobalNOC Networkmap Panel v1.1.1 - Wed Apr 24 2019
+
+* Updated `<spectrum-picker>` to `<color-picker>` to fix issues in Grafana v6
+* Fixed issue with map rendering in Grafana v6
+
 ## GlobalNOC Networkmap Panel v1.1.0 - Thu Mar 21 2019
 
 ### Bug Fixes
