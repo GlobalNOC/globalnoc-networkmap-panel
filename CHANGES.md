@@ -1,4 +1,4 @@
-## GlobalNOC Networkmap Panel v1.1.2 - Wed Apr 29 2019
+## GlobalNOC Networkmap Panel v1.1.2 - Mon Apr 29 2019
 
 * Fixed issue with `<color-picker>` in threshold legend mode
 
