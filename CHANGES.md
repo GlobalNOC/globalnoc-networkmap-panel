@@ -1,3 +1,7 @@
+## GlobalNOC Networkmap Panel v1.1.2 - Wed Apr 29 2019
+
+* Fixed issue with `<color-picker>` in threshold legend mode
+
 ## GlobalNOC Networkmap Panel v1.1.1 - Wed Apr 24 2019
 
 * Updated `<spectrum-picker>` to `<color-picker>` to fix issues in Grafana v6
