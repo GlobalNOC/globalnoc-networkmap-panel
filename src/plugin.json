@@ -14,8 +14,8 @@
         {"name": "Github", "url": "https://github.com/GlobalNOC/globalnoc-networkmap-panel"},
         {"name": "Apache License", "url": "https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/LICENSE"}
     ],
-    "version": "1.1.1",
-    "updated": "2019-04-24"
+    "version": "1.1.2",
+    "updated": "2019-04-29"
   },
 
   "dependencies": {
