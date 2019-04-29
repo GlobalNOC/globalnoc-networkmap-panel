@@ -57,7 +57,7 @@
                 <label class="gf-form-label width-8">Thresholds
                     <tip>Comma separated values in increasing order between (0,100)</tip>
                 </label>
-                <input type="text" class="gf-form-input width-10" ng-model="ctrl.panel.legend.thresholds" placeholder="50,80" ng-blur="ctrl.render()" array-join>
+                <input type="text" class="gf-form-input width-10" ng-model="ctrl.panel.legend.thresholds" placeholder="50,80" ng-blur="ctrl.updateThresholdDefaults()" array-join>
             </div>
             <div class="gf-form">
                 <label class="gf-form-label width-8">Colors</label>

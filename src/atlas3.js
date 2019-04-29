@@ -72,7 +72,7 @@ const panelDefaults = {
     legendTypes: ['opacity','spectrum','threshold'],
     opacityScales: ['linear', 'sqrt'],
     colorScheme : 'interpolateRdYlGn',
-    threshold_colors: []
+    threshold_colors: ['#37872D', '#C4162A']
 };
 
 var tempArray=[];
@@ -405,6 +405,18 @@ export class Atlas3 extends MetricsPanelCtrl {
     onDefaultNodeColor(color) {
         this.panel.nodeFillColor = color;
         this.render();
+    }
+
+    updateThresholdDefaults() {
+        console.log(this.panel.legend.thresholds);
+        if(!this.panel.threshold_colors[0]) {
+            this.panel.threshold_colors[0] = "rgb(200,200,200)";
+        }
+        this.panel.legend.thresholds.forEach((threshold,idx) => {
+            if(!this.panel.threshold_colors[idx+1]) {
+                this.panel.threshold_colors[idx+1] = "rgb(200,200,200)";
+            }
+        });
     }
 
     jsonModal(){
