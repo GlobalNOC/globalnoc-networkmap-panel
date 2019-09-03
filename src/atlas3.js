@@ -112,7 +112,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         if(!this.map_drawn){
             this.recentData = dataList;
             this.render();
-            this.map_drawn = true;
         }
 
         this.recentData = dataList;
@@ -522,15 +521,35 @@ export class Atlas3 extends MetricsPanelCtrl {
 
     link(scope, elem, attrs, ctrl){
         var self = this;
+        let firstRender = true;
+
         ctrl.events.on('render', function() {
+            render();
+            ctrl.renderingCompleted();
+        });
+
+        function render() {
+            if (!ctrl.recentData){
+                return;
+            }
+
+            // delay first render
+            if (firstRender) {
+                firstRender = false;
+                setTimeout(render, 100);
+                return;
+            }
+
             ctrl.panel.legend.adjLoadLegend = {
                 horizontal: true,
             }
+
             let zoom = ctrl.panel.zoom;
             let html_content = ctrl.getHtml(ctrl.panel.tooltip.content);
             ctrl.panel.tooltip.content = html_content;
             let node_content = ctrl.getHtml(ctrl.panel.tooltip.node_content);
             ctrl.panel.tooltip.node_content = node_content;
+
             if(ctrl.map_drawn == true){
                 if(ctrl.panel.color.mode === 'opacity'){
                     ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width()*0.4);
@@ -713,10 +732,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.process_data(self.recentData);
                 }
             }
-            setTimeout(function() {
-                ctrl.map.validateSize();
-            }, 0);
-        });
+            ctrl.map.validateSize();
+        }
     }
 }
 
