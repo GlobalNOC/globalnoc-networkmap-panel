@@ -292,7 +292,7 @@ var Topology = function(params, offsets){
        */
       _.forEach(tempEndPointsArray, function(ep){
           var searchresult = data.endpoints.find(obj => {
-            return obj.lat === ep.lat;
+            return obj.lat === ep.lat && obj.lon === ep.lon;
           })
           if(!searchresult){
               data.endpoints.push(ep);
