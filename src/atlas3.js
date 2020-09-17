@@ -39,6 +39,7 @@ const panelDefaults = {
     layers: [],
     hide_layers: false,
     twin_tubes: false,
+    arrows: true,
     nodeFillColor: "rgb(200,200,200)",
     downLinkColor: "rgb(200,200,200)",
     color: {
@@ -321,7 +322,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.az.sum = self.toSI(sum);
                         l.az.avg = self.toSI(avg);
                         l.az.now = self.toSI(cur);
-                        l.arrow = 1;
+                        if (self.panel.arrows) l.arrow = 1
+                        else l.arrow = 0;
                     } else{
                         l.za.name = l.endpoints[1].name;
                         if(l.endpoints[1].label) l.za.label = l.endpoints[1].label;
@@ -333,7 +335,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.za.sum = self.toSI(sum);
                         l.za.avg = self.toSI(sum / count);
                         l.za.now = self.toSI(cur);
-                        l.arrow = 2;
+                        if (self.panel.arrows) l.arrow = 2
+                        else l.arrow = 0;
                     }
 		            if(!self.panel.twin_tubes){
                         if(l.az.cur != null && l.za.cur != null){
