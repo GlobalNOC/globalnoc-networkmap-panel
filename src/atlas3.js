@@ -39,6 +39,8 @@ const panelDefaults = {
     layers: [],
     hide_layers: false,
     twin_tubes: false,
+    arrows: false,
+    weather_tile: false,
     nodeFillColor: "rgb(200,200,200)",
     downLinkColor: "rgb(200,200,200)",
     color: {
@@ -125,7 +127,6 @@ export class Atlas3 extends MetricsPanelCtrl {
         _.forEach(dataList, function(data){
             _.forEach(self.panel.layers, function(layer){
                 //find the link associated with this data
-
                 if(typeof layer.active !== "function"){
                     return;
                 }
@@ -265,7 +266,6 @@ export class Atlas3 extends MetricsPanelCtrl {
                     });
                 }
 
-
                 // updating link information with the calculated values
                 // set line color for the lines based on these values
 
@@ -321,7 +321,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.az.sum = self.toSI(sum);
                         l.az.avg = self.toSI(avg);
                         l.az.now = self.toSI(cur);
-                        l.arrow = 1;
+                        if (self.panel.arrows) l.arrow = 1
+                        else l.arrow = 0;
                     } else{
                         l.za.name = l.endpoints[1].name;
                         if(l.endpoints[1].label) l.za.label = l.endpoints[1].label;
@@ -333,7 +334,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         l.za.sum = self.toSI(sum);
                         l.za.avg = self.toSI(sum / count);
                         l.za.now = self.toSI(cur);
-                        l.arrow = 2;
+                        if (self.panel.arrows) l.arrow = 2
+                        else l.arrow = 0;
                     }
 		            if(!self.panel.twin_tubes){
                         if(l.az.cur != null && l.za.cur != null){
@@ -549,8 +551,8 @@ export class Atlas3 extends MetricsPanelCtrl {
             ctrl.panel.tooltip.content = html_content;
             let node_content = ctrl.getHtml(ctrl.panel.tooltip.node_content);
             ctrl.panel.tooltip.node_content = node_content;
-
             if(ctrl.map_drawn == true){
+
                 if(ctrl.panel.color.mode === 'opacity'){
                     ctrl.displayOpacity(ctrl.panel.color, ctrl.map.width()*0.4);
                     ctrl.panel.legend.mode = ctrl.panel.color.mode;
@@ -598,6 +600,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     ctrl.map.panTo({latlng});
                 }
 
+                ctrl.map.toggleWeatherTile(ctrl.panel.weather_tile)
+
                 // Remove existing layers from DOM and the  map before adding new layers.
                 let all_layers = ctrl.layer_ids;
                 _.forEach(all_layers, function(layer){
@@ -621,8 +625,10 @@ export class Atlas3 extends MetricsPanelCtrl {
                         lineWidth: ctrl.panel.size[j],
                         twin_tubes: ctrl.panel.twin_tubes,
                         mapSource: ctrl.panel.mapSrc[j],
-                        endpointColor : ctrl.panel.nodeFillColor
+                        endpointColor : ctrl.panel.nodeFillColor,
+                        node_content: node_content
                     });
+
                     if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
                         ctrl.layer_ids.push('');
                         continue;
@@ -658,7 +664,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     lng: ctrl.panel.lng,
                     zoom: zoom,
                     twin_tubes: ctrl.panel.twin_tubes,
-                    tooltip: ctrl.panel.tooltip
+                    tooltip: ctrl.panel.tooltip,
+                    weather_tile: ctrl.panel.weather_tile
                 });
                 ctrl.map = map;
             } else {
@@ -738,3 +745,4 @@ export class Atlas3 extends MetricsPanelCtrl {
 }
 
 Atlas3.templateUrl = 'module.html';
+

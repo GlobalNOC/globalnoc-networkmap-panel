@@ -62,7 +62,6 @@ var map = LeafletMap({
 var LeafletMap = function(params) {
     params.mapType = 'leaflet';
     var map = BaseMap(params);
-
     var zoom,lat,lng;
     lat = params.lat;
     lng = params.lng;
@@ -92,8 +91,10 @@ var LeafletMap = function(params) {
     var lmap;
     var mapTileURL = params.map_tile_url;
     var imageOverlayURL = params.image_url;
+    var weatherTileURL = 'https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png'
     var tiles;
     var image;
+    var weather_tile;
     var center = {lat: lat, lng: lng};
 
     var lmapOptions = {
@@ -119,6 +120,10 @@ var LeafletMap = function(params) {
         lmap.options.maxZoom = 18;
         tiles = L.tileLayer(mapTileURL, { opacity: 1, attribution: '&copy GlobalNOC' })
         lmap.addLayer(tiles);
+        if (params.weather_tile) {
+            weather_tile = L.tileLayer(weatherTileURL)
+            lmap.addLayer(weather_tile);
+        }
     }else {
         var bounds = L.latLngBounds(L.latLng(-90,-180), L.latLng(90,180));
         image = new L.ImageOverlay(imageOverlayURL, bounds, {
@@ -169,6 +174,16 @@ var LeafletMap = function(params) {
             });
         lmap.addLayer(image);
         lmap.options.maxZoom = 4;
+    }
+
+    map.toggleWeatherTile = function(tile_switch) {
+        if(lmap.hasLayer(weather_tile)){
+            lmap.removeLayer(weather_tile);
+        }
+        if (tile_switch) {
+            weather_tile = L.tileLayer(weatherTileURL)
+            lmap.addLayer(weather_tile);
+        }
     }
 
     //setup our svg layer to drawn on
@@ -392,7 +407,7 @@ var LeafletMap = function(params) {
             offsets: [-360,0,360],
 	        lineThickness: layer.lineWidth
         };
-
+        
         var network_layer;
         //if we don't have a way to get topology data just show the single tube layers
         if(layer.map2dataSource === undefined){

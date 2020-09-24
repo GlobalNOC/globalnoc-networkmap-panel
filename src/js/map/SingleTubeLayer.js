@@ -328,7 +328,7 @@ var SingleTubeLayer = function(params){
         var endpointsEnter = endpoints.enter().append("g")
             .attr("id", function(d) { return d.endpointId; })
             .attr("class","pop");
-
+        
         // Enter SVG Shape Elements
         endpointsEnter.append(function(d) {
                 var svgTag = "circle";
@@ -367,7 +367,22 @@ var SingleTubeLayer = function(params){
                 return layer.latLngToXy([d.lat, d.lon])[1];
             })
             .attr("r", ddr+"px");
+        
+        // endpoints.selectAll('text').remove()
 
+        // endpoints
+        //     .append('text')
+        //     .html(function(d) {
+        //         return d.name
+        //     })
+        //     .attr("x", function (d) {
+        //         let dimension = this.getBoundingClientRect()
+        //         return layer.latLngToXy([d.lat, d.lon])[0] - (dimension.width/2);
+        //     })
+        //     .attr("y", function (d) {
+        //         return layer.latLngToXy([d.lat, d.lon])[1] - (ddr*2);
+        //     })
+        
         // Draw Pointed Shapes
         endpoints.select(".popHighlight.triangle, .popHighlight.square, .popHighlight.diamond")
             .attr("points", function(d) {
