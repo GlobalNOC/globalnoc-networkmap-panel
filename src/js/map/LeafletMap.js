@@ -405,7 +405,9 @@ var LeafletMap = function(params) {
             max: layer.max,
             min: layer.min,
             offsets: [-360,0,360],
-	        lineThickness: layer.lineWidth
+            lineThickness: layer.lineWidth,
+            node_content: layer.node_content || params.node_content,
+            static_node_tooltip: layer.static_node_tooltip
         };
         
         var network_layer;

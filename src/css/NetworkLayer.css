@@ -15,15 +15,15 @@ limitations under the License.
 */
 
 .atlas-info-div {
-    background-color: #fcfcfa;
+    /* background-color: #fcfcfa; */
     color: black;
     display: block;
     min-width: 100px;
     min-height: 10px;
-    border-width: 1px;
+    /* border-width: 1px;
     border-style: solid;
     border-radius: 8px;
-    background: white;
+    background: white; */
     border-color: #797874;
     padding: 1px 5px 1px 5px;  
     z-index: 99999;

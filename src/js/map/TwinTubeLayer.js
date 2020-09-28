@@ -141,7 +141,8 @@ var TwinTubeLayer = function(params){
                 pos: {
                     page_x: d.event.pageX,
                     page_y: d.event.pageY
-                }
+                },
+                static_tooltip: params.static_node_tooltip
             });
             d3.select(d.event.target).style("cursor", "pointer");
         },
@@ -618,6 +619,26 @@ var TwinTubeLayer = function(params){
                 return layer.latLngToXy([d.lat, d.lon])[1];
             })
             .attr("r", ddr+"px");
+
+            if (params.static_node_tooltip) {
+                endpoints.selectAll('foreignObject').remove()
+                endpoints
+                    .append('foreignObject')
+                    .style('overflow', 'visible')
+                    .html(function(d) {
+                        let strHTML = params.node_content.replace('$name', d.name)
+                        return strHTML
+                    })
+                    .attr("x", function (d) {
+                        let offset = this.getElementsByClassName('atlas-node-tooltip')[0].offsetWidth/2
+                        return layer.latLngToXy([d.lat, d.lon])[0] - offset;
+                    })
+                    .attr("y", function (d) {
+                        let offset = this.getElementsByClassName('atlas-node-tooltip')[0].offsetHeight
+                        let yOffset = this.querySelector('.atlas-node-tooltip').getAttribute('yOffset')
+                        return layer.latLngToXy([d.lat, d.lon])[1] - offset - yOffset;
+                    })
+            }
 
         // Draw Pointed Shapes
         endpoints.select(".popHighlight.triangle, .popHighlight.square, .popHighlight.diamond")

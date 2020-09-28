@@ -152,8 +152,12 @@
         </div>
     </div>
 
+    <gf-form-switch class="gf-form" label-class="width-6"
+        label="Static Tooltip" checked="ctrl.panel.static_node_tooltip" on-change="ctrl.render()">
+    </gf-form-switch>
+
     <div ng-if="ctrl.panel.tooltip.show && ctrl.panel.tooltip.showNodeHover" class="section gf-form-group">  
-        <h5 class="section-heading">Custom Node Hover Box</h5>  
+        <h5 class="section-heading">Custom Node Info Box</h5>  
         <div class="gf-from-inline">
             <div class="gf-form gf-form--grow">
                 <textarea class="gf-form-input ng-pristine ng-valid ng-not-empty ng-touched" ng-model="ctrl.panel.tooltip.node_content" rows="8" cols="50" style="width:100%" give-focus="true" ng-change="ctrl.render()" ng-model-onblur=""></textarea>
