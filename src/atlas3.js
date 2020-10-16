@@ -532,6 +532,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         });
 
         function render() {
+            window.onbeforeunload = null;
             if (!ctrl.recentData){
                 return;
             }
