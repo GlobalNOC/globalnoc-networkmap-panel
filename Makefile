@@ -1,5 +1,5 @@
 NAME = grnoc-grafana-worldview
-VERSION = 1.1.3
+VERSION = 1.1.4
 
 rpm:    dist
 		rpmbuild -ta dist/$(NAME)-$(VERSION).tar.gz
