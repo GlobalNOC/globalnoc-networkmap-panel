@@ -53,6 +53,7 @@ var SingleTubeLayer = function(params){
     params.lineOpacity = params.lineOpacity || 1;
     params.endpointOpacity = params.endpointOpacity || 1;
     params.endpointColor = params.endpointColor || '#ddd';
+    console.log(params)
     var layer = NetworkLayer(params);
     if(!params.svg){
         console.error('Must pass in a svg element to render into');
@@ -130,7 +131,8 @@ var SingleTubeLayer = function(params){
                 pos: {
                     page_x: d.event.pageX,
                     page_y: d.event.pageY
-                }
+                },
+                static_tooltip: params.static_node_tooltip
             });
             d3.select(d.event.target).style("cursor", "pointer");
         },
@@ -368,20 +370,26 @@ var SingleTubeLayer = function(params){
             })
             .attr("r", ddr+"px");
         
-        // endpoints.selectAll('text').remove()
-
-        // endpoints
-        //     .append('text')
-        //     .html(function(d) {
-        //         return d.name
-        //     })
-        //     .attr("x", function (d) {
-        //         let dimension = this.getBoundingClientRect()
-        //         return layer.latLngToXy([d.lat, d.lon])[0] - (dimension.width/2);
-        //     })
-        //     .attr("y", function (d) {
-        //         return layer.latLngToXy([d.lat, d.lon])[1] - (ddr*2);
-        //     })
+        if (params.static_node_tooltip) {
+            endpoints.selectAll('foreignObject').remove()
+            endpoints
+                .append('foreignObject')
+                .style('overflow', 'visible')
+                .html(function(d) {
+                    let strHTML = params.node_content.replace('$name', d.name)
+                    return strHTML
+                })
+                .attr("x", function (d) {
+                    let offset = this.getElementsByClassName('atlas-node-tooltip')[0].offsetWidth/2
+                    return layer.latLngToXy([d.lat, d.lon])[0] - offset;
+                })
+                .attr("y", function (d) {
+                    let offset = this.getElementsByClassName('atlas-node-tooltip')[0].offsetHeight
+                    let yOffset = this.querySelector('.atlas-node-tooltip').getAttribute('yOffset')
+                    return layer.latLngToXy([d.lat, d.lon])[1] - offset - yOffset;
+                })
+        }
+        
         
         // Draw Pointed Shapes
         endpoints.select(".popHighlight.triangle, .popHighlight.square, .popHighlight.diamond")

@@ -41,6 +41,7 @@ const panelDefaults = {
     twin_tubes: false,
     arrows: false,
     weather_tile: false,
+    static_node_tooltip: false,
     nodeFillColor: "rgb(200,200,200)",
     downLinkColor: "rgb(200,200,200)",
     color: {
@@ -531,6 +532,7 @@ export class Atlas3 extends MetricsPanelCtrl {
         });
 
         function render() {
+            window.onbeforeunload = null;
             if (!ctrl.recentData){
                 return;
             }
@@ -626,7 +628,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                         twin_tubes: ctrl.panel.twin_tubes,
                         mapSource: ctrl.panel.mapSrc[j],
                         endpointColor : ctrl.panel.nodeFillColor,
-                        node_content: node_content
+                        node_content: node_content,
+                        static_node_tooltip: ctrl.panel.static_node_tooltip
                     });
 
                     if(ctrl.panel.mapSrc[j] === null || ctrl.panel.mapSrc[j] === undefined || ctrl.panel.mapSrc[j] === "") {
@@ -665,7 +668,8 @@ export class Atlas3 extends MetricsPanelCtrl {
                     zoom: zoom,
                     twin_tubes: ctrl.panel.twin_tubes,
                     tooltip: ctrl.panel.tooltip,
-                    weather_tile: ctrl.panel.weather_tile
+                    weather_tile: ctrl.panel.weather_tile,
+                    node_content: node_content
                 });
                 ctrl.map = map;
             } else {
@@ -729,6 +733,7 @@ export class Atlas3 extends MetricsPanelCtrl {
                     lineWidth: ctrl.panel.size[i],
                     mapSource: ctrl.panel.mapSrc[i],
                     endpointColor : ctrl.panel.nodeFillColor,
+                    static_node_tooltip: ctrl.panel.static_node_tooltip 
                 });
                 ctrl.layer_ids.push(networkLayer.layerId());
                 ctrl.panel.layers.push(networkLayer);

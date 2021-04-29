@@ -538,10 +538,10 @@ var NetworkLayer = function(params){
      * @chainable
      */
     layer.showEndpointInfo = function(params){
+        if (params.static_tooltip) return;
         var endpoint = params.endpoint; 
         var div_pos = params.pos;
         if(!tooltip.show) return;
-
         var endpointStr = _createEndpointInfoMarkup(endpoint); 
         //if it's pinned select the link
         if(params.pin){
