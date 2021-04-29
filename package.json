@@ -68,5 +68,8 @@
     "lodash": "~4.17.5",
     "moment": "^2.12.0",
     "topojson": "^1.6.19"
-  }
+  },
+    "resolutions": {
+      "graceful-fs": "^4.2.4"
+    }
 }
