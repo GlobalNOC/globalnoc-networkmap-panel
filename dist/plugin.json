@@ -1,0 +1,25 @@
+{
+  "type": "panel",
+  "name": "Network Map",
+  "id": "globalnoc-networkmap-panel",
+
+  "info": {
+    "description": "GlobalNOC Network Map Grafana Plugin",
+    "author": {
+      "name": "GlobalNOC",
+      "url": "http://globalnoc.iu.edu"
+    },
+    "keywords": ["network-map", "map", "network"],
+    "links": [
+        {"name": "Github", "url": "https://github.com/GlobalNOC/globalnoc-networkmap-panel"},
+        {"name": "Apache License", "url": "https://raw.githubusercontent.com/globalnoc/globalnoc-networkmap-panel/master/LICENSE"}
+    ],
+    "version": "1.1.4",
+    "updated": "2019-09-03"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "3.x.x",
+    "plugins": [ ]
+  }
+}
